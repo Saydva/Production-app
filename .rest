@@ -1,0 +1,14 @@
+GET http://localhost:3000/data
+
+###
+
+GET http://localhost:3000/data/15
+
+###
+POST http://localhost:3000/data
+Content-Type: application/json
+
+{
+    "name":"First data",
+    "dataNuber":10
+}
