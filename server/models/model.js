@@ -3,15 +3,16 @@ const mongoose = require("mongoose");
 const dataModel = new mongoose.Schema({
   name: {
     type: String,
-    require: true,
+    required: true,
+    unique: true,
   },
   dataNumber: {
     type: Number,
-    require: true,
+    required: true,
   },
   date: {
     type: Date,
-    require: true,
+    required: true,
     default: Date.now,
   },
 });
