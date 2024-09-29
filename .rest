@@ -1,14 +1,34 @@
+// get all data
 GET http://localhost:3000/data
 
 ###
 
-GET http://localhost:3000/data/15
+//get one data name
+GET http://localhost:3000/data/66f97fa7b66a0201c3f5fee8
+
 
 ###
+
+//create data
 POST http://localhost:3000/data
 Content-Type: application/json
 
 {
-    "name":"First data",
+    "name":"Thirt data",
     "dataNumber":10
+}
+
+###
+
+//delete data by id
+DELETE http://localhost:3000/data/66f97fa7b66a0201c3f5fee8
+
+###
+
+//update one data
+PATCH  http://localhost:3000/data/66f97b4937b33ce37fd9213f
+Content-Type: application/json
+
+{
+    "name":"Second data"
 }
