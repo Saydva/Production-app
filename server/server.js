@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const Uri = process.env.MONGO;
 const port = process.env.PORT;
+const cors = require("cors");
 
 //mogoose
 
@@ -19,10 +20,17 @@ db.once("open", () => {
 
 //epress
 app.use(express.json());
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
+app.use(cors());
+//this cors not working ---
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Methods", "GET, POST, PUT ,DELETE");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 // routes
 const router = require("./routes/router");

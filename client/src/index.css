@@ -6,7 +6,10 @@
 */
 
 body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   background-color: #181823;
   color: #c0eef2;
-  text-align: center;
 }

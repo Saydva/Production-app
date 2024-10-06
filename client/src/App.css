@@ -1,4 +1,15 @@
-.data {
+section {
   border: 2px, solid, #537fe7;
   border-radius: 15px;
+  width: 80vw;
+  text-align: center;
+  padding: 5px;
+}
+
+a {
+  color: antiquewhite;
+}
+li {
+  list-style-type: decimal;
+  line-height: 1.5rem;
 }
