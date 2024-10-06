@@ -1,7 +1,18 @@
+/*
+#181823 - black
+#537FE7 - blue
+#C0EEF2 - light blue
+#E9F8F9 - white blue
+*/
+
+body {
+  background-color: #181823;
+  color: #c0eef2;
+}
+
 section {
   border: 2px, solid, #537fe7;
   border-radius: 15px;
-  width: 80vw;
   text-align: center;
   padding: 5px;
 }
@@ -12,4 +23,14 @@ a {
 li {
   list-style-type: decimal;
   line-height: 1.5rem;
+}
+
+.rightside {
+  width: 45vw;
+  display: inline-flex;
+}
+.leftside {
+  width: 45vw;
+  display: inline-flex;
+  flex-direction: column;
 }

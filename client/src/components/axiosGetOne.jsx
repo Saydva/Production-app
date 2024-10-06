@@ -22,6 +22,7 @@ let result = data.filter((e)=>e.name == "Next data").map((e,index)=><li key={ind
 
     return (
       <div>
+        <input type="text" />
           <p>Hello:{result}</p>
       </div>
     );

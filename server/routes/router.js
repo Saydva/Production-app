@@ -11,6 +11,7 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+//get one by name
 
 //get one
 router.get("/:id", getDataId, (req, res) => {

@@ -1,15 +1,2 @@
-/*
-#181823 - black
-#537FE7 - blue
-#C0EEF2 - light blue
-#E9F8F9 - white blue
-*/
 
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background-color: #181823;
-  color: #c0eef2;
-}
+
