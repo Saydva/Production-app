@@ -6,10 +6,11 @@ function GetOne() {
     const [data, setData] = useState([]);
     const [searchTerm, SetSearchTerm] = useState("");
     const inputRef = useRef();
-    
+    const names = data.map((e)=>e.name);
 
   const handleClick = () => {
        SetSearchTerm(inputRef.current.value);
+       console.log(names);
   };
 
     useEffect(() => {
@@ -28,7 +29,7 @@ let result = data.filter((e)=>e.name == searchTerm).map((e,index)=><li key={inde
 
     return (
       <div>
-        <input type="text" ref = {inputRef} placeholder='please insert a name...'/>
+        <input id="Search item" type="text" ref = {inputRef} placeholder='please insert a name...'/>
         <button onClick={handleClick}>Click</button>
           <p>Hello:{result}</p>
       </div>
