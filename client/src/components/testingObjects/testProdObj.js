@@ -1,4 +1,4 @@
-const models = [
+let models = [
   {
     modelName: "Armchair",
     modelType: "Chair",
@@ -90,3 +90,5 @@ const models = [
     ],
   },
 ];
+
+export { models };

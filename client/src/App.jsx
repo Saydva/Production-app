@@ -1,66 +1,80 @@
-import  { useState } from 'react'
-import './App.css'
-import AxiosDelleteOne from './components/axiosDelleteOne'
-//import AxiosGetAllData from './components/axiosGetAll'
-//import AxiosGetOne from './components/axiosGetOne'
-import AxiosPostOne from './components/axiosPostOne'
-import AxiosUpdateOne from './components/axiosUpdateOne'
-import GetAll from './components/buttons and search/getall'
-import GetOne from './components/buttons and search/getone'
-// v2 app components
-
-import SearchBar from './components/_searchbar'
-import ButtonSend from './components/buttons and search/_buttonsearchbar.jsx'
-
-// this line import arr for work with all data
-
-import { animals } from './testingObjects/testObjectArr'
-import Workquery from './components/buttons and search/_workquery'
-
-const arr = [];
+import { useState } from "react";
+import "./App.css"
+import { createElement } from 'react'
 
 function App() {
-  const [value, setValue] = useState("");
-  const [send, setSend ] = useState("")
-  const [set, onSet] = useState("")
+  const [modelName, setModelName]= useState("")
+  const [modelType, setModelType]= useState("")
+  // const [operation, setoperation]= useState("")
+  const [newObj, setNewObj] = useState("")
+  const [subPiece, setSubpiece] = useState("")
 
-  const Production = {
-    query:arr,
-  }
 
-  if (!arr.includes(set) && set !== undefined && set !== null && set !== "")
-    arr.push(set)
+  let obj ={
+    modelName: modelName,
+    modelType: modelType,
+    subPieces: [ subPiece      
+    ],
+  };
   
-  // arr.push(set)
+  
 
-  return (
-    <div className='App'> 
-     <h1 className='searchbarh1'>Production app</h1>
-      <div className="flexApp">    
-        <div className="searchArr">             
-          <h3>Set data to send into Production section</h3>
-            <SearchBar
-              options={animals}
-              label="name"
-              id="id"
-              selectedVal={value}
-              handleChange={(val) => setValue(val)}
-              OnSend = {setSend}
-            />
+ 
 
-            <ButtonSend 
-              OnSend = {send}
-              OnSet={onSet}
-              />
-        </div>      
-        <div className="workspace">
-            <Workquery
-              data = {Production.query}
-              
-            />
-        </div>
+  function onClickButton (event) {
+    event.preventDefault();
+    // console.log(document.querySelector("#name"))
+    setNewObj(obj)
+   }
+
+
+function setNameValue(e){
+ setModelName(e.target.value)
+}
+
+function setTypeValue (e){
+  setModelType(e.target.value)
+}
+
+let operations ={subPieces:[]};
+
+function sendsubpiece(event){
+  event.preventDefault();
+    operations.subPieces.push({name:"first"});
+    console.log(operations);    
+}
+
+function setsubpieces(event){
+  event.preventDefault();
+  setSubpiece(operations)
+}
+
+console.log(obj.subPieces);
+
+    return (
+    <div className='buildDatabase'> 
+      <form action="" >
+        <div className="inputData">
+          <label htmlFor="name">Name</label><input value={modelName} onChange={setNameValue} id="name" type="text" placeholder="your model name"/>
+          <label htmlFor="type">Type</label><input value={modelType} onChange={setTypeValue} id="type" type="text" placeholder="type of your model"/>
+          
+      </div>      
+          <button onClick={onClickButton}>Confirm New Model</button>          
+    </form>
+    <form action="">
+      <div className="operations">
+        <label htmlFor="Subpiece">Subpiece</label><input id="Subpiece"type="text" placeholder="Give the subPiece a name"/>
       </div>
-    </div>
+      <button onClick={sendsubpiece}>send to prototype</button>
+      <button onClick={setsubpieces}> SET</button>
+    </form>
+    
+    <div className="resultObj">
+    <span>"Please send me a data:!!! "</span><br />
+      <p>{JSON.stringify(newObj)}</p>
+      <ul>{operations.subPieces.map((e,index)=><li key={index}>{e.name}---{e.index}</li>)}</ul>
+      </div>  
+        </div>
   )
 }
 
