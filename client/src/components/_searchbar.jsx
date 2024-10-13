@@ -5,10 +5,12 @@ const SearchableDropdown = ({
   label,
   id,
   selectedVal,
-  handleChange
+  handleChange,
+  OnSend,
 }) => {
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+ 
 
   const inputRef = useRef(null);
 
@@ -21,18 +23,23 @@ const SearchableDropdown = ({
     setQuery(() => "");
     handleChange(option[label]);
     setIsOpen((isOpen) => !isOpen);
-  };
+     };
+
+  function set (e){
+    OnSend(e);
+  }
 
   function toggle(e) {
-    setIsOpen(e && e.target === inputRef.current);
-  }
+    setIsOpen(e && e.target === inputRef.current)
+    set(e.target.innerText)
+    }
 
   const getDisplayValue = () => {
     if (query) return query;
     if (selectedVal) return selectedVal;
-
     return "";
   };
+
 
   const filter = (options) => {
     return options.filter(
@@ -40,25 +47,27 @@ const SearchableDropdown = ({
     );
   };
 
+ 
+
   return (
     <div className="dropdown">
       <div className="control">
-        <div className="selected-value">
-          <input
+        <div className="selected-value">                   
+        <input
             ref={inputRef}
             type="text"
             value={getDisplayValue()}
             name="searchTerm"
-            onChange={(e) => {
-              setQuery(e.target.value);
+            onChange={(e) => {              
               handleChange(null);
-            }}
+              setQuery(e.target.value);
+              }}
             onClick={toggle}
-          />
+          />  
+                             
         </div>
         <div className={`arrow ${isOpen ? "open" : ""}`}></div>
       </div>
-
       <div className={`options ${isOpen ? "open" : ""}`}>
         {filter(options).map((option, index) => {
           return (
@@ -74,6 +83,7 @@ const SearchableDropdown = ({
           );
         })}
       </div>
+      
     </div>
   );
 };
