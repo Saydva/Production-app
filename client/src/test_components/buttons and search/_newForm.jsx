@@ -6,7 +6,8 @@ function FormNew() {
     let arr = [];
 
     const [Count, setCount] = useState(arr);
-    const [obj, setObj]= useState({
+    const [obj, setObj]= 
+    useState({
                                     name : "",
                                     category : "",
                                     subpiece:[],

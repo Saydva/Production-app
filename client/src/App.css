@@ -1,26 +1,24 @@
-/* css for form to send data to database */
-.buildDatabase {
+body {
   display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-}
-
-.inputData {
-  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
   flex-direction: column;
-  width: 30vw;
-  max-width: 30vw;
 }
 
-.operations {
-  display: flex;
-  flex-direction: column;
-  width: 30vw;
-  max-width: 30vw;
-}
-
-.resultObj {
+label,
+input {
   display: block;
-  width: 30vw;
-  max-width: 30vw;
+}
+
+input {
+  margin-bottom: 1rem;
+}
+
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
 }

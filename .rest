@@ -2,20 +2,16 @@
 GET http://localhost:3000/models
 
 ###
-
 GET http://localhost:3000/pieces
 
 ###
-
 GET http://localhost:3000/subpieces
 ###
 
 //get one data by id
 GET http://localhost:3000/data/6702b6fac87f369241c6fc22
 
-
 ###
-
 
 //get one data by name
 GET http://localhost:3000/data/First data
