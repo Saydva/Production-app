@@ -1,6 +1,13 @@
 // get all data
-GET http://localhost:3000/data
+GET http://localhost:3000/models
 
+###
+
+GET http://localhost:3000/pieces
+
+###
+
+GET http://localhost:3000/subpieces
 ###
 
 //get one data by id
@@ -20,12 +27,35 @@ GET http://localhost:3000/data/First data
 ###
 
 //create data
-POST http://localhost:3000/data
+POST http://localhost:3000/model
 Content-Type: application/json
 
 {
-    "name":"Ups data",
-    "dataNumber":1
+    "name":"another"
+}
+
+###
+
+POST http://localhost:3000/piece
+Content-Type: application/json
+
+{
+    "name":"another one",
+    "stTime":0.7,
+    "partOfPiece": true,
+    "piece": false,
+    "category": ["wood"]
+}
+
+###
+
+POST http://localhost:3000/subpiece
+Content-Type: application/json
+
+{
+    "name": "subpiece1",  
+  "piecec": [],
+  "category" : []
 }
 
 ###

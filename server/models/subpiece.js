@@ -1,17 +1,17 @@
 const mongoose = require("mongoose");
 
-const ModelSchema = new mongoose.Schema({
+const SubpieceSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
     unique: true,
   },
-  subpiecec: {
+  piecec: {
     type: Array,
   },
-  piecec: {
+  category: {
     type: Array,
   },
 });
 
-module.exports = mongoose.model("Model", ModelSchema);
+module.exports = mongoose.model("Subpiece", SubpieceSchema);
