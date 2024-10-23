@@ -2,27 +2,131 @@ import { useState } from "react"
 import "./App.css"
 
 function App() {
-  const[button , SetButton] = useState(false)
+  const [set , Setset] = useState();
+  const [text , setText] = useState("No data sendet")
+  const [matarray, setmatarray ] = useState([])
+  const [catarray, setcatarray] = useState([])
+  const[message, setMessage] = useState("Send data");
+  const [buildObj, setbuildObj] = useState({
+    name:"No Name",
+    stTime:"No Time",
+    basicPart:null,
+    category:"No category",
+    material:"No materials",
+    })
 
+  let classesY ;
+  let classesN ;
 
-let buttonState = (event)=>{
-  event.preventDefault()
-  SetButton(value => !value)
-console.log(event.target.value);
+  let redClass = "red";
+  let greenClass= "green";  
+
+  let pSet = ()=>{    
+    Setset(set => !set)      
+    }
+
+let result ;
+
+    if (set == true){
+      result = "Basic Part"
+    } else if(set == false){
+      result = "Not !! Basic Part"
+    } else {
+      result = "Please choise"
+    }
+
+    if(buildObj.basicPart == null){
+      classesN="";
+      classesN="";
+    }
+    if(set == true){
+      classesY = greenClass;
+      classesN = "";
+    } 
+    if (set == false){
+      classesY = "";
+      classesN = redClass;
+    }
+
+  let setObjName = (event)=>{  
+    buildObj.name = event.target.value
+    }
+  
+  let setObjStTime = (event)=>{  
+   buildObj.stTime = event.target.value
+   }
+
+    let saveObj = (event)=>{
+      buildObj.basicPart = set;    
+    event.preventDefault();    
+    setText(
+    <div>
+      <p>{result}</p>
+      <p>{buildObj.name}</p>
+      <p>{buildObj.stTime}</p>
+      <p>{buildObj.category}</p>
+      <p>{buildObj.material}</p>
+    </div>)
+  }
+
+  let materialPush = (event)=>{
+    event.preventDefault();
+    matarray.push("new material");
+    console.log(matarray);
+    buildObj.material = matarray;
+    saveObj(event);
+  }
+
+  let catpush = (event)=>{
+    event.preventDefault();
+    catarray.push("new cat");
+    console.log(catarray);
+    buildObj.category = catarray;
+    saveObj(event);
+  }
+
+  
+
+let confirm =(event)=>{
+  event.preventDefault();
+  setMessage("You sendet a data")
+  setbuildObj(buildObj)
+  console.log(buildObj);
 }
-
-  return(
-    <form action="">
-      <h1>Build data page</h1>
-      <h4>Piece build</h4>
-      <label htmlFor="name">Name</label>
-      <input id= "name" type="text" />
-      <label htmlFor="Standart time">Standart time</label>
-      <input id="Standart time" type="text" />
-      <label htmlFor="PartOfPiece">Part Of Piece</label><button id="PartOfPiece" >Par of piece</button>
-      <label htmlFor="Piece"></label>
-      <button id="Piece" value={button} onClick={buttonState}>Elem. piece</button>
-    </form>
+  
+   
+ return(
+ <div className="title">
+  <h1>Build data page</h1>
+  <div className="container">
+    <div className="formContainer">
+      <form action="">        
+        <h4>Piece build</h4>
+        <p className="question">Is it a basic part?</p>      
+        <div className="line">
+          <p className={classesY} onClick={pSet}>Yes</p>
+          <p className={classesN} onClick={pSet}>No</p>
+        </div>
+        <label htmlFor="name">Name</label>
+        <input id= "name" type="text" onChange={setObjName} />
+        <label htmlFor="Standart time">Standart time</label>
+        <input id="Standart time" type="text" onChange={setObjStTime}/>        
+        <button onClick={saveObj}>Save data</button>
+        <label htmlFor="category">category</label>
+        <input id="category" type="text" /> <button onClick={catpush}>Send category</button>
+        <label htmlFor="materials">materials</label>
+        <input id="materials" type="text" />
+        <button onClick={materialPush}>Send materials</button>
+      </form>
+    </div>
+    <div className="objPrew">
+      <h4>Prewiev data</h4>
+      <div className="obj">{text}</div>
+      <button onClick={confirm}>Confirm data</button>
+      <div>{message}</div>
+    </div>
+  </div>
+  </div>
   )
 }
 

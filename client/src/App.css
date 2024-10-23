@@ -1,9 +1,26 @@
-body {
+.title {
+  padding-left: 3rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
+
   flex-direction: column;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.container {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: row;
+}
+
+.objPrew {
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
 }
 
 label,
@@ -16,9 +33,26 @@ input {
 }
 
 .red {
-  background-color: red;
+  background-color: rgb(215, 193, 193);
 }
 
 .green {
-  background-color: green;
+  background-color: rgb(148, 180, 148);
+}
+
+.question {
+  margin: 0;
+}
+
+.line {
+  display: flex;
+  flex-direction: row;
+}
+
+.line p {
+  margin-right: 1.5rem;
+  padding: 0 1rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
 }
