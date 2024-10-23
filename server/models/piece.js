@@ -10,17 +10,15 @@ const PieceSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  partOfPiece: {
-    type: Boolean,
-    required: true,
-  },
-  piece: {
+  basicPart: {
     type: Boolean,
     required: true,
   },
   category: {
     type: Array,
-    // required: true,
+  },
+  material: {
+    type: Array,
   },
 });
 

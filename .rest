@@ -27,7 +27,7 @@ POST http://localhost:3000/model
 Content-Type: application/json
 
 {
-    "name":"another"
+    "name":"anothe1"
 }
 
 ###
@@ -36,11 +36,11 @@ POST http://localhost:3000/piece
 Content-Type: application/json
 
 {
-    "name":"another one",
+    "name":"another second",
     "stTime":0.7,
-    "partOfPiece": true,
-    "piece": false,
-    "category": ["wood"]
+    "basicPart": true,
+    "category": ["group"],
+    "material":["metal"]
 }
 
 ###
@@ -49,7 +49,7 @@ POST http://localhost:3000/subpiece
 Content-Type: application/json
 
 {
-    "name": "subpiece1",  
+    "name": "subpiece15",  
   "piecec": [],
   "category" : []
 }

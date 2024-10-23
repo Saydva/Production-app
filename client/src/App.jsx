@@ -17,9 +17,13 @@ function App() {
 
   let classesY ;
   let classesN ;
+  let validation;
 
   let redClass = "red";
-  let greenClass= "green";  
+  let greenClass= "green";
+  let error = "error"  
+
+  
 
   let pSet = ()=>{    
     Setset(set => !set)      
@@ -73,6 +77,7 @@ let result ;
     event.preventDefault();
     matarray.push("new material");
     console.log(matarray);
+    setmatarray(matarray)
     buildObj.material = matarray;
     saveObj(event);
   }
@@ -80,6 +85,7 @@ let result ;
   let catpush = (event)=>{
     event.preventDefault();
     catarray.push("new cat");
+    setcatarray(catarray)
     console.log(catarray);
     buildObj.category = catarray;
     saveObj(event);
@@ -89,12 +95,19 @@ let result ;
 
 let confirm =(event)=>{
   event.preventDefault();
+  if(buildObj.name == "No Name" || buildObj.stTime == "No time" || buildObj.basicPart == null){
+    setMessage (<><div>Please enter name, stTime </div><div> and choise Basic Part</div></>)
+    console.log(message.length);
+  } else {
   setMessage("You sendet a data")
   setbuildObj(buildObj)
-  console.log(buildObj);
+  console.log(buildObj);}
 }
   
+  if (message.length != 9){validation = error}
    
+console.log(buildObj);
+
  return(
  <div className="title">
   <h1>Build data page</h1>
@@ -123,7 +136,7 @@ let confirm =(event)=>{
       <h4>Prewiev data</h4>
       <div className="obj">{text}</div>
       <button onClick={confirm}>Confirm data</button>
-      <div>{message}</div>
+      <div className={validation}>{message}</div>
     </div>
   </div>
   </div>

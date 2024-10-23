@@ -63,9 +63,10 @@ postPiece = async function (req, res) {
   const data = new Piece({
     name: req.body.name,
     stTime: req.body.stTime,
-    partOfPiece: req.body.partOfPiece,
+    basicPart: req.body.basicPart,
     piece: req.body.piece,
     category: req.body.category,
+    material: req.body.material,
   });
   try {
     const newData = await data.save();

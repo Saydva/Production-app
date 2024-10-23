@@ -23,6 +23,10 @@
   margin-top: 0;
 }
 
+.objPrew button {
+  width: 10rem;
+}
+
 label,
 input {
   display: block;
@@ -55,4 +59,9 @@ input {
   border: 1px solid black;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.error {
+  font-style: italic;
+  color: red;
 }
