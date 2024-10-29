@@ -3,6 +3,11 @@ import "./objElement.css"
 
 function InputData() { 
 
+  const [value, setValue] = useState({
+    input1:"",
+    input2:"",
+  })
+
   const [obj, setObj] = useState({
     partName:"No Name",
     stTime:"No time",
@@ -18,8 +23,8 @@ function InputData() {
     let objprop = event.target.id
     let selector = "#"+(event.target.id)
     let data = document.querySelector(`${selector}`).value
-    setObj((values) =>({...values, [objprop] : data}) )
-    console.log(obj);
+if (data.trim() != ""){setObj((values) =>({...values, [objprop] : data.trim()}) )
+  console.log(obj);}    
     }
 
 // component ObjKey
@@ -40,9 +45,9 @@ const handleClickArray = (event)=>{
   let objprop = event.target.id;
   let selector = "#"+(event.target.id);
   let data = document.querySelector(`${selector}`).value;
-  obj[objprop].push(data)
-  setObj({...obj})
-  console.log(data, obj[objprop]);
+  if (data.trim() != ""){obj[objprop].push(data.trim())
+    setObj({...obj})}
+  
 }
 
 // result from objKey
@@ -81,7 +86,7 @@ return(
 const ObjOperations = (props)=>{
 const name1 = props.name1;
 const name2 = props.name2;
-const method = ""
+const method = props.method;
 return (
   <span className='row'>
   <span key={name1} className='column'>
@@ -94,9 +99,28 @@ return (
   </span>
   <button onClick={method} id={name1} >Set <br />{name1}
   </button>
-  </span>
-)
+  </span>)
+};
+
+//handle objOperations click
+
+
+const handleClickObjOpreations = (e)=>{
+  e.preventDefault()
+let name = document.querySelector("#operation").value
+let set = document.querySelector("#st_time").value
+
+if (name.trim() != "" && set.trim() != ""){setValue({...value, input1:name , input2: set})}
 }
+//result of objOperations
+const ObjOperationsResult = ()=>{
+  return(
+    <>
+    <p>{JSON.stringify(value.input1)}</p>
+    <p>{JSON.stringify(value.input2)}</p>
+    </>)
+  }
+
   
 // render component
   return ( 
@@ -124,12 +148,14 @@ return (
   />
   <ObjOperations
   name1 = "operation"
-  name2 = "stan. time"
+  name2 = "st_time"
+  method = {handleClickObjOpreations}
   />
   </div>
   <div className="resultSide">
     <ObjKeyResult/>
     <ObjArrayResult/>
+    <ObjOperationsResult/>
   </div>
 </div>)
 }
