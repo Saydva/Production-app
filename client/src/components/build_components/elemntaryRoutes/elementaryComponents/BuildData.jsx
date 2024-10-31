@@ -4,8 +4,7 @@ import { Link, Outlet } from 'react-router-dom';
 function BuilData() {
     return ( 
         <div>
-            <h3>This is build site</h3>
-              <div>            
+              <div className='secondNavigation'>            
                  <Link to="/buildData/piece">Piece</Link>
                  <Link to="/buildData/subpiece">Subpiece</Link>
                  <Link to="/buildData/model">Model</Link>

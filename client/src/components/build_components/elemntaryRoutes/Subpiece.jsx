@@ -1,10 +1,15 @@
 import React from 'react';
+import InputData from '../../inputData';
 
 function SubPiece() {
+    const property = "subpiece";
     return ( 
-        <>
-        <h6>Subpiece</h6>
-        </>
+        <div className='objContainer'>
+        <h4>Subpiece</h4>
+        <InputData
+        property = {property}
+        />
+        </div>
      );
 }
 

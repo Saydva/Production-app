@@ -1,11 +1,15 @@
 import React from 'react';
+import ListResult from './elemntaryRoutes/listresult';
 
 function  ObjKeyResult (props) {
     const obj = props.obj
+    const arr = props.arr
     return(
       <>
-      <p>{obj.partName}</p>
-      <p>{obj.stTime}</p>
+      <ListResult
+      obj = {obj}
+      arr = {arr}
+      />
       </>
     )
   }

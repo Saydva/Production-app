@@ -1,10 +1,15 @@
 import React from 'react';
+import InputData from '../../inputData';
 
 function Model() {
+    const property = "model"
     return ( 
-        <>
-        <h6>Model</h6>
-        </>
+        <div className='objContainer'>
+        <h4>Model</h4>
+        <InputData
+        property = {property}
+         />
+        </div>
      );
 }
 

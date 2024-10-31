@@ -1,10 +1,16 @@
 import React from 'react';
+import InputData from '../../inputData';
 
 function Piece() {
+const property = "piece";
+
     return ( 
-        <>
-        <h6>Piece</h6>
-        </>
+        <div className='objContainer'>
+        <h4>Piece</h4>
+        <InputData
+        property = {property}
+        />
+        </div>
      );
 }
 

@@ -1,12 +1,17 @@
 import React from 'react';
+import ListResult from './elemntaryRoutes/listresult';
+
 
 function ObjArrayResult (props){
     const obj = props.obj
+    const arr = props.arr   
+    
     return(
       <>
-      <p>{JSON.stringify(obj.piecec)}</p>
-      <p>{JSON.stringify(obj.category)}</p>
-      <p>{JSON.stringify(obj.materials)}</p>
+      <ListResult
+      obj = {obj}
+      arr = {arr}      
+      />
       </>)
 }
 

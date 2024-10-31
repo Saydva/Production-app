@@ -1,0 +1,49 @@
+@import "../src/components/css/colors.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+body {
+  margin: 0.5rem;
+  padding: 0.2rem;
+  border: 2px solid var(--main-light);
+  border-radius: 6px;
+}
+
+.navigation {
+  background-color: var(--main-light);
+  border-radius: 2px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  padding: 2px;
+}
+
+.navigation a {
+  padding: 0 6px;
+  color: var(--main-lighter);
+}
+
+.secondNavigation {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--main-light);
+  border-radius: 2px;
+  color: var(--main-lighter);
+  margin-top: 8px;
+  width: fit-content;
+}
+
+.secondNavigation a {
+  margin: 0 4px;
+  /* font-size: 0.8rem; */
+}
+
+.objContainer {
+  margin: 16px;
+  padding: 8px;
+  border: 2px solid var(--main-light);
+}

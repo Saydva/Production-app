@@ -1,10 +1,11 @@
-// import InputData from "./components/inputData"
 import {
   BrowserRouter as Router,
   Link,
   Routes,
   Route,
 } from "react-router-dom";
+
+import "./App.css"
 
 import BuilData from "./components/build_components/elemntaryRoutes/elementaryComponents/BuildData";
 import Home from "./components/build_components/elemntaryRoutes/elementaryComponents/Home"
@@ -16,9 +17,9 @@ function App() {
   return(
 <div>
   <Router>
-    <nav>
-      <Link to="/">Home</Link>
-      <Link to="/buildData">Build data</Link>
+    <nav className="navigation">
+      <Link to="/"><h2>Home</h2></Link>
+      <Link to="/buildData"><h2>Build data</h2></Link>
     </nav>
     <Routes>
       <Route path="/" element={<Home/>}/>
