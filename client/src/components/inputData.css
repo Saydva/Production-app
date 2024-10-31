@@ -1,6 +1,4 @@
-/* * {
-  border: solid 1px black;
-} */
+@import "./css/colors.css";
 
 .container {
   display: flex;
@@ -34,4 +32,14 @@
   margin-right: 1.27rem;
   display: flex;
   flex-direction: row;
+}
+
+.senddatabutton {
+  background-color: var(--main-color);
+  color: rgb(210, 201, 210);
+  /* border: none; */
+  padding: 0.3rem;
+  margin-top: 0.3rem;
+  border-radius: 3px;
+  font-size: medium;
 }

@@ -7,11 +7,11 @@ import {
 
 import "./App.css"
 
-import BuilData from "./components/build_components/elemntaryRoutes/elementaryComponents/BuildData";
-import Home from "./components/build_components/elemntaryRoutes/elementaryComponents/Home"
-import Piece from "./components/build_components/elemntaryRoutes/Piece";
-import SubPiece from "./components/build_components/elemntaryRoutes/Subpiece";
-import Model from "./components/build_components/elemntaryRoutes/Model";
+import BuilData from "./components/build_components/elemntaryRoutes/BuildData"
+import Home from "./components/build_components/elemntaryRoutes/Home"
+import Piece from "./components/build_components/modelcomponents/Piece";
+import SubPiece from "./components/build_components/modelcomponents/Subpiece";
+import Model from "./components/build_components/modelcomponents/Model";
 
 function App() {
   return(

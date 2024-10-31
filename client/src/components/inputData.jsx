@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import ObjKey from './build_components/objKey';
-import ObjKeyResult from './build_components/objKeyResult';
-import ObjArray from "./build_components/objArray"
-import ObjArrayResult from "./build_components/objArrayResult"
-import ObjOperations from "./build_components/objOperations"
-import ObjOperationsResult from "./build_components/objOperationResult"
+import ObjKey from './build_components/buildDataComponents/objKey';
+import ObjKeyResult from './build_components/buildDataComponents/objKeyResult';
+import ObjArray from "./build_components/buildDataComponents/objArray"
+import ObjArrayResult from "./build_components/buildDataComponents/objArrayResult"
+import ObjOperations from "./build_components/buildDataComponents/objOperations"
+import ObjOperationsResult from "./build_components/buildDataComponents/objOperationResult"
 import "./inputData.css"
 
 function InputData(props) { 
+
+  const [sendObj, setSendObj] = useState({});
 
   const property = props.property;
 
   const [value, setValue] = useState({
     input1:"",
     input2:"",
-  })
+  });
 
   const [obj, setObj] = useState({
     partName:"No Name",
@@ -24,7 +26,7 @@ function InputData(props) {
     category:[],
     option:[],
     operations:[],
-  })
+  });
  
 
 // handler for ObjKey to set data
@@ -33,8 +35,9 @@ function InputData(props) {
     let objprop = event.target.id;
     let selector = "#"+(event.target.id);
     let data = document.querySelector(`${selector}`).value;
-    if (data.trim() != ""){setObj((values) =>({...values, [objprop] : data.trim()}))}; 
-    }
+    if (data.trim() != ""){setObj((values) =>
+      ({...values, [objprop] : data.trim()}))}; 
+    };
 
 //handler for ObjArray to set data
 const handleClickArray = (event)=>{
@@ -43,20 +46,39 @@ const handleClickArray = (event)=>{
   let selector = "#"+(event.target.id);
   let data = document.querySelector(`${selector}`).value;
   if (data.trim() != ""){obj[objprop].push(data.trim())
-    setObj({...obj})}
-  
-}
+    setObj({...obj})};
+};
 
+//handler for ObjOperations to set data
 const handleClickObjOpreations = (e)=>{
-  e.preventDefault()
-let name = document.querySelector("#operation").value
-let set = document.querySelector("#st_time").value
+  e.preventDefault();
+let name = document.querySelector("#operation").value;
+let set = document.querySelector("#st_time").value;
+if (name.trim() != "" && set.trim() != "");
+  {setValue({...value, input1:name , input2: set})};
+};
 
-if (name.trim() != "" && set.trim() != ""){setValue({...value, input1:name , input2: set})}
+// before send remove falsy kyes from obj
+
+
+
+
+//handler for sen data to database
+const handleSendData = (e)=>{
+e.preventDefault();
+setSendObj(obj)
+};
+
+const ButtonResult = (props)=>{
+  const method = props.method;
+  return(
+    <><button className='senddatabutton' onClick={method}>
+      Send data to database</button>
+        <p>{JSON.stringify(sendObj)}</p></>
+  )
 }
 
 const PieceElement =()=>{
-
   return (
     <div className='container'>
       <div className="inputSide">
@@ -76,6 +98,9 @@ const PieceElement =()=>{
           name ={Object.keys(obj)[5]}
           method = {handleClickArray}
         />        
+        <ButtonResult
+        method = {handleSendData}
+        />
       </div>
       <div className="resultSide">
         <ObjKeyResult
@@ -87,9 +112,10 @@ const PieceElement =()=>{
             arr = {["category", "option"]}
             />
         </div>
+        
     </div>
   )
-}
+};
 
 const SubPieceElemet = ()=>{
   return(
@@ -151,67 +177,17 @@ const ModelElement = ()=>{
       </div>
     </div>
   )
-}
+};
   
 
 if(property == "piece"){
   return <PieceElement/>;
-
 } else if (property == "subpiece"){
   return <SubPieceElemet/>;
 }
-
 else if (property == "model"){
- return <ModelElement/>
-}
-  
-  else {
-// render component
-  return ( 
-       <div className='container'>
-  <div className="inputSide">
-  <ObjKey
-  name = {Object.keys(obj)[0]}
-  method = {handleClickKey}
-  />
-  <ObjKey
-  name = {Object.keys(obj)[1]}
-  method = {handleClickKey}
-  />
-  <ObjArray
-  name ={Object.keys(obj)[2]}
-  method = {handleClickArray}
-  />
-  <ObjArray
-  name ={Object.keys(obj)[3]}
-  method = {handleClickArray}
-  />
-  <ObjArray
-  name ={Object.keys(obj)[4]}
-  method = {handleClickArray}
-  />
-  <ObjArray
-  name ={Object.keys(obj)[5]}
-  method = {handleClickArray}
-  />
-  <ObjOperations
-  name1 = "operation"
-  name2 = "st_time"
-  method = {handleClickObjOpreations}
-  />
-  </div>
-  <div className="resultSide">
-    <ObjKeyResult
-    obj = {obj}
-    />
-    <ObjArrayResult
-    obj = {obj}
-    />
-    <ObjOperationsResult
-    value = {value}
-    />
-  </div>
-</div>)
-}}
+ return <ModelElement/>;
+  }
+};
 
 export default InputData;

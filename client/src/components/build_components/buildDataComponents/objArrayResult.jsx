@@ -1,5 +1,5 @@
 import React from 'react';
-import ListResult from './elemntaryRoutes/listresult';
+import ListResult from '../modelcomponents/listresult';
 
 
 function ObjArrayResult (props){
