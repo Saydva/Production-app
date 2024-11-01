@@ -9,8 +9,6 @@ import "./inputData.css"
 
 function InputData(props) { 
 
-  const [sendObj, setSendObj] = useState({});
-
   const property = props.property;
 
   const [value, setValue] = useState({
@@ -27,6 +25,21 @@ function InputData(props) {
     option:[],
     operations:[],
   });
+
+  const [sendObj, setSendObj] = useState("");
+
+  
+
+  const template = {
+    partName:"No Name",
+    stTime:"No time",
+    piecec:[],
+    subpiecec:[],
+    category:[],
+    option:[],
+    operations:[],
+  }
+
  
 
 // handler for ObjKey to set data
@@ -36,7 +49,7 @@ function InputData(props) {
     let selector = "#"+(event.target.id);
     let data = document.querySelector(`${selector}`).value;
     if (data.trim() != ""){setObj((values) =>
-      ({...values, [objprop] : data.trim()}))}; 
+      ({...values, [objprop] : data}))}; 
     };
 
 //handler for ObjArray to set data
@@ -46,7 +59,8 @@ const handleClickArray = (event)=>{
   let selector = "#"+(event.target.id);
   let data = document.querySelector(`${selector}`).value;
   if (data.trim() != ""){obj[objprop].push(data.trim())
-    setObj({...obj})};
+    setObj({...obj});
+    };
 };
 
 //handler for ObjOperations to set data
@@ -59,22 +73,36 @@ if (name.trim() != "" && set.trim() != "");
 };
 
 // before send remove falsy kyes from obj
+let delKeys = [];
 
+if (property == "piece") {
+  delKeys = ["piecec", "subpiecec", "operations"]
+} else if (property == "subpiece"){
+  delKeys = ["stTime", "option","subpiecec", "operations"]
+} else if (property == "model"){
+  delKeys = ["stTime", "category", "option", "operations"]
+}
 
-
+function deleteObjKeys (o,arr){
+  arr.forEach(element => {
+    delete o[element]
+  });
+  }
 
 //handler for sen data to database
 const handleSendData = (e)=>{
 e.preventDefault();
 setSendObj(obj)
+deleteObjKeys(sendObj, delKeys);
+setObj(template)
 };
 
 const ButtonResult = (props)=>{
   const method = props.method;
   return(
-    <><button className='senddatabutton' onClick={method}>
+    <><button className='button' onClick={method}>
       Send data to database</button>
-        <p>{JSON.stringify(sendObj)}</p></>
+      </>
   )
 }
 
@@ -133,6 +161,9 @@ const SubPieceElemet = ()=>{
           name ={Object.keys(obj)[4]}
           method = {handleClickArray}
       />
+      <ButtonResult
+        method = {handleSendData}
+        />
       </div>
       <div className="resultSide">
       <ObjKeyResult
@@ -163,6 +194,9 @@ const ModelElement = ()=>{
         <ObjArray
           name ={Object.keys(obj)[2]}
           method = {handleClickArray}
+        />
+        <ButtonResult
+        method = {handleSendData}
         />
       </div>
       <div className="resultSide">
