@@ -1,15 +1,16 @@
-import React from 'react';
+import React from "react";
 
-function ListResult (props){
+function ListResult(props) {
+  const arr = props.arr;
+  const obj = props.obj;
 
-    const arr = props.arr
-    const obj = props.obj
+  return (
+    <>
+      {arr.map((e) => (
+        <p key={e}>{JSON.stringify(obj[e])}</p>
+      ))}
+    </>
+  );
+}
 
-    return(
-         <>
-         {arr.map((e)=> <p key={e}>{JSON.stringify(obj[e])}</p>)}
-         </>
-    )
- }
-
-export default ListResult
+export default ListResult;

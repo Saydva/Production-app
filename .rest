@@ -26,9 +26,7 @@ GET http://localhost:3000/data/First data
 POST http://localhost:3000/model
 Content-Type: application/json
 
-{
-    "name":"anothe1"
-}
+{"partName":"test","subpiecec":["fdgsdfgsdfg"], "piecec":["1,2,3"]}
 
 ###
 
@@ -36,11 +34,10 @@ POST http://localhost:3000/piece
 Content-Type: application/json
 
 {
-    "name":"another second",
+    "partName":"an",
     "stTime":0.7,
-    "basicPart": true,
     "category": ["group"],
-    "material":["metal"]
+    "option":["metal"]
 }
 
 ###
@@ -49,9 +46,9 @@ POST http://localhost:3000/subpiece
 Content-Type: application/json
 
 {
-    "name": "subpiece15",  
-  "piecec": [],
-  "category" : []
+  "partName": "subpxv",  
+  "piecec": ["sfasfdasf"],
+  "category" : ["sdfasfdas"]
 }
 
 ###

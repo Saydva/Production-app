@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const ModelSchema = new mongoose.Schema({
-  name: {
+  partName: {
     type: String,
     required: true,
     unique: true,
@@ -9,6 +9,7 @@ const ModelSchema = new mongoose.Schema({
   subpiecec: {
     type: Array,
   },
+
   piecec: {
     type: Array,
   },

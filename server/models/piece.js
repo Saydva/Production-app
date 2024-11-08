@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const PieceSchema = new mongoose.Schema({
-  name: {
+  partName: {
     type: String,
     required: true,
     unique: true,
@@ -10,14 +10,10 @@ const PieceSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  basicPart: {
-    type: Boolean,
-    required: true,
-  },
   category: {
     type: Array,
   },
-  material: {
+  option: {
     type: Array,
   },
 });

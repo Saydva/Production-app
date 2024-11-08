@@ -41,15 +41,17 @@ router.get("/Subpieces", getSubpiece);
 
 //get one
 router.get("/:id", getDataId, (req, res) => {
-  res.send(res.data.name);
-  console.log(res.data.name);
+  res.send(res.data.partName);
+  console.log(res.data.partName);
 });
 
 //create one
 
 postModel = async function (req, res) {
   const data = new Model({
-    name: req.body.name,
+    partName: req.body.partName,
+    subpiecec: req.body.subpiecec,
+    piecec: req.body.piecec,
   });
   try {
     const newData = await data.save();
@@ -61,12 +63,10 @@ postModel = async function (req, res) {
 
 postPiece = async function (req, res) {
   const data = new Piece({
-    name: req.body.name,
+    partName: req.body.partName,
     stTime: req.body.stTime,
-    basicPart: req.body.basicPart,
-    piece: req.body.piece,
     category: req.body.category,
-    material: req.body.material,
+    option: req.body.material,
   });
   try {
     const newData = await data.save();
@@ -78,8 +78,8 @@ postPiece = async function (req, res) {
 
 postSubPiece = async function (req, res) {
   const data = new Subpiece({
-    name: req.body.name,
-    pieces: req.body.pieces,
+    partName: req.body.partName,
+    piecec: req.body.piecec,
     category: req.body.category,
   });
   try {
@@ -96,8 +96,8 @@ router.post("/subpiece", postSubPiece);
 
 //update
 router.patch("/:id", getDataId, async (req, res) => {
-  if (req.body.name != null) {
-    res.data.name = req.body.name;
+  if (req.body.partName != null) {
+    res.data.partName = req.body.partName;
   }
   if (req.body.dataNumber != null) {
     res.data.dataNumber = req.body.dataNumber;

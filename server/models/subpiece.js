@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 
 const SubpieceSchema = new mongoose.Schema({
-  name: {
+  partName: {
     type: String,
-    required: true,
     unique: true,
   },
   piecec: {
