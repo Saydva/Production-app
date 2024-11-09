@@ -11,11 +11,6 @@ import axios from "axios";
 function InputData(props) {
   const property = props.property;
 
-  const [value, setValue] = useState({
-    input1: "",
-    input2: "",
-  });
-
   const [obj, setObj] = useState({
     partName: "No Name",
     stTime: "No time",
@@ -25,6 +20,8 @@ function InputData(props) {
     option: [],
     operations: [],
   });
+
+  const [result, setResult] = useState("Send data!");
 
   const template = {
     partName: "No Name",
@@ -64,14 +61,25 @@ function InputData(props) {
     }
   };
 
+  let operObj = {
+    operation: "",
+    time: "",
+  };
+
   //handler for ObjOperations to set data
   const handleClickObjOpreations = (e) => {
     e.preventDefault();
     let name = document.querySelector("#operation").value;
-    let set = document.querySelector("#st_time").value;
-    if (name.trim() != "" && set.trim() != "");
-    {
-      setValue({ ...value, input1: name, input2: set });
+    let time = document.querySelector("#time").value;
+    if (name.length > 0 && Number(time)) {
+      console.log("yues");
+      operObj.name = name;
+      // operObj.time = time;
+      // setObj({ ...obj });
+      obj.operations.push({ name: name, time: Number(time) });
+      console.log(obj, typeof time);
+    } else {
+      console.log("no");
     }
   };
 
@@ -79,11 +87,11 @@ function InputData(props) {
   let delKeys = [];
 
   if (property == "piece") {
-    delKeys = ["piecec", "subpiecec", "operations"];
+    delKeys = ["piecec", "subpiecec"];
   } else if (property == "subpiece") {
-    delKeys = ["stTime", "option", "subpiecec", "operations"];
+    delKeys = ["stTime", "option", "subpiecec"];
   } else if (property == "model") {
-    delKeys = ["stTime", "category", "option", "operations"];
+    delKeys = ["stTime", "category", "option"];
   }
 
   function deleteObjKeys(o, arr) {
@@ -95,9 +103,16 @@ function InputData(props) {
   // implement axios
   let postFunc = async () => {
     console.log(obj);
-    await axios.post("http://localhost:3000/model", obj).then((response) => {
-      console.log("Axios post  :" + response.data);
-    });
+    await axios
+      .post("http://localhost:3000/model", obj)
+      .then((response) => {
+        setResult(response);
+        console.log(response);
+      })
+      .catch((err) => {
+        setResult(err.message);
+        console.log(err.message);
+      });
   };
 
   //handler for sen data to database
@@ -119,6 +134,14 @@ function InputData(props) {
     );
   };
 
+  const ResulMessage = () => {
+    return (
+      <div className="result">
+        <p>Message from server : {result}</p>
+      </div>
+    );
+  };
+
   const PieceElement = () => {
     return (
       <div className="container">
@@ -127,12 +150,19 @@ function InputData(props) {
           <ObjKey name={Object.keys(obj)[1]} method={handleClickKey} />
           <ObjArray name={Object.keys(obj)[4]} method={handleClickArray} />
           <ObjArray name={Object.keys(obj)[5]} method={handleClickArray} />
+          <ObjOperations
+            name1={Object.keys(operObj)[0]}
+            name2={Object.keys(operObj)[1]}
+            method={handleClickObjOpreations}
+          />
           <ButtonResult method={handleSendData} />
         </div>
         <div className="resultSide">
           <ObjKeyResult obj={obj} arr={["partName", "stTime"]} />
           <ObjArrayResult obj={obj} arr={["category", "option"]} />
+          <ObjOperationsResult value={operObj} />
         </div>
+        <ResulMessage />
       </div>
     );
   };
@@ -144,12 +174,19 @@ function InputData(props) {
           <ObjKey name={Object.keys(obj)[0]} method={handleClickKey} />
           <ObjArray name={Object.keys(obj)[2]} method={handleClickArray} />
           <ObjArray name={Object.keys(obj)[4]} method={handleClickArray} />
+          <ObjOperations
+            name1={Object.keys(operObj)[0]}
+            name2={Object.keys(operObj)[1]}
+            method={handleClickObjOpreations}
+          />
           <ButtonResult method={handleSendData} />
         </div>
         <div className="resultSide">
           <ObjKeyResult obj={obj} arr={["partName"]} />
           <ObjArrayResult obj={obj} arr={["piecec", "category"]} />
+          <ObjOperationsResult value={operObj} />
         </div>
+        <ResulMessage />
       </div>
     );
   };
@@ -161,12 +198,19 @@ function InputData(props) {
           <ObjKey name={Object.keys(obj)[0]} method={handleClickKey} />
           <ObjArray name={Object.keys(obj)[3]} method={handleClickArray} />
           <ObjArray name={Object.keys(obj)[2]} method={handleClickArray} />
+          <ObjOperations
+            name1={Object.keys(operObj)[0]}
+            name2={Object.keys(operObj)[1]}
+            method={handleClickObjOpreations}
+          />
           <ButtonResult method={handleSendData} />
         </div>
         <div className="resultSide">
           <ObjKeyResult obj={obj} arr={["partName"]} />
           <ObjArrayResult obj={obj} arr={["subpiecec", "piecec"]} />
+          <ObjOperationsResult value={operObj} />
         </div>
+        <ResulMessage />
       </div>
     );
   };

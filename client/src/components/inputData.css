@@ -56,3 +56,11 @@
   box-shadow: 0 3px #666;
   transform: translateY(1px);
 }
+
+.result {
+  margin-left: 3rem;
+  background-color: var(--main-lighter);
+  border-radius: 6px;
+  text-align: center;
+  padding: 1rem;
+}
