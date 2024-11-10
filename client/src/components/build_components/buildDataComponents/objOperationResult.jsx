@@ -1,10 +1,10 @@
 import React from "react";
 
 function ObjOperationsResult(props) {
-  const value = props;
+  const operations = JSON.stringify(props);
   return (
     <>
-      <p>{JSON.stringify(value.opertions)}</p>
+      <p>{operations}</p>
     </>
   );
 }

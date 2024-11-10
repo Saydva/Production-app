@@ -71,13 +71,15 @@ function InputData(props) {
     e.preventDefault();
     let name = document.querySelector("#operation").value;
     let time = document.querySelector("#time").value;
+    time = Number(time);
     if (name.length > 0 && Number(time)) {
-      console.log("yues");
-      operObj.name = name;
-      // operObj.time = time;
-      // setObj({ ...obj });
-      obj.operations.push({ name: name, time: Number(time) });
-      console.log(obj, typeof time);
+      console.log("yes");
+      operObj.operation = name;
+      operObj.time = time;
+
+      obj.operations.push(operObj);
+      setObj({ ...obj });
+      console.log(obj.operations.length);
     } else {
       console.log("no");
     }
@@ -160,7 +162,7 @@ function InputData(props) {
         <div className="resultSide">
           <ObjKeyResult obj={obj} arr={["partName", "stTime"]} />
           <ObjArrayResult obj={obj} arr={["category", "option"]} />
-          <ObjOperationsResult value={operObj} />
+          <ObjOperationsResult value={obj.operations} />
         </div>
         <ResulMessage />
       </div>
@@ -184,7 +186,7 @@ function InputData(props) {
         <div className="resultSide">
           <ObjKeyResult obj={obj} arr={["partName"]} />
           <ObjArrayResult obj={obj} arr={["piecec", "category"]} />
-          <ObjOperationsResult value={operObj} />
+          <ObjOperationsResult value={obj.operations} />{" "}
         </div>
         <ResulMessage />
       </div>
@@ -208,7 +210,7 @@ function InputData(props) {
         <div className="resultSide">
           <ObjKeyResult obj={obj} arr={["partName"]} />
           <ObjArrayResult obj={obj} arr={["subpiecec", "piecec"]} />
-          <ObjOperationsResult value={operObj} />
+          <ObjOperationsResult value={obj.operations} />
         </div>
         <ResulMessage />
       </div>
