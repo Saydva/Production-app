@@ -91,4 +91,4 @@ let models = [
   },
 ];
 
-export { models };
+export default models;
