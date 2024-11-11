@@ -1,51 +1,43 @@
-import React from "react";
-import models from "../../../test_components/testingObjects/testProdObj";
-import { useState } from "react";
+import React, { useState } from "react";
+import Select from "react-select";
+import models from "../../../../src/test_components/testingObjects/testProdObj";
 
-function TestingPage() {
-  const [searchValue, setSearchValue] = useState("");
-  const [filteredDatas, setFilteredDatas] = useState([]);
+function SearchBarSelect() {
+  const arr = models.map((e) => {
+    return { value: e.modelName, label: e.modelName };
+  });
+  arr.push({ value: "", label: "" });
+  console.log(arr);
 
-  const handleSearch = (e) => {
-    e.prevntdefault;
-    setSearchValue(e.target.value);
-    if (searchValue.length < 1) {
-      setFilteredDatas([]);
-    } else if (searchValue.length > 1) {
-      const filteredData = models.filter((item) => {
-        return Object.values(item)
-          .join("")
-          .toLowerCase()
-          .includes(searchValue.toLowerCase());
-      });
-      setFilteredDatas(filteredData);
-    }
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      width: "400px",
+      borderRadius: "8px",
+      boxShadow: "none",
+      textAlign: "left",
+    }),
+
+    options: (provided, state) => ({
+      ...provided,
+      color: "green",
+      backgroundColor: state.isSelected ? "lightgrey" : "white",
+    }),
   };
 
-  console.log(searchValue);
+  const [picked, setPicked] = useState("");
 
   return (
-    <div className="testcontainer">
-      <br />
-      <h4>Testin Page</h4>
-      <br />
-      <p>building search input for piecec and subpiecec</p>
-      <br />
-      <div className="wrapcontainer">
-        <div className="wrap">
-          <input type="text" onChange={handleSearch} value={searchValue} />
-
-          {filteredDatas.map((e) => {
-            return (
-              <div key={e.modelName}>
-                <div>{e.modelName}</div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+    <div className="serchContainer">
+      <Select
+        options={arr}
+        styles={customStyles}
+        isMulti
+        onChange={(option) => setPicked(option)}
+      />
+      <h1>{picked.length}</h1>
     </div>
   );
 }
 
-export default TestingPage;
+export default SearchBarSelect;
