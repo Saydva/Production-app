@@ -91,4 +91,9 @@ let models = [
   },
 ];
 
+const arr = [];
+models.map((e) => arr.push({ value: e.modelName, label: e.modelName }));
+
+console.log(arr);
+
 export default models;

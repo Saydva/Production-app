@@ -1,0 +1,12 @@
+.flex {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border: 2px solid red;
+  margin: 8px;
+  border-radius: 8px;
+}
+
+.choise {
+  padding: 12px;
+}

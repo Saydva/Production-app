@@ -58,6 +58,7 @@ function InputData(props) {
     if (data.trim() != "") {
       obj[objprop].push(data.trim());
       setObj({ ...obj });
+      console.log(data.length);
     }
   };
 
@@ -76,7 +77,6 @@ function InputData(props) {
       console.log("yes");
       operObj.operation = name;
       operObj.time = time;
-
       obj.operations.push(operObj);
       setObj({ ...obj });
       console.log(obj.operations.length);
@@ -150,7 +150,11 @@ function InputData(props) {
         <div className="inputSide">
           <ObjKey name={Object.keys(obj)[0]} method={handleClickKey} />
           <ObjKey name={Object.keys(obj)[1]} method={handleClickKey} />
-          <ObjArray name={Object.keys(obj)[4]} method={handleClickArray} />
+          <ObjArray
+            name={Object.keys(obj)[4]}
+            method={handleClickArray}
+            search={onchange}
+          />
           <ObjArray name={Object.keys(obj)[5]} method={handleClickArray} />
           <ObjOperations
             name1={Object.keys(operObj)[0]}
@@ -192,6 +196,8 @@ function InputData(props) {
       </div>
     );
   };
+
+  // console.log(document.querySelectorAll("input#piecec").value);
 
   const ModelElement = () => {
     return (

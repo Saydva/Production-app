@@ -60,3 +60,7 @@ body {
 .testcontainer {
   margin-bottom: 2rem;
 }
+
+input .time {
+  padding-left: 1rem;
+}
