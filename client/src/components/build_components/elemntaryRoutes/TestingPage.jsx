@@ -1,11 +1,13 @@
 import React from "react";
-import ReactSelect from "../buildDataComponents/rowCompArr";
+import ReactSelectText from "../buildDataComponents/TextControl";
+import ReactSelectOperation from "../buildDataComponents/OperationControl";
 
 function Test() {
   return (
-    <>
-      <ReactSelect />
-    </>
+    <div className="objContainer">
+      <h4>Test</h4>
+      <ReactSelectOperation />
+    </div>
   );
 }
 

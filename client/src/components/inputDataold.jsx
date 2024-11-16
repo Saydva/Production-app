@@ -7,6 +7,7 @@ import ObjOperations from "./build_components/buildDataComponents/objOperations"
 import ObjOperationsResult from "./build_components/buildDataComponents/objOperationResult";
 import "./inputData.css";
 import axios from "axios";
+import ReactSelect from "./build_components/buildDataComponents/rowCompArr";
 
 function InputData(props) {
   const property = props.property;
@@ -58,7 +59,7 @@ function InputData(props) {
     if (data.trim() != "") {
       obj[objprop].push(data.trim());
       setObj({ ...obj });
-      console.log(data.length);
+      console.log(data);
     }
   };
 
@@ -178,7 +179,8 @@ function InputData(props) {
       <div className="container">
         <div className="inputSide">
           <ObjKey name={Object.keys(obj)[0]} method={handleClickKey} />
-          <ObjArray name={Object.keys(obj)[2]} method={handleClickArray} />
+          {/* <ObjArray name={Object.keys(obj)[2]} method={handleClickArray} /> */}
+          <ReactSelect />
           <ObjArray name={Object.keys(obj)[4]} method={handleClickArray} />
           <ObjOperations
             name1={Object.keys(operObj)[0]}

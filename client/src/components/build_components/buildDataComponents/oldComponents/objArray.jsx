@@ -1,5 +1,5 @@
 import React from "react";
-import models from "../../../test_components/testingObjects/testProdObj";
+import models from "../../../../test_components/testingObjects/testProdObj";
 
 function ObjArray(props) {
   const name = props.name;
