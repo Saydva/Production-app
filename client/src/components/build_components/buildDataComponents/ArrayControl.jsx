@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Select from "react-select";
-import models from "../../../test_components/testingObjects/testProdObj";
+import models from "../../../../src/test_components/testingObjects/testProdObj";
 import "./rowCompArr.css";
 
 const arr = [];

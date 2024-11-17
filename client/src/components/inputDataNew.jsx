@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import ReactSelectArray from "./build_components/buildDataComponents/ArrayControl";
 import ReactSelectText from "./build_components/buildDataComponents/TextControl";
+import ReactSelectOperation from "./build_components/buildDataComponents/OperationControl";
 
 function InputData(props) {
   const property = props.property;
@@ -110,23 +111,20 @@ function InputData(props) {
     );
   };
 
-  // {
-  //   partName: "No Name",
-  //   stTime: "No time",
-  //   piecec: [],
-  //   subpiecec: [],
-  //   category: [],
-  //   option: [],
-  //   operations: [],
-  // };
+  const sTtime = "no time";
 
   const PieceElement = () => {
     return (
       <div className="objBuild">
-        <ReactSelectText name={Object.keys(obj)[0]} />
-        <ReactSelectText name={Object.keys(obj)[1]} />
+        <ReactSelectText
+          name={Object.keys(obj)[0]}
+          valueOf={String()}
+          callback={String}
+        />
+        <ReactSelectText name={Object.keys(obj)[1]} valueSet={sTtime} />
         <ReactSelectArray name={Object.keys(obj)[4]} />
         <ReactSelectArray name={Object.keys(obj)[5]} />
+        <ReactSelectOperation name1="operation" name2="time" />
       </div>
     );
   };
@@ -134,7 +132,15 @@ function InputData(props) {
   const SubPieceElemet = () => {
     return (
       <div className="objBuild">
-        <ReactSelectArray />
+        <ReactSelectText
+          name={Object.keys(obj)[0]}
+          valueOf={String()}
+          callback={String}
+        />
+        <ReactSelectArray name={Object.keys(obj)[2]} />
+        <ReactSelectArray name={Object.keys(obj)[4]} />
+
+        <ReactSelectOperation name1="operation" name2="time" />
       </div>
     );
   };
@@ -144,10 +150,20 @@ function InputData(props) {
   const ModelElement = () => {
     return (
       <div className="objBuild">
-        <ReactSelectArray />
+        <ReactSelectText
+          name={Object.keys(obj)[0]}
+          valueOf={String()}
+          callback={String}
+        />
+        <ReactSelectArray name={Object.keys(obj)[2]} />
+        <ReactSelectArray name={Object.keys(obj)[2]} />
+        <ReactSelectArray name={Object.keys(obj)[3]} />
+        <ReactSelectOperation name1="operation" name2="time" />
       </div>
     );
   };
+
+  // console.log(parentState);
 
   if (property == "piece") {
     return <PieceElement />;
