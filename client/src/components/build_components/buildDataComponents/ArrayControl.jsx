@@ -8,6 +8,9 @@ models.map((e) => arr.push({ value: e.modelName, label: e.modelName }));
 
 function ReactSelectArray(props) {
   const name = props.name;
+  const sendDataToParent = props.sendDataToParent;
+  const sendSettingFromChild = props.sendSettingFromChild;
+
   const [selectedObject, setselectedObject] = useState(null);
   const [array, setArray] = useState([]);
 
@@ -20,11 +23,21 @@ function ReactSelectArray(props) {
   const handleSave = () => {
     if (array.length > 0) {
       document.querySelector(`span#${name}`).innerText =
-        "You saved this:" + JSON.stringify(array);
+        "You saved this: " + JSON.stringify(array);
+      sendData(array);
+      sendSetting(name);
     }
   };
 
-  const handleclickArray = (e) => {
+  const sendData = (value) => {
+    sendDataToParent(value);
+  };
+
+  const sendSetting = (value) => {
+    sendSettingFromChild(value);
+  };
+
+  const handleclickArray = () => {
     if (selectedObject) {
       array.push(selectedObject);
       setArray([...array]);

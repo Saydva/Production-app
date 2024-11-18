@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReactSelectArray from "./build_components/buildDataComponents/ArrayControl";
 import ReactSelectText from "./build_components/buildDataComponents/TextControl";
@@ -6,6 +6,22 @@ import ReactSelectOperation from "./build_components/buildDataComponents/Operati
 
 function InputData(props) {
   const property = props.property;
+
+  const [dataFromChild, setDataFromChild] = useState("");
+  const [settingFromChild, setSettingFromChild] = useState("");
+
+  const handleDataFromChild = (data) => {
+    setDataFromChild(data);
+  };
+
+  const handleSettingFromChild = (data) => {
+    setSettingFromChild(data);
+  };
+
+  useEffect(() => {
+    obj[settingFromChild] = dataFromChild;
+    console.log(dataFromChild, settingFromChild, obj);
+  });
 
   const [obj, setObj] = useState({
     partName: "No Name",
@@ -120,10 +136,20 @@ function InputData(props) {
           name={Object.keys(obj)[0]}
           valueOf={String()}
           callback={String}
+          sendDataToParent={handleDataFromChild}
+          sendSettingFromChild={handleSettingFromChild}
         />
         <ReactSelectText name={Object.keys(obj)[1]} valueSet={sTtime} />
-        <ReactSelectArray name={Object.keys(obj)[4]} />
-        <ReactSelectArray name={Object.keys(obj)[5]} />
+        <ReactSelectArray
+          name={Object.keys(obj)[4]}
+          sendDataToParent={handleDataFromChild}
+          sendSettingFromChild={handleSettingFromChild}
+        />
+        <ReactSelectArray
+          name={Object.keys(obj)[5]}
+          sendDataToParent={handleDataFromChild}
+          sendSettingFromChild={handleSettingFromChild}
+        />
         <ReactSelectOperation name1="operation" name2="time" />
       </div>
     );
@@ -136,9 +162,19 @@ function InputData(props) {
           name={Object.keys(obj)[0]}
           valueOf={String()}
           callback={String}
+          sendDataToParent={handleDataFromChild}
+          sendSettingFromChild={handleSettingFromChild}
         />
-        <ReactSelectArray name={Object.keys(obj)[2]} />
-        <ReactSelectArray name={Object.keys(obj)[4]} />
+        <ReactSelectArray
+          name={Object.keys(obj)[2]}
+          sendDataToParent={handleDataFromChild}
+          sendSettingFromChild={handleSettingFromChild}
+        />
+        <ReactSelectArray
+          name={Object.keys(obj)[4]}
+          sendDataToParent={handleDataFromChild}
+          sendSettingFromChild={handleSettingFromChild}
+        />
 
         <ReactSelectOperation name1="operation" name2="time" />
       </div>
@@ -154,10 +190,24 @@ function InputData(props) {
           name={Object.keys(obj)[0]}
           valueOf={String()}
           callback={String}
+          sendDataToParent={handleDataFromChild}
+          sendSettingFromChild={handleSettingFromChild}
         />
-        <ReactSelectArray name={Object.keys(obj)[2]} />
-        <ReactSelectArray name={Object.keys(obj)[2]} />
-        <ReactSelectArray name={Object.keys(obj)[3]} />
+        <ReactSelectArray
+          name={Object.keys(obj)[2]}
+          sendDataToParent={handleDataFromChild}
+          sendSettingFromChild={handleSettingFromChild}
+        />
+        <ReactSelectArray
+          name={Object.keys(obj)[2]}
+          sendDataToParent={handleDataFromChild}
+          sendSettingFromChild={handleSettingFromChild}
+        />
+        <ReactSelectArray
+          name={Object.keys(obj)[3]}
+          sendDataToParent={handleDataFromChild}
+          sendSettingFromChild={handleSettingFromChild}
+        />
         <ReactSelectOperation name1="operation" name2="time" />
       </div>
     );

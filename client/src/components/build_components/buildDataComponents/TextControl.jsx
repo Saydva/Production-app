@@ -6,12 +6,13 @@ function ReactSelectText(props) {
   const callback = props.callback; // callback Number string value or Object
   const valueSet = props.valueSet; // to make input readonly
   const sendDataToParent = props.sendDataToParent;
+  const sendSettingFromChild = props.sendSettingFromChild;
 
   useEffect(() => {
     if (valueSet) {
       document.querySelector(`input#${name}`).value = valueSet;
       document.querySelector(`input#${name}`).readOnly = true;
-      document.querySelector(`span#${name}`).style.display = "none";
+      // document.querySelector(`span#${name}`).style.display = "none";
     }
   });
 
@@ -34,16 +35,18 @@ function ReactSelectText(props) {
 
   const handleSave = () => {
     if (text) {
-      document.querySelector(`span#${name}`).innerText =
-        "You saved this:  " + JSON.stringify(text);
-      sendData(text);
+      sendData(text); //send data
+      sendSetting(name);
     }
   };
 
+  //function to send data to parent
+  const sendSetting = (value) => {
+    sendSettingFromChild(value);
+  };
+
   const sendData = (value) => {
-    const data = "Fuck";
     sendDataToParent(value);
-    console.log(value, data);
   };
 
   return (
@@ -56,7 +59,7 @@ function ReactSelectText(props) {
               htmlFor={name}
               style={{ display: "inline-block", width: "6rem" }}
             >
-              {name}..{" "}
+              {name}..
             </label>
             {/* </div> */}
             <input
@@ -84,7 +87,6 @@ function ReactSelectText(props) {
           </div>
         </div>
         <span
-          id={name}
           style={{
             height: "1.5rem",
             padding: "8px",
@@ -101,11 +103,8 @@ function ReactSelectText(props) {
             alt=""
             style={{ height: "1.5rem", padding: "8px" }}
           />
-          <div id={name} style={{ color: "grey" }}>
-            {JSON.stringify(text)}
-          </div>
+          <div style={{ color: "grey" }}>{JSON.stringify(text)}</div>
           <button
-            id={name}
             onClick={handleSave}
             style={{
               margin: "0 8px",
@@ -118,7 +117,7 @@ function ReactSelectText(props) {
           >
             Save this
           </button>
-          <span id={name}></span>
+          {/* <span id={name}></span> */}
         </span>
       </div>
     </div>
