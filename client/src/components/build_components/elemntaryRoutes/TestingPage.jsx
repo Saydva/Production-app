@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactSelectText from "../buildDataComponents/TextControl";
 import ReactSelectOperation from "../buildDataComponents/OperationControl";
 import ReactSelectArray from "../buildDataComponents/ArrayControl";
@@ -8,16 +8,21 @@ function Test() {
 
   const handleDataFromChild = (data) => {
     setDataFromChild(data);
-    console.log(dataFromChild);
   };
+
+  useEffect(() => {
+    if (dataFromChild) {
+      console.log(dataFromChild);
+    }
+  }, [dataFromChild]);
+
   return (
     <div className="objContainer">
       <h4>Test</h4>
-      <ReactSelectText
-        name={"testing"}
-        valueOf={String()}
-        callback={String}
-        sendDataToParent={handleDataFromChild}
+      <ReactSelectOperation
+        name1={"First name"}
+        name2={"Last name"}
+        childObj={handleDataFromChild}
       />
     </div>
   );

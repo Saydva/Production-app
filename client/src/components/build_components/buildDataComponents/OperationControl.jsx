@@ -1,9 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactSelectText from "./TextControl";
 
 function ReactSelectOperation(props) {
   const name1 = props.name1;
   const name2 = props.name2;
+  const [dataName, setDataName] = useState("");
+  const [datastTime, setstTime] = useState("");
+
+  let childObj;
+
+  let myObj = {};
+
+  if (dataName && datastTime) {
+    myObj.name = dataName;
+    myObj.stTime = datastTime;
+    if (props.childObj) {
+      childObj = props.childObj;
+    }
+  }
+
+  const handleNameFromChild = (data) => {
+    setDataName(data);
+  };
+
+  const handlestTimeFromChild = (data) => {
+    setstTime(data);
+  };
 
   const [isHover, setIsHover] = useState(false);
 
@@ -17,11 +39,22 @@ function ReactSelectOperation(props) {
   const handleClick = (e) => {
     e.preventDefault();
     alert("you sendet data");
+    childObj(myObj);
   };
   return (
     <div>
-      <ReactSelectText name={name1} valueOf={String()} callback={String} />
-      <ReactSelectText name={name2} valueOf={Number()} callback={Number} />
+      <ReactSelectText
+        name={name1}
+        valueOf={String()}
+        callback={String}
+        objbuild={handleNameFromChild}
+      />
+      <ReactSelectText
+        name={name2}
+        valueOf={Number()}
+        callback={Number}
+        objbuild={handlestTimeFromChild}
+      />
       <div
         style={{
           display: "flex",

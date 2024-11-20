@@ -199,12 +199,12 @@ function InputData(props) {
           sendSettingFromChild={handleSettingFromChild}
         />
         <ReactSelectArray
-          name={Object.keys(obj)[2]}
+          name={Object.keys(obj)[3]}
           sendDataToParent={handleDataFromChild}
           sendSettingFromChild={handleSettingFromChild}
         />
         <ReactSelectArray
-          name={Object.keys(obj)[3]}
+          name={Object.keys(obj)[4]}
           sendDataToParent={handleDataFromChild}
           sendSettingFromChild={handleSettingFromChild}
         />

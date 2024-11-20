@@ -8,6 +8,12 @@ function ReactSelectText(props) {
   const sendDataToParent = props.sendDataToParent;
   const sendSettingFromChild = props.sendSettingFromChild;
 
+  let objbuild;
+
+  if (props.objbuild) {
+    objbuild = props.objbuild;
+  }
+
   useEffect(() => {
     if (valueSet) {
       document.querySelector(`input#${name}`).value = valueSet;
@@ -37,16 +43,27 @@ function ReactSelectText(props) {
     if (text) {
       sendData(text); //send data
       sendSetting(name);
+      objbuild(text);
     }
   };
 
   //function to send data to parent
   const sendSetting = (value) => {
-    sendSettingFromChild(value);
+    if (sendSettingFromChild) {
+      sendSettingFromChild(value);
+    }
   };
 
   const sendData = (value) => {
-    sendDataToParent(value);
+    if (sendDataToParent) {
+      sendDataToParent(value);
+    }
+  };
+
+  const sendObj = (value) => {
+    if (objbuild) {
+      objbuild(text);
+    }
   };
 
   return (
