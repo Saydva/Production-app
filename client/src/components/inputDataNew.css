@@ -1,0 +1,12 @@
+.objBuild {
+  display: flex;
+}
+
+.right,
+.left {
+  display: block;
+}
+
+.right {
+  padding-left: 3rem;
+}

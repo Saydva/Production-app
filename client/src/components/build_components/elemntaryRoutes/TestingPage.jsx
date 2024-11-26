@@ -4,17 +4,17 @@ import ReactSelectOperation from "../buildDataComponents/OperationControl";
 import ReactSelectArray from "../buildDataComponents/ArrayControl";
 
 function Test() {
-  const [dataFromChild, setDataFromChild] = useState("");
+  const [dataFromOperation, setDataFromOperation] = useState("");
 
-  const handleDataFromChild = (data) => {
-    setDataFromChild(data);
+  const handleDataFromOperation = (data) => {
+    setDataFromOperation(data);
   };
 
   useEffect(() => {
-    if (dataFromChild) {
-      console.log(dataFromChild);
+    if (dataFromOperation) {
+      console.log(dataFromOperation);
     }
-  }, [dataFromChild]);
+  }, [dataFromOperation]);
 
   return (
     <div className="objContainer">
@@ -22,7 +22,7 @@ function Test() {
       <ReactSelectOperation
         name1={"First name"}
         name2={"Last name"}
-        childObj={handleDataFromChild}
+        OperationObj={handleDataFromOperation}
       />
     </div>
   );

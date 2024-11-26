@@ -3,12 +3,24 @@ import axios from "axios";
 import ReactSelectArray from "./build_components/buildDataComponents/ArrayControl";
 import ReactSelectText from "./build_components/buildDataComponents/TextControl";
 import ReactSelectOperation from "./build_components/buildDataComponents/OperationControl";
+import Result from "./build_components/modelcomponents/Result";
+import "../components/InputDataNew.css";
 
 function InputData(props) {
   const property = props.property;
 
+  //data from text and array children
+
   const [dataFromChild, setDataFromChild] = useState("");
   const [settingFromChild, setSettingFromChild] = useState("");
+
+  // data from opration (text, text) component
+
+  const [dataFromOperation, setDataFromOperation] = useState("");
+
+  //handle operation data
+
+  // handlers for text array children
 
   const handleDataFromChild = (data) => {
     setDataFromChild(data);
@@ -23,9 +35,11 @@ function InputData(props) {
     console.log(dataFromChild, settingFromChild, obj);
   });
 
+  //obj to store data
+
   const [obj, setObj] = useState({
-    partName: "No Name",
-    stTime: "No time",
+    partName: "",
+    stTime: "",
     piecec: [],
     subpiecec: [],
     category: [],
@@ -34,6 +48,20 @@ function InputData(props) {
   });
 
   const [result, setResult] = useState("Send data!");
+
+  // check if is data from operation component seted up
+
+  useEffect(() => {
+    if (Object.keys(dataFromOperation).length != 0) {
+      obj.operations.push(dataFromOperation);
+    }
+  }, [dataFromOperation]);
+
+  const handleDataFromOperation = (data) => {
+    setDataFromOperation(data);
+  };
+
+  // obj to reset obj to empty
 
   const template = {
     partName: "No Name",
@@ -54,30 +82,34 @@ function InputData(props) {
 
   //handler for ObjArray to set data
 
-  let operObj = {
-    operation: "",
-    time: "",
-  };
+  //op obj maeby i will not even use it
+
+  // let operObj = {
+  //   operation: "",
+  //   time: "",
+  // };
 
   //handler for ObjOperations to set data
-  const handleClickObjOpreations = (e) => {
-    e.preventDefault();
-    let name = document.querySelector("#operation").value;
-    let time = document.querySelector("#time").value;
-    time = Number(time);
-    if (name.length > 0 && Number(time)) {
-      console.log("yes");
-      operObj.operation = name;
-      operObj.time = time;
-      obj.operations.push(operObj);
-      setObj({ ...obj });
-      console.log(obj.operations.length);
-    } else {
-      console.log("no");
-    }
-  };
 
-  // before send remove falsy kyes from obj
+  // const handleClickObjOpreations = (e) => {
+  //   e.preventDefault();
+  //   let name = document.querySelector("#operation").value;
+  //   let time = document.querySelector("#time").value;
+  //   time = Number(time);
+  //   if (name.length > 0 && Number(time)) {
+  //     console.log("yes");
+  //     operObj.operation = name;
+  //     operObj.time = time;
+  //     obj.operations.push(operObj);
+  //     setObj({ ...obj });
+  //     console.log(obj.operations.length);
+  //   } else {
+  //     console.log("no");
+  //   }
+  // };
+
+  // before send remove falsy(unused) keys from obj
+
   let delKeys = [];
 
   if (property == "piece") {
@@ -110,6 +142,7 @@ function InputData(props) {
   };
 
   //handler for sen data to database
+
   function handleSendData(e) {
     e.preventDefault();
     deleteObjKeys(obj, delKeys);
@@ -132,25 +165,43 @@ function InputData(props) {
   const PieceElement = () => {
     return (
       <div className="objBuild">
-        <ReactSelectText
-          name={Object.keys(obj)[0]}
-          valueOf={String()}
-          callback={String}
-          sendDataToParent={handleDataFromChild}
-          sendSettingFromChild={handleSettingFromChild}
-        />
-        <ReactSelectText name={Object.keys(obj)[1]} valueSet={sTtime} />
-        <ReactSelectArray
-          name={Object.keys(obj)[4]}
-          sendDataToParent={handleDataFromChild}
-          sendSettingFromChild={handleSettingFromChild}
-        />
-        <ReactSelectArray
-          name={Object.keys(obj)[5]}
-          sendDataToParent={handleDataFromChild}
-          sendSettingFromChild={handleSettingFromChild}
-        />
-        <ReactSelectOperation name1="operation" name2="time" />
+        <div className="left">
+          <ReactSelectText
+            name={Object.keys(obj)[0]}
+            valueOf={String()}
+            callback={String}
+            sendDataToParent={handleDataFromChild}
+            sendSettingFromChild={handleSettingFromChild}
+          />
+          <ReactSelectText name={Object.keys(obj)[1]} valueSet={sTtime} />
+          <ReactSelectArray
+            name={Object.keys(obj)[4]}
+            sendDataToParent={handleDataFromChild}
+            sendSettingFromChild={handleSettingFromChild}
+          />
+          <ReactSelectArray
+            name={Object.keys(obj)[5]}
+            sendDataToParent={handleDataFromChild}
+            sendSettingFromChild={handleSettingFromChild}
+          />
+          <ReactSelectOperation
+            name1={"operation"}
+            name2={"stTime"}
+            OperationObj={handleDataFromOperation}
+          />
+        </div>
+        <div className="right">
+          <Result
+            // name={obj.partName}
+            // stTime={obj.stTime}
+            // piecec={obj.piecec}
+            // subpiecec={obj.subpiecec}
+            // category={obj.category}
+            // option={obj.option}
+            // operations={obj.operations}
+            obj={obj}
+          />
+        </div>
       </div>
     );
   };
@@ -176,7 +227,12 @@ function InputData(props) {
           sendSettingFromChild={handleSettingFromChild}
         />
 
-        <ReactSelectOperation name1="operation" name2="time" />
+        <ReactSelectOperation
+          name1={"operation"}
+          name2={"stTime"}
+          OperationObj={handleDataFromOperation}
+        />
+        <Result />
       </div>
     );
   };
@@ -208,7 +264,11 @@ function InputData(props) {
           sendDataToParent={handleDataFromChild}
           sendSettingFromChild={handleSettingFromChild}
         />
-        <ReactSelectOperation name1="operation" name2="time" />
+        <ReactSelectOperation
+          name1={"operation"}
+          name2={"stTime"}
+          OperationObj={handleDataFromOperation}
+        />
       </div>
     );
   };

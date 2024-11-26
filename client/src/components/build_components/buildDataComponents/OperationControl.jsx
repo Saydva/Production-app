@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReactSelectText from "./TextControl";
 
 function ReactSelectOperation(props) {
@@ -7,16 +7,19 @@ function ReactSelectOperation(props) {
   const [dataName, setDataName] = useState("");
   const [datastTime, setstTime] = useState("");
 
-  let childObj;
+  const OperationObj = props.OperationObj;
+
+  // if (props.OperationObj) {
+  //   OperationObj = props.OperationObj;
+  // }
+
+  // let OperationObj;
 
   let myObj = {};
 
   if (dataName && datastTime) {
     myObj.name = dataName;
     myObj.stTime = datastTime;
-    if (props.childObj) {
-      childObj = props.childObj;
-    }
   }
 
   const handleNameFromChild = (data) => {
@@ -38,8 +41,8 @@ function ReactSelectOperation(props) {
 
   const handleClick = (e) => {
     e.preventDefault();
-    alert("you sendet data");
-    childObj(myObj);
+    OperationObj(myObj);
+    alert("you sendet data" + JSON.stringify(myObj));
   };
   return (
     <div>

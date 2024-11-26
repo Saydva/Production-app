@@ -2,28 +2,40 @@ import React, { useState, useEffect } from "react";
 
 function ReactSelectText(props) {
   const name = props.name;
-  const valueOf = props.valueOf; // functions like Number or String()
-  const callback = props.callback; // callback Number string value or Object
+  const valueOf = props.valueOf; // functions Number or String()
+  const callback = props.callback; // callback Number String value or Object
   const valueSet = props.valueSet; // to make input readonly
   const sendDataToParent = props.sendDataToParent;
   const sendSettingFromChild = props.sendSettingFromChild;
-
-  let objbuild;
-
-  if (props.objbuild) {
-    objbuild = props.objbuild;
-  }
+  let objbuild = props.objbuild;
 
   useEffect(() => {
     if (valueSet) {
       document.querySelector(`input#${name}`).value = valueSet;
       document.querySelector(`input#${name}`).readOnly = true;
-      // document.querySelector(`span#${name}`).style.display = "none";
     }
   });
 
+  // document.querySelector(`sendValue`).style = { display: "none" };
+
+  // let objbuild;
+
+  // if (!props.objbuild) {
+  //   objbuild = props.objbuild;
+  //   console.log(name);
+  // }
+
   const [writedText, setwritedText] = useState("");
   const [text, setText] = useState("");
+
+  const [isHover, setIsHover] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHover(true);
+  };
+  const handleMouseLeave = () => {
+    setIsHover(false);
+  };
 
   //handlers
 
@@ -43,8 +55,11 @@ function ReactSelectText(props) {
     if (text) {
       sendData(text); //send data
       sendSetting(name);
-      objbuild(text);
+      if (objbuild) {
+        objbuild(text);
+      }
     }
+    setIsHover(!isHover);
   };
 
   //function to send data to parent
@@ -57,12 +72,6 @@ function ReactSelectText(props) {
   const sendData = (value) => {
     if (sendDataToParent) {
       sendDataToParent(value);
-    }
-  };
-
-  const sendObj = (value) => {
-    if (objbuild) {
-      objbuild(text);
     }
   };
 
@@ -121,15 +130,19 @@ function ReactSelectText(props) {
             style={{ height: "1.5rem", padding: "8px" }}
           />
           <div style={{ color: "grey" }}>{JSON.stringify(text)}</div>
+
           <button
+            id="sendValue"
             onClick={handleSave}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             style={{
               margin: "0 8px",
               padding: "0.3rem",
               border: "1px solid rgb(204, 204, 204)",
               borderRadius: "6px",
-              backgroundColor: "transparent",
               color: " rgb(128, 128, 128)",
+              backgroundColor: isHover ? "#dfdfe4" : "transparent",
             }}
           >
             Save this

@@ -64,3 +64,13 @@
   text-align: center;
   padding: 1rem;
 }
+
+.objBuild {
+  display: flex;
+  flex-direction: row;
+}
+
+.objResult {
+  display: flex;
+  flex-direction: column;
+}
