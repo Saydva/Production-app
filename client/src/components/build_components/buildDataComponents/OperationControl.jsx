@@ -4,6 +4,7 @@ import ReactSelectText from "./TextControl";
 function ReactSelectOperation(props) {
   const name1 = props.name1;
   const name2 = props.name2;
+  const update = props.update;
   const [dataName, setDataName] = useState("");
   const [datastTime, setstTime] = useState("");
 
@@ -42,6 +43,7 @@ function ReactSelectOperation(props) {
   const handleClick = (e) => {
     e.preventDefault();
     OperationObj(myObj);
+    update;
     alert("you sendet data" + JSON.stringify(myObj));
   };
   return (

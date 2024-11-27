@@ -3,7 +3,6 @@ import axios from "axios";
 import ReactSelectArray from "./build_components/buildDataComponents/ArrayControl";
 import ReactSelectText from "./build_components/buildDataComponents/TextControl";
 import ReactSelectOperation from "./build_components/buildDataComponents/OperationControl";
-import Result from "./build_components/modelcomponents/Result";
 import "../components/InputDataNew.css";
 
 function InputData(props) {
@@ -18,8 +17,6 @@ function InputData(props) {
 
   const [dataFromOperation, setDataFromOperation] = useState("");
 
-  //handle operation data
-
   // handlers for text array children
 
   const handleDataFromChild = (data) => {
@@ -32,7 +29,6 @@ function InputData(props) {
 
   useEffect(() => {
     obj[settingFromChild] = dataFromChild;
-    console.log(dataFromChild, settingFromChild, obj);
   });
 
   //obj to store data
@@ -47,6 +43,12 @@ function InputData(props) {
     operations: [],
   });
 
+  useEffect(() => {
+    if (obj) {
+      console.log(obj);
+    }
+  }, [obj]);
+
   const [result, setResult] = useState("Send data!");
 
   // check if is data from operation component seted up
@@ -55,6 +57,7 @@ function InputData(props) {
     if (Object.keys(dataFromOperation).length != 0) {
       obj.operations.push(dataFromOperation);
     }
+    setObj({ ...obj });
   }, [dataFromOperation]);
 
   const handleDataFromOperation = (data) => {
@@ -73,51 +76,19 @@ function InputData(props) {
     operations: [],
   };
 
-  //useEffect to catch updated obj
-  // useEffect(() => {
-  //   console.log("Obj updated:", JSON.stringify(sendObj));
-  // }, [sendObj]);
-
-  // handler for ObjKey to set data
-
-  //handler for ObjArray to set data
-
-  //op obj maeby i will not even use it
-
-  // let operObj = {
-  //   operation: "",
-  //   time: "",
-  // };
-
-  //handler for ObjOperations to set data
-
-  // const handleClickObjOpreations = (e) => {
-  //   e.preventDefault();
-  //   let name = document.querySelector("#operation").value;
-  //   let time = document.querySelector("#time").value;
-  //   time = Number(time);
-  //   if (name.length > 0 && Number(time)) {
-  //     console.log("yes");
-  //     operObj.operation = name;
-  //     operObj.time = time;
-  //     obj.operations.push(operObj);
-  //     setObj({ ...obj });
-  //     console.log(obj.operations.length);
-  //   } else {
-  //     console.log("no");
-  //   }
-  // };
-
   // before send remove falsy(unused) keys from obj
 
   let delKeys = [];
 
   if (property == "piece") {
     delKeys = ["piecec", "subpiecec"];
+    deleteObjKeys(obj, delKeys);
   } else if (property == "subpiece") {
     delKeys = ["stTime", "option", "subpiecec"];
+    deleteObjKeys(obj, delKeys);
   } else if (property == "model") {
     delKeys = ["stTime", "category", "option"];
+    deleteObjKeys(obj, delKeys);
   }
 
   function deleteObjKeys(o, arr) {
@@ -160,6 +131,10 @@ function InputData(props) {
     );
   };
 
+  const update = () => {
+    setObj({ ...obj });
+  };
+
   const sTtime = "no time";
 
   const PieceElement = () => {
@@ -175,12 +150,12 @@ function InputData(props) {
           />
           <ReactSelectText name={Object.keys(obj)[1]} valueSet={sTtime} />
           <ReactSelectArray
-            name={Object.keys(obj)[4]}
+            name={Object.keys(obj)[2]}
             sendDataToParent={handleDataFromChild}
             sendSettingFromChild={handleSettingFromChild}
           />
           <ReactSelectArray
-            name={Object.keys(obj)[5]}
+            name={Object.keys(obj)[3]}
             sendDataToParent={handleDataFromChild}
             sendSettingFromChild={handleSettingFromChild}
           />
@@ -190,18 +165,7 @@ function InputData(props) {
             OperationObj={handleDataFromOperation}
           />
         </div>
-        <div className="right">
-          <Result
-            // name={obj.partName}
-            // stTime={obj.stTime}
-            // piecec={obj.piecec}
-            // subpiecec={obj.subpiecec}
-            // category={obj.category}
-            // option={obj.option}
-            // operations={obj.operations}
-            obj={obj}
-          />
-        </div>
+        <div className="right"></div>
       </div>
     );
   };
@@ -209,30 +173,32 @@ function InputData(props) {
   const SubPieceElemet = () => {
     return (
       <div className="objBuild">
-        <ReactSelectText
-          name={Object.keys(obj)[0]}
-          valueOf={String()}
-          callback={String}
-          sendDataToParent={handleDataFromChild}
-          sendSettingFromChild={handleSettingFromChild}
-        />
-        <ReactSelectArray
-          name={Object.keys(obj)[2]}
-          sendDataToParent={handleDataFromChild}
-          sendSettingFromChild={handleSettingFromChild}
-        />
-        <ReactSelectArray
-          name={Object.keys(obj)[4]}
-          sendDataToParent={handleDataFromChild}
-          sendSettingFromChild={handleSettingFromChild}
-        />
+        <div className="left">
+          <ReactSelectText
+            name={Object.keys(obj)[0]}
+            valueOf={String()}
+            callback={String}
+            sendDataToParent={handleDataFromChild}
+            sendSettingFromChild={handleSettingFromChild}
+          />
+          <ReactSelectArray
+            name={Object.keys(obj)[1]}
+            sendDataToParent={handleDataFromChild}
+            sendSettingFromChild={handleSettingFromChild}
+          />
+          <ReactSelectArray
+            name={Object.keys(obj)[2]}
+            sendDataToParent={handleDataFromChild}
+            sendSettingFromChild={handleSettingFromChild}
+          />
 
-        <ReactSelectOperation
-          name1={"operation"}
-          name2={"stTime"}
-          OperationObj={handleDataFromOperation}
-        />
-        <Result />
+          <ReactSelectOperation
+            name1={"operation"}
+            name2={"stTime"}
+            OperationObj={handleDataFromOperation}
+            update={update}
+          />
+        </div>
       </div>
     );
   };
@@ -242,33 +208,35 @@ function InputData(props) {
   const ModelElement = () => {
     return (
       <div className="objBuild">
-        <ReactSelectText
-          name={Object.keys(obj)[0]}
-          valueOf={String()}
-          callback={String}
-          sendDataToParent={handleDataFromChild}
-          sendSettingFromChild={handleSettingFromChild}
-        />
-        <ReactSelectArray
-          name={Object.keys(obj)[2]}
-          sendDataToParent={handleDataFromChild}
-          sendSettingFromChild={handleSettingFromChild}
-        />
-        <ReactSelectArray
-          name={Object.keys(obj)[3]}
-          sendDataToParent={handleDataFromChild}
-          sendSettingFromChild={handleSettingFromChild}
-        />
-        <ReactSelectArray
-          name={Object.keys(obj)[4]}
-          sendDataToParent={handleDataFromChild}
-          sendSettingFromChild={handleSettingFromChild}
-        />
-        <ReactSelectOperation
-          name1={"operation"}
-          name2={"stTime"}
-          OperationObj={handleDataFromOperation}
-        />
+        <div className="left">
+          <ReactSelectText
+            name={Object.keys(obj)[0]}
+            valueOf={String()}
+            callback={String}
+            sendDataToParent={handleDataFromChild}
+            sendSettingFromChild={handleSettingFromChild}
+          />
+          <ReactSelectArray
+            name={Object.keys(obj)[1]}
+            sendDataToParent={handleDataFromChild}
+            sendSettingFromChild={handleSettingFromChild}
+          />
+          <ReactSelectArray
+            name={Object.keys(obj)[2]}
+            sendDataToParent={handleDataFromChild}
+            sendSettingFromChild={handleSettingFromChild}
+          />
+          <ReactSelectArray
+            name={Object.keys(obj)[3]}
+            sendDataToParent={handleDataFromChild}
+            sendSettingFromChild={handleSettingFromChild}
+          />
+          <ReactSelectOperation
+            name1={"operation"}
+            name2={"stTime"}
+            OperationObj={handleDataFromOperation}
+          />
+        </div>
       </div>
     );
   };
