@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import ReactSelectText from "./TextControl";
 
 function ReactSelectOperation(props) {
+  const obj = props.obj;
   const name1 = props.name1;
   const name2 = props.name2;
-  const update = props.update;
   const [dataName, setDataName] = useState("");
   const [datastTime, setstTime] = useState("");
 
@@ -43,18 +43,19 @@ function ReactSelectOperation(props) {
   const handleClick = (e) => {
     e.preventDefault();
     OperationObj(myObj);
-    update;
     alert("you sendet data" + JSON.stringify(myObj));
   };
   return (
     <div>
       <ReactSelectText
+        obj={obj}
         name={name1}
         valueOf={String()}
         callback={String}
         objbuild={handleNameFromChild}
       />
       <ReactSelectText
+        obj={obj}
         name={name2}
         valueOf={Number()}
         callback={Number}

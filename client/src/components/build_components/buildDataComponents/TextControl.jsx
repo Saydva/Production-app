@@ -7,6 +7,7 @@ function ReactSelectText(props) {
   const valueSet = props.valueSet; // to make input readonly
   const sendDataToParent = props.sendDataToParent;
   const sendSettingFromChild = props.sendSettingFromChild;
+
   let objbuild = props.objbuild;
 
   useEffect(() => {

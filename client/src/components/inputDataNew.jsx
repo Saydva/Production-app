@@ -196,7 +196,6 @@ function InputData(props) {
             name1={"operation"}
             name2={"stTime"}
             OperationObj={handleDataFromOperation}
-            update={update}
           />
         </div>
       </div>
