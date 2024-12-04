@@ -1,93 +1,52 @@
 import React, { useState } from "react";
-import ReactSelectText from "./TextControl";
 
 function ReactSelectOperation(props) {
-  const obj = props.obj;
+  const name = props.name;
   const name1 = props.name1;
   const name2 = props.name2;
-  const [dataName, setDataName] = useState("");
-  const [datastTime, setstTime] = useState("");
+  const sendData = props.handleData;
 
-  const OperationObj = props.OperationObj;
+  const [operationObj, setOperationObj] = useState({});
 
-  // if (props.OperationObj) {
-  //   OperationObj = props.OperationObj;
-  // }
-
-  // let OperationObj;
-
-  let myObj = {};
-
-  if (dataName && datastTime) {
-    myObj.name = dataName;
-    myObj.stTime = datastTime;
-  }
-
-  const handleNameFromChild = (data) => {
-    setDataName(data);
+  const handleOperationTextName = (e) => {
+    const text = e.target.value;
+    setOperationObj({ ...operationObj, name: text });
   };
 
-  const handlestTimeFromChild = (data) => {
-    setstTime(data);
+  const handleOperationTextTime = (e) => {
+    const number = Number(e.target.value);
+    setOperationObj({ ...operationObj, time: number });
   };
 
-  const [isHover, setIsHover] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHover(true);
-  };
-  const handleMouseLeave = () => {
-    setIsHover(false);
+  const handlePush = () => {
+    if (operationObj.name && operationObj.time) {
+      sendData(operationObj, name);
+    }
+    console.log(name);
   };
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    OperationObj(myObj);
-    alert("you sendet data" + JSON.stringify(myObj));
-  };
   return (
-    <div>
-      <ReactSelectText
-        obj={obj}
-        name={name1}
-        valueOf={String()}
-        callback={String}
-        objbuild={handleNameFromChild}
-      />
-      <ReactSelectText
-        obj={obj}
-        name={name2}
-        valueOf={Number()}
-        callback={Number}
-        objbuild={handlestTimeFromChild}
-      />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "end",
-          paddingRight: "0.5rem",
-        }}
-      >
-        <button
-          style={{
-            border: "3px solid grey",
-            borderRadius: "4px",
-            padding: "0.3rem",
-            width: "6rem",
-            backgroundColor: isHover ? "#dfdfe4" : "transparent",
-          }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          onClick={handleClick}
-        >
-          <img
-            src="/svg/button.svg"
-            style={{ height: "1.5rem", width: "1.5rem" }}
-            alt=""
-          />
-        </button>
+    <>
+      <div className="row">
+        <label htmlFor={name1}>{name1}...</label>
+        <input
+          type="text"
+          id={name1}
+          className="myInput"
+          onChange={handleOperationTextName}
+        />
       </div>
-    </div>
+      <div className="row">
+        <label htmlFor={name2}>{name2}...</label>
+        <input
+          type="text"
+          id={name2}
+          className="myInput"
+          onChange={handleOperationTextTime}
+        />
+        <button onClick={handlePush}>Push</button>
+      </div>
+    </>
   );
 }
 

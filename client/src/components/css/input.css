@@ -1,0 +1,27 @@
+/* * {
+  border: solid, 1px, red;
+} */
+
+.buildPage {
+  width: 20em;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  max-width: 20rem;
+}
+.myInput {
+  height: 36px;
+}
+
+.row {
+  display: flex;
+}
+label {
+  margin-left: 1rem;
+  width: 6rem;
+}
+button {
+  margin-left: 0.51rem;
+}

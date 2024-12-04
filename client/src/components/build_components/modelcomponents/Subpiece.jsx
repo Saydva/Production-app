@@ -1,5 +1,7 @@
 import React from "react";
-import InputData from "../../inputDataNew";
+
+// inputData use property to render component properly, all basic components are one component
+import InputData from "../../inputData";
 
 function SubPiece() {
   const property = "subpiece";

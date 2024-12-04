@@ -1,5 +1,5 @@
 import React from "react";
-import InputData from "../../inputDataNew";
+import InputData from "../../inputData";
 
 function Piece() {
   const property = "piece";

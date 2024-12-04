@@ -19,11 +19,7 @@ function Test() {
   return (
     <div className="objContainer">
       <h4>Test</h4>
-      <ReactSelectOperation
-        name1={"First name"}
-        name2={"Last name"}
-        OperationObj={handleDataFromOperation}
-      />
+      <ReactSelectOperation name1={"input1"} name2={"input2"} />
     </div>
   );
 }
