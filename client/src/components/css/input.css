@@ -3,13 +3,14 @@
 } */
 
 .buildPage {
-  width: 20em;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .input {
   max-width: 20rem;
+  display: flex;
+  flex-direction: column;
 }
 .myInput {
   height: 36px;
@@ -24,4 +25,17 @@ label {
 }
 button {
   margin-left: 0.51rem;
+}
+.hidden {
+  display: none;
+}
+
+li {
+  margin-left: 1rem;
+  height: 38px;
+  list-style-type: none;
+}
+
+li:last-child {
+  height: 76px;
 }

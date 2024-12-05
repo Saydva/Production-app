@@ -13,7 +13,10 @@ function ReactSelectArray(props) {
 
   // handle sendet data
   const handleSend = () => {
-    sendData(userChoice, name);
+    if (userChoice.length != 0) {
+      sendData(userChoice, name);
+      console.log(userChoice);
+    }
   };
 
   return (

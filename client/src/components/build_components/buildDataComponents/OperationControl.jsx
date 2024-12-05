@@ -22,7 +22,6 @@ function ReactSelectOperation(props) {
     if (operationObj.name && operationObj.time) {
       sendData(operationObj, name);
     }
-    console.log(name);
   };
 
   return (

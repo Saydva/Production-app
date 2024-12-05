@@ -24,25 +24,30 @@ function InputData(props) {
 
   // data from text input
   const handleDataFromText = (childData, name) => {
-    obj[name].push(childData);
-    console.log(obj);
+    if (childData) {
+      setObj({ ...obj, partName: childData });
+    }
   };
 
   // data from operations inputs
 
   const handleDataOperations = (childData, name) => {
     obj[name].push(childData);
-    console.log(obj);
+    if (childData) {
+      setObj({ ...obj });
+    }
   };
 
-  // data from React-Select
+  // data from React-Select input
 
   const handleDataSelect = (childData, name) => {
     obj[name].push(childData);
-    console.log(obj);
+    if (childData) {
+      setObj({ ...obj });
+    }
   };
 
-  // before send remove falsy(unused) keys from obj
+  // first remove falsy(unused) keys from obj
 
   let delKeys = [];
 
@@ -63,7 +68,14 @@ function InputData(props) {
     });
   }
 
+  // component to render list of obj values
+
+  const list = Object.values(obj).map((e, i) => {
+    return <li key={i}>{JSON.stringify(e)}</li>;
+  });
+
   // implement axios
+
   let postData = async () => {
     console.log(obj);
     await axios
@@ -77,6 +89,8 @@ function InputData(props) {
         console.log(err.message);
       });
   };
+
+  // returning 3 elements depending on the property witch comes wit selected route
 
   const PieceElement = () => {
     return (
@@ -102,7 +116,9 @@ function InputData(props) {
             handleData={handleDataOperations}
           />
         </div>
-        <div className="result"></div>
+        <div className="result">
+          <p>{list}</p>
+        </div>
       </div>
     );
   };
