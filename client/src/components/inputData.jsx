@@ -9,6 +9,10 @@ import standartTimeCalc from "./build_components/exeternelFunctions";
 function InputData(props) {
   const property = props.property;
 
+  // result from axios useState
+
+  const [result, setResult] = useState("");
+
   //obj to store data
 
   const [obj, setObj] = useState({
@@ -21,7 +25,27 @@ function InputData(props) {
     operations: [],
   });
 
-  // function to calculate stTime
+  // implement axios
+  const postUrl = (property) => {
+    const url = property;
+
+    return "http://localhost:3000/" + url;
+  };
+  // console.log(postUrl(property));
+
+  let postData = async () => {
+    console.log(obj);
+    await axios
+      .post(postUrl(property), obj)
+      .then((response) => {
+        setResult(JSON.stringify(response));
+        console.log(response, property);
+      })
+      .catch((err) => {
+        setResult(JSON.stringify(err.message));
+        console.log(err.message);
+      });
+  };
 
   // handle inputs data
 
@@ -58,6 +82,7 @@ function InputData(props) {
   const handleDb = (e) => {
     e.preventDefault();
     console.log("sendet", obj);
+    postData(obj);
   };
 
   // first remove falsy(unused) keys from obj
@@ -86,22 +111,6 @@ function InputData(props) {
   const list = Object.values(obj).map((e, i) => {
     return <li key={i}>{JSON.stringify(e)}</li>;
   });
-
-  // implement axios
-
-  let postData = async () => {
-    console.log(obj);
-    await axios
-      .post("http://localhost:3000/model", obj)
-      .then((response) => {
-        setResult(response);
-        console.log(response);
-      })
-      .catch((err) => {
-        setResult(err.message);
-        console.log(err.message);
-      });
-  };
 
   // returning 3 elements depending on the property witch comes wit selected route
 
@@ -132,6 +141,7 @@ function InputData(props) {
             name={Object.keys(obj)[4]}
             handleData={handleDataOperations}
           />
+          <p>{JSON.stringify(obj)}</p>
         </div>
         <div className="result">
           <p>{list}</p>
@@ -139,6 +149,7 @@ function InputData(props) {
         <button className="dataButton" onClick={handleDb}>
           Send To db
         </button>
+        <p>{result}</p>
       </div>
     );
   };
@@ -174,6 +185,10 @@ function InputData(props) {
         <div className="result">
           <p>{list}</p>
         </div>
+        <button className="dataButton" onClick={handleDb}>
+          Send To db
+        </button>
+        <p>{result}</p>
       </div>
     );
   };
@@ -210,6 +225,10 @@ function InputData(props) {
         <div className="result">
           <p>{list}</p>
         </div>
+        <button className="dataButton" onClick={handleDb}>
+          Send To db
+        </button>
+        <p>{result}</p>
       </div>
     );
   };

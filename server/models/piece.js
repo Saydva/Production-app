@@ -6,7 +6,7 @@ const PieceSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  stTime: {
+  partStTime: {
     type: Number,
     required: true,
   },
@@ -15,6 +15,10 @@ const PieceSchema = new mongoose.Schema({
   },
   option: {
     type: Array,
+  },
+  operation: {
+    type: Array,
+    required: true,
   },
 });
 

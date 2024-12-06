@@ -64,7 +64,7 @@ postModel = async function (req, res) {
 postPiece = async function (req, res) {
   const data = new Piece({
     partName: req.body.partName,
-    stTime: req.body.stTime,
+    partStTime: req.body.partStTime,
     category: req.body.category,
     option: req.body.material,
   });

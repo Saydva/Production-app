@@ -34,10 +34,11 @@ POST http://localhost:3000/piece
 Content-Type: application/json
 
 {
-    "partName":"an",
-    "stTime":0.7,
+    "partName":"another",
+    "partStTime": 7,
     "category": ["group"],
-    "option":["metal"]
+    "option":["metal"],
+    "operation":[""]
 }
 
 ###
