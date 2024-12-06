@@ -4,6 +4,7 @@ import ReactSelectArray from "./build_components/buildDataComponents/ArrayContro
 import ReactSelectText from "./build_components/buildDataComponents/TextControl";
 import ReactSelectOperation from "./build_components/buildDataComponents/OperationControl";
 import "./css/input.css";
+import standartTimeCalc from "./build_components/exeternelFunctions";
 
 function InputData(props) {
   const property = props.property;
@@ -12,13 +13,15 @@ function InputData(props) {
 
   const [obj, setObj] = useState({
     partName: "",
-    partStTime: "",
+    partStTime: 0,
     piecec: [],
     subpiecec: [],
     category: [],
     option: [],
     operations: [],
   });
+
+  // function to calculate stTime
 
   // handle inputs data
 
@@ -34,7 +37,10 @@ function InputData(props) {
   const handleDataOperations = (childData, name) => {
     obj[name].push(childData);
     if (childData) {
-      setObj({ ...obj });
+      const set = standartTimeCalc(obj);
+      console.log(set);
+      setObj({ ...obj, partStTime: set });
+      console.log(set);
     }
   };
 
@@ -45,6 +51,13 @@ function InputData(props) {
     if (childData) {
       setObj({ ...obj });
     }
+  };
+
+  // handle data to database
+
+  const handleDb = (e) => {
+    e.preventDefault();
+    console.log("sendet", obj);
   };
 
   // first remove falsy(unused) keys from obj
@@ -100,7 +113,49 @@ function InputData(props) {
             name={Object.keys(obj)[0]}
             handleData={handleDataFromText}
           />
-          <ReactSelectText name={Object.keys(obj)[1]} />
+          <ReactSelectText
+            name={Object.keys(obj)[1]}
+            num={Object.values(obj)[1]}
+            settingFromParent={true}
+          />
+          <ReactSelectArray
+            name={Object.keys(obj)[2]}
+            handleData={handleDataSelect}
+          />
+          <ReactSelectArray
+            name={Object.keys(obj)[3]}
+            handleData={handleDataSelect}
+          />
+          <ReactSelectOperation
+            name1={"operation"}
+            name2={"stTime"}
+            name={Object.keys(obj)[4]}
+            handleData={handleDataOperations}
+          />
+        </div>
+        <div className="result">
+          <p>{list}</p>
+        </div>
+        <button className="dataButton" onClick={handleDb}>
+          Send To db
+        </button>
+      </div>
+    );
+  };
+
+  const SubPieceElemet = () => {
+    return (
+      <div className="buildPage">
+        <div className="input">
+          <ReactSelectText
+            name={Object.keys(obj)[0]}
+            handleData={handleDataFromText}
+          />
+          <ReactSelectText
+            name={Object.keys(obj)[1]}
+            num={Object.values(obj)[1]}
+            settingFromParent={true}
+          />
           <ReactSelectArray
             name={Object.keys(obj)[2]}
             handleData={handleDataSelect}
@@ -123,27 +178,6 @@ function InputData(props) {
     );
   };
 
-  const SubPieceElemet = () => {
-    return (
-      <div className="buildPage">
-        <div className="input">
-          <ReactSelectText
-            name={Object.keys(obj)[0]}
-            handleData={handleDataFromText}
-          />
-          <ReactSelectText
-            name={Object.keys(obj)[1]}
-            handleData={handleDataFromText}
-          />
-          <ReactSelectArray name={Object.keys(obj)[2]} />
-          <ReactSelectArray name={Object.keys(obj)[3]} />
-          <ReactSelectOperation name1={"operation"} name2={"stTime"} />
-        </div>
-        <div className="result"></div>
-      </div>
-    );
-  };
-
   const ModelElement = () => {
     return (
       <div className="buildPage">
@@ -154,19 +188,31 @@ function InputData(props) {
           />
           <ReactSelectText
             name={Object.keys(obj)[1]}
-            handleData={handleDataFromText}
+            num={Object.values(obj)[1]}
+            settingFromParent={true}
           />
 
-          <ReactSelectArray name={Object.keys(obj)[2]} />
-          <ReactSelectArray name={Object.keys(obj)[3]} />
-          <ReactSelectOperation name1={"operation"} name2={"stTime"} />
-          <div className="result"></div>
+          <ReactSelectArray
+            name={Object.keys(obj)[2]}
+            handleData={handleDataSelect}
+          />
+          <ReactSelectArray
+            name={Object.keys(obj)[3]}
+            handleData={handleDataSelect}
+          />
+          <ReactSelectOperation
+            name1={"operation"}
+            name2={"stTime"}
+            name={Object.keys(obj)[4]}
+            handleData={handleDataOperations}
+          />
+        </div>
+        <div className="result">
+          <p>{list}</p>
         </div>
       </div>
     );
   };
-
-  // console.log(parentState);
 
   if (property == "piece") {
     return <PieceElement />;

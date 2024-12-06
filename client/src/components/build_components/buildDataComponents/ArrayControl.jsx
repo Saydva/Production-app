@@ -15,7 +15,6 @@ function ReactSelectArray(props) {
   const handleSend = () => {
     if (userChoice.length != 0) {
       sendData(userChoice, name);
-      console.log(userChoice);
     }
   };
 

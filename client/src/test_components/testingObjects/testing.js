@@ -3,15 +3,17 @@
 let delKyes = ["piece", "subpiecec", "operations"];
 
 let obj = {
-  partName: "No Name",
-  stTime: "No time",
+  partName: "dodo",
+  stTime: 6,
   piecec: [],
-  subpiecec: [],
-  category: [],
+  subpiecec: [{ value: "Rocking Chair", label: "Rocking Chair" }],
+  category: [{ value: "Armchair", label: "Armchair" }],
   option: [],
-  operations: [],
+  operations: [
+    { name: "1", time: 1 },
+    { name: "assembly", time: 1.3 },
+  ],
 };
-console.log(obj);
 
 function deleteObjKeys(obj, arr) {
   arr.forEach((element) => {
@@ -19,7 +21,27 @@ function deleteObjKeys(obj, arr) {
   });
 }
 
-deleteObjKeys(obj, delKyes);
+let arr = [];
 
-let newObj = obj;
-console.log(newObj);
+function iterateObject(obj, arr) {
+  for (let key in obj) {
+    if (typeof obj[key] === "object" && obj[key] !== null) {
+      iterateObject(obj[key], arr);
+    } else {
+      if (key == "time") {
+        arr.push(obj[key]);
+      }
+    }
+  }
+}
+
+iterateObject(obj, arr);
+const countStTime = (arr) => {
+  let n = 0;
+  for (let e of arr) {
+    n = n + e;
+  }
+  return n;
+};
+console.log(arr);
+console.log(countStTime(arr));
