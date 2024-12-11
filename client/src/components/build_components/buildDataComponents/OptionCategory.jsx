@@ -23,13 +23,13 @@ function ReactOptionCategory(props) {
     sendData(childData, name);
   };
 
-  if (Object.values(option).length != 0) {
-    console.log(option, sendOpt);
-  }
+  // if (Object.values(option).length != 0) {
+  //   console.log(option, sendOpt);
+  // }
 
-  if (Object.values(category).length != 0) {
-    console.log(category, sendCat);
-  }
+  // if (Object.values(category).length != 0) {
+  //   console.log(category, sendCat);
+  // }
 
   return (
     <div>

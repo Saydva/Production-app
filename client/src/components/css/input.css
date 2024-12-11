@@ -57,3 +57,14 @@ a {
 .dataButton {
   align-self: flex-end;
 }
+
+.OptCat {
+  margin-left: 1rem;
+  align-items: center;
+}
+
+.OptCat p {
+  margin-right: 0.5rem;
+  margin-top: 4px;
+  padding: 2px;
+}

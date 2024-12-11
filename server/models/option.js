@@ -8,6 +8,7 @@ const OptionSchema = new mongoose.Schema({
   value: {
     type: String,
     required: true,
+    unique: true,
   },
 });
 

@@ -6,6 +6,7 @@ import ReactSelectOperation from "./build_components/buildDataComponents/Operati
 import "./css/input.css";
 import standartTimeCalc from "./build_components/exeternalFunctions";
 import ReactOptionCategory from "./build_components/buildDataComponents/OptionCategory";
+import { use } from "react";
 
 function InputData(props) {
   const property = props.property;
@@ -83,16 +84,59 @@ function InputData(props) {
 
   // handle data from Option and category
 
+  const [optionData, setOptionData] = useState({});
+  const [categoryData, setCategoryData] = useState({});
+
   const handleOptCatData = (childData, name) => {
-    console.log(childData, name);
+    if (name == "option") {
+      setOptionData(childData);
+    }
+    if (name == "category") {
+      setCategoryData(childData);
+    }
   };
 
-  // handle data to database
+  // handle data to database from components - piece, subPiece, model
 
   const handleDb = (e) => {
     e.preventDefault();
     console.log("sendet", obj);
     postData(obj);
+  };
+
+  // handle data to database from option and
+
+  let postOptCat = async (data, urlData) => {
+    console.log(data, categoryData);
+    await axios
+      .post(urlData, data)
+      .then((response) => {
+        setResult(JSON.stringify(response));
+        console.log(response, property);
+      })
+      .catch((err) => {
+        setResult(JSON.stringify(err.message));
+        console.log(err.message);
+      });
+  };
+
+  function objectNotEmpty(object) {
+    return Object.values(object) != 0;
+  }
+
+  const handleDbOptionCategory = (e) => {
+    e.preventDefault();
+    if (objectNotEmpty(optionData)) {
+      console.log("sending");
+      postOptCat(optionData, postUrl("option"));
+      console.log("sendet", optionData, postUrl("option"));
+    }
+    if (objectNotEmpty(categoryData)) {
+      console.log("sendet", categoryData, postUrl("category"));
+      postOptCat(categoryData, postUrl("category"));
+    }
+    setOptionData({});
+    setCategoryData({});
   };
 
   // first remove falsy(unused) keys from obj
@@ -243,13 +287,35 @@ function InputData(props) {
     );
   };
 
+  const OptionResult = () => {
+    return (
+      <div>
+        <div className="OptCat">
+          <h4 className="heading">Option data</h4>
+          <p className="myInput">Name: {optionData.name}</p>
+          <p className="myInput">Value: {optionData.value}</p>
+        </div>
+        <div className="OptCat">
+          <h4 className="heading">Category data</h4>
+          <p className="myInput">Name: {categoryData.name}</p>
+          <p className="myInput">Value: {categoryData.value}</p>
+        </div>
+      </div>
+    );
+  };
+
   const OptionCategory = () => {
     return (
       <div className="buildPage">
         <div className="input">
           <ReactOptionCategory handleData={handleOptCatData} />
         </div>
-        <div className="result"></div>
+        <div className="result">
+          <OptionResult />
+        </div>
+        <button className="dataButton" onClick={handleDbOptionCategory}>
+          Send To db
+        </button>
       </div>
     );
   };
