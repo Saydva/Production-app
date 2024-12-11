@@ -1,26 +1,14 @@
-import React, { useEffect, useState } from "react";
-import ReactSelectText from "../buildDataComponents/TextControl";
-import ReactSelectOperation from "../buildDataComponents/OperationControl";
-import ReactSelectArray from "../buildDataComponents/ArrayControl";
+import React from "react";
 
 function Test() {
-  const [dataFromOperation, setDataFromOperation] = useState("");
-
-  const handleDataFromOperation = (data) => {
-    setDataFromOperation(data);
-  };
-
-  useEffect(() => {
-    if (dataFromOperation) {
-      console.log(dataFromOperation);
-    }
-  }, [dataFromOperation]);
-
   return (
-    <div className="objContainer">
-      <h4>Test</h4>
-      <ReactSelectOperation name1={"input1"} name2={"input2"} />
-    </div>
+    // <div className="buildPage">
+    //   <div className="input">
+    //     <OptionCategory />
+    //   </div>
+    //   <div className="result"></div>
+    // </div>
+    <>test page</>
   );
 }
 

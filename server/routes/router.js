@@ -3,6 +3,8 @@ const router = express.Router();
 const Model = require("../models/model");
 const Subpiece = require("../models/subpiece");
 const Piece = require("../models/piece");
+const Option = require("../models/option");
+const Category = require("../models/category");
 //get all
 
 getModel = async function (req, res) {
@@ -66,7 +68,7 @@ postPiece = async function (req, res) {
     partName: req.body.partName,
     partStTime: req.body.partStTime,
     category: req.body.category,
-    option: req.body.material,
+    option: req.body.option,
   });
   try {
     const newData = await data.save();
@@ -90,9 +92,37 @@ postSubPiece = async function (req, res) {
   }
 };
 
+postOption = async function (req, res) {
+  const data = new Option({
+    name: req.body.name,
+    value: req.body.value,
+  });
+  try {
+    const newData = await data.save();
+    res.status(201).json(newData);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+postCategory = async function (req, res) {
+  const data = new Category({
+    name: req.body.name,
+    value: req.body.value,
+  });
+  try {
+    const newData = await data.save();
+    res.status(201).json(newData);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
 router.post("/model", postModel);
 router.post("/piece", postPiece);
 router.post("/subpiece", postSubPiece);
+router.post("/option", postOption);
+router.post("/category", postCategory);
 
 //update
 router.patch("/:id", getDataId, async (req, res) => {

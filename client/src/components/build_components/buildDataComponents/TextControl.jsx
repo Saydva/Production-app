@@ -12,6 +12,7 @@ function ReactSelectText(props) {
   const handleText = (e) => {
     if (sendData) {
       text = e.target.value;
+      console.log(text, name);
     }
   };
 
@@ -32,12 +33,14 @@ function ReactSelectText(props) {
           value={num}
           readOnly={settingFromParent}
         />
-        {name != "partStTime" ? (
+        {name === "partStTime" ||
+        name === "Option name" ||
+        name === "Category name" ? (
+          ""
+        ) : (
           <button onClick={send} id={name}>
             Save
           </button>
-        ) : (
-          ""
         )}
       </div>
     </>

@@ -4,7 +4,8 @@ import ReactSelectArray from "./build_components/buildDataComponents/ArrayContro
 import ReactSelectText from "./build_components/buildDataComponents/TextControl";
 import ReactSelectOperation from "./build_components/buildDataComponents/OperationControl";
 import "./css/input.css";
-import standartTimeCalc from "./build_components/exeternelFunctions";
+import standartTimeCalc from "./build_components/exeternalFunctions";
+import ReactOptionCategory from "./build_components/buildDataComponents/OptionCategory";
 
 function InputData(props) {
   const property = props.property;
@@ -26,12 +27,15 @@ function InputData(props) {
   });
 
   // implement axios
+  // console.log(postUrl(property));
+
   const postUrl = (property) => {
     const url = property;
 
     return "http://localhost:3000/" + url;
   };
-  // console.log(postUrl(property));
+
+  //and finaly post obj to mongodb
 
   let postData = async () => {
     console.log(obj);
@@ -75,6 +79,12 @@ function InputData(props) {
     if (childData) {
       setObj({ ...obj });
     }
+  };
+
+  // handle data from Option and category
+
+  const handleOptCatData = (childData, name) => {
+    console.log(childData, name);
   };
 
   // handle data to database
@@ -233,12 +243,25 @@ function InputData(props) {
     );
   };
 
+  const OptionCategory = () => {
+    return (
+      <div className="buildPage">
+        <div className="input">
+          <ReactOptionCategory handleData={handleOptCatData} />
+        </div>
+        <div className="result"></div>
+      </div>
+    );
+  };
+
   if (property == "piece") {
     return <PieceElement />;
   } else if (property == "subpiece") {
     return <SubPieceElemet />;
   } else if (property == "model") {
     return <ModelElement />;
+  } else if (property == "optionCategory") {
+    return <OptionCategory />;
   }
 }
 

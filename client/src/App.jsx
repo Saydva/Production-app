@@ -4,10 +4,11 @@ import "./App.css";
 
 import BuilData from "./components/build_components/elemntaryRoutes/BuildData";
 import Home from "./components/build_components/elemntaryRoutes/Home";
-import Piece from "./components/build_components/modelcomponents/Piece";
-import SubPiece from "./components/build_components/modelcomponents/Subpiece";
-import Model from "./components/build_components/modelcomponents/Model";
+import Piece from "./components/build_components/modelComponents/Piece";
+import SubPiece from "./components/build_components/modelComponents/Subpiece";
+import Model from "./components/build_components/modelComponents/Model";
 import TestingPage from "./components/build_components/elemntaryRoutes/TestingPage";
+import OptionCategoty from "./components/build_components/modelComponents/OptionCategory";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="piece" element={<Piece />} />
             <Route path="subpiece" element={<SubPiece />} />
             <Route path="model" element={<Model />} />
+            <Route path="optionCategory" element={<OptionCategoty />} />
             <Route path="test" element={<TestingPage />} />
           </Route>
         </Routes>

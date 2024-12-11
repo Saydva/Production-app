@@ -5,6 +5,7 @@ import InputData from "../../inputData";
 
 function SubPiece() {
   const property = "subpiece";
+
   return (
     <div className="objContainer">
       <h4>Subpiece</h4>

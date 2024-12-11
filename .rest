@@ -54,6 +54,26 @@ Content-Type: application/json
 
 ###
 
+
+POST   http://localhost:3000/option
+Content-Type: application/json
+
+{
+ "name":"dosdasdad",
+ "value":"one"
+}
+
+###
+
+POST   http://localhost:3000/category
+Content-Type: application/json
+
+{
+ "name":"do",
+ "value":"e"
+}
+###
+
 //delete data by id
 DELETE http://localhost:3000/data/6702b6bac87f369241c6fc1b
 

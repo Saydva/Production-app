@@ -64,3 +64,8 @@ body {
 input .time {
   padding-left: 1rem;
 }
+
+.heading {
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+}
