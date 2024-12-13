@@ -13,6 +13,12 @@ const ModelSchema = new mongoose.Schema({
   piecec: {
     type: Array,
   },
+  subPiecec: {
+    type: Array,
+  },
+  operation: {
+    type: Array,
+  },
 });
 
 module.exports = mongoose.model("Model", ModelSchema);

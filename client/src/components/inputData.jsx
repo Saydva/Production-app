@@ -6,7 +6,6 @@ import ReactSelectOperation from "./build_components/buildDataComponents/Operati
 import "./css/input.css";
 import standartTimeCalc from "./build_components/exeternalFunctions";
 import ReactOptionCategory from "./build_components/buildDataComponents/OptionCategory";
-import { use } from "react";
 
 function InputData(props) {
   const property = props.property;
@@ -39,7 +38,6 @@ function InputData(props) {
   //and finaly post obj to mongodb
 
   let postData = async () => {
-    console.log(obj);
     await axios
       .post(postUrl(property), obj)
       .then((response) => {
@@ -67,9 +65,7 @@ function InputData(props) {
     obj[name].push(childData);
     if (childData) {
       const set = standartTimeCalc(obj);
-      console.log(set);
       setObj({ ...obj, partStTime: set });
-      console.log(set);
     }
   };
 
@@ -100,14 +96,14 @@ function InputData(props) {
 
   const handleDb = (e) => {
     e.preventDefault();
-    console.log("sendet", obj);
+    console.log(obj, property);
     postData(obj);
   };
 
   // handle data to database from option and
 
   let postOptCat = async (data, urlData) => {
-    console.log(data, categoryData);
+    console.log(data);
     await axios
       .post(urlData, data)
       .then((response) => {
@@ -127,12 +123,9 @@ function InputData(props) {
   const handleDbOptionCategory = (e) => {
     e.preventDefault();
     if (objectNotEmpty(optionData)) {
-      console.log("sending");
       postOptCat(optionData, postUrl("option"));
-      console.log("sendet", optionData, postUrl("option"));
     }
     if (objectNotEmpty(categoryData)) {
-      console.log("sendet", categoryData, postUrl("category"));
       postOptCat(categoryData, postUrl("category"));
     }
     setOptionData({});
@@ -195,7 +188,6 @@ function InputData(props) {
             name={Object.keys(obj)[4]}
             handleData={handleDataOperations}
           />
-          <p>{JSON.stringify(obj)}</p>
         </div>
         <div className="result">
           <p>{list}</p>
@@ -316,6 +308,7 @@ function InputData(props) {
         <button className="dataButton" onClick={handleDbOptionCategory}>
           Send To db
         </button>
+        <p>{result}</p>
       </div>
     );
   };

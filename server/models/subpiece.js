@@ -11,6 +11,10 @@ const SubpieceSchema = new mongoose.Schema({
   category: {
     type: Array,
   },
+  operation: {
+    type: Array,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Subpiece", SubpieceSchema);

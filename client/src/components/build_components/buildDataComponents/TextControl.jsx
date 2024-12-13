@@ -12,7 +12,6 @@ function ReactSelectText(props) {
   const handleText = (e) => {
     if (sendData) {
       text = e.target.value;
-      console.log(text, name);
     }
   };
 

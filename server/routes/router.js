@@ -52,8 +52,11 @@ router.get("/:id", getDataId, (req, res) => {
 postModel = async function (req, res) {
   const data = new Model({
     partName: req.body.partName,
+    partStTime: req.body.partStTime,
     subpiecec: req.body.subpiecec,
     piecec: req.body.piecec,
+    subPiecec: req.body.subPiecec,
+    operation: req.body.operation,
   });
   try {
     const newData = await data.save();
@@ -81,8 +84,10 @@ postPiece = async function (req, res) {
 postSubPiece = async function (req, res) {
   const data = new Subpiece({
     partName: req.body.partName,
+    partStTime: req.body.partStTime,
     piecec: req.body.piecec,
     category: req.body.category,
+    operation: req.body.operation,
   });
   try {
     const newData = await data.save();
