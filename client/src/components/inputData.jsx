@@ -3,14 +3,14 @@ import axios from "axios";
 import ReactSelectArray from "./build_components/buildDataComponents/ArrayControl";
 import ReactSelectText from "./build_components/buildDataComponents/TextControl";
 import ReactSelectOperation from "./build_components/buildDataComponents/OperationControl";
-import "./css/input.css";
 import standartTimeCalc from "./build_components/exeternalFunctions";
 import ReactOptionCategory from "./build_components/buildDataComponents/OptionCategory";
+import "./css/input.css";
 
 function InputData(props) {
   const property = props.property;
 
-  // result from axios useState
+  // result.message from axios useState
 
   const [result, setResult] = useState("");
 
@@ -31,7 +31,6 @@ function InputData(props) {
 
   const postUrl = (property) => {
     const url = property;
-
     return "http://localhost:3000/" + url;
   };
 
@@ -49,6 +48,28 @@ function InputData(props) {
         console.log(err.message);
       });
   };
+
+  //fetch datat from db to components
+
+  const [dataDb, setDataDb] = useState("");
+
+  let query = "options";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: response } = await axios.get(
+          `http://localhost:3000/${query}`
+        );
+        setDataDb({ ...dataDb, response });
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+  console.log(dataDb.response);
 
   // handle inputs data
 

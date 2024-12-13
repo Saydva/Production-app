@@ -5,41 +5,57 @@ const Subpiece = require("../models/subpiece");
 const Piece = require("../models/piece");
 const Option = require("../models/option");
 const Category = require("../models/category");
+const category = require("../models/category");
+
 //get all
-
-getModel = async function (req, res) {
+getModels = async function (req, res) {
   try {
-    const data = await Model.find();
+    const data = await Model.find({});
+    res.send(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+getPieces = async function (req, res) {
+  try {
+    const data = await Piece.find({});
+    res.send(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+getSubpieces = async function (req, res) {
+  try {
+    const data = await Subpiece.find({});
     res.send(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-getPiece = async function (req, res) {
+getOptions = async function (req, res) {
   try {
-    const data = await Piece.find();
+    const data = await Option.find({});
     res.send(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-getSubpiece = async function (req, res) {
+getCategories = async function (req, res) {
   try {
-    const data = await Subpiece.find();
+    const data = await Category.find({});
     res.send(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-router.get("/models", getModel);
-//get one by name
-
-router.get("/pieces", getPiece);
-
-router.get("/Subpieces", getSubpiece);
+router.get("/models", getModels);
+router.get("/pieces", getPieces);
+router.get("/Subpieces", getSubpieces);
+router.get("/options", getOptions);
+router.get("/categories", getCategories);
 
 //get one
 router.get("/:id", getDataId, (req, res) => {
