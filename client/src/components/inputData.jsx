@@ -51,25 +51,48 @@ function InputData(props) {
 
   //fetch datat from db to components
 
-  const [dataDb, setDataDb] = useState("");
+  const [dataDbOpt, setDataDbOpt] = useState("");
+  const [dataDbCat, setDataDbCat] = useState("");
+  const [dataDbPiece, setDataDbPiece] = useState("");
 
-  let query = "options";
+  const fetchDataOpt = async () => {
+    await axios
+      .get(`http://localhost:3000/options`)
+      .then((response) => {
+        setDataDbOpt(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const fetchDataCat = async () => {
+    await axios
+      .get(`http://localhost:3000/categories`)
+      .then((response) => {
+        setDataDbCat(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const fetchDataPiece = async () => {
+    await axios
+      .get(`http://localhost:3000/pieces`)
+      .then((response) => {
+        setDataDbPiece(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data: response } = await axios.get(
-          `http://localhost:3000/${query}`
-        );
-        setDataDb({ ...dataDb, response });
-      } catch (error) {
-        console.error(error.message);
-      }
-    };
-
-    fetchData();
+    fetchDataOpt();
+    fetchDataCat();
+    fetchDataPiece();
   }, []);
-  console.log(dataDb.response);
 
   // handle inputs data
 
@@ -124,16 +147,13 @@ function InputData(props) {
   // handle data to database from option and
 
   let postOptCat = async (data, urlData) => {
-    console.log(data);
     await axios
       .post(urlData, data)
       .then((response) => {
         setResult(JSON.stringify(response));
-        console.log(response, property);
       })
       .catch((err) => {
         setResult(JSON.stringify(err.message));
-        console.log(err.message);
       });
   };
 
@@ -198,10 +218,12 @@ function InputData(props) {
           <ReactSelectArray
             name={Object.keys(obj)[2]}
             handleData={handleDataSelect}
+            dataCategory={dataDbCat}
           />
           <ReactSelectArray
             name={Object.keys(obj)[3]}
             handleData={handleDataSelect}
+            dataOption={dataDbOpt}
           />
           <ReactSelectOperation
             name1={"operation"}
@@ -237,10 +259,12 @@ function InputData(props) {
           <ReactSelectArray
             name={Object.keys(obj)[2]}
             handleData={handleDataSelect}
+            dataPiece={dataDbPiece}
           />
           <ReactSelectArray
             name={Object.keys(obj)[3]}
             handleData={handleDataSelect}
+            dataCategory={dataDbCat}
           />
           <ReactSelectOperation
             name1={"operation"}
