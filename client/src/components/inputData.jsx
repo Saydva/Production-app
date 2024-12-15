@@ -13,6 +13,7 @@ function InputData(props) {
   // result.message from axios useState
 
   const [result, setResult] = useState("");
+  const [error, setError] = useState("");
 
   //obj to store data
 
@@ -26,8 +27,18 @@ function InputData(props) {
     operations: [],
   });
 
+  // ftemplate to clear obj properties after sending to db
+
+  const [template] = useState({
+    partName: "",
+    partStTime: 0,
+    piecec: [],
+    subpiecec: [],
+    category: [],
+    option: [],
+    operations: [],
+  });
   // implement axios
-  // console.log(postUrl(property));
 
   const postUrl = (property) => {
     const url = property;
@@ -40,12 +51,11 @@ function InputData(props) {
     await axios
       .post(postUrl(property), obj)
       .then((response) => {
-        setResult(JSON.stringify(response));
-        console.log(response, property);
+        setResult(response.statusText);
+        console.log(result);
       })
-      .catch((err) => {
-        setResult(JSON.stringify(err.message));
-        console.log(err.message);
+      .catch((error) => {
+        setError(error);
       });
   };
 
@@ -54,6 +64,7 @@ function InputData(props) {
   const [dataDbOpt, setDataDbOpt] = useState("");
   const [dataDbCat, setDataDbCat] = useState("");
   const [dataDbPiece, setDataDbPiece] = useState("");
+  const [dataDbSub, setDataDbSub] = useState("");
 
   const fetchDataOpt = async () => {
     await axios
@@ -62,7 +73,7 @@ function InputData(props) {
         setDataDbOpt(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        setError(error);
       });
   };
 
@@ -73,7 +84,7 @@ function InputData(props) {
         setDataDbCat(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        setError(error);
       });
   };
 
@@ -84,7 +95,18 @@ function InputData(props) {
         setDataDbPiece(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        setError(error);
+      });
+  };
+
+  const fetchDataSub = async () => {
+    await axios
+      .get(`http://localhost:3000/subPieces`)
+      .then((response) => {
+        setDataDbSub(response.data);
+      })
+      .catch((error) => {
+        setError(error);
       });
   };
 
@@ -92,6 +114,7 @@ function InputData(props) {
     fetchDataOpt();
     fetchDataCat();
     fetchDataPiece();
+    fetchDataSub();
   }, []);
 
   // handle inputs data
@@ -140,8 +163,9 @@ function InputData(props) {
 
   const handleDb = (e) => {
     e.preventDefault();
-    console.log(obj, property);
     postData(obj);
+    setObj(template);
+    console.log(result);
   };
 
   // handle data to database from option and
@@ -152,8 +176,8 @@ function InputData(props) {
       .then((response) => {
         setResult(JSON.stringify(response));
       })
-      .catch((err) => {
-        setResult(JSON.stringify(err.message));
+      .catch((error) => {
+        setError(error);
       });
   };
 
@@ -238,7 +262,7 @@ function InputData(props) {
         <button className="dataButton" onClick={handleDb}>
           Send To db
         </button>
-        <p>{result}</p>
+        <p>{error ? error.message : result}</p>
       </div>
     );
   };
@@ -301,10 +325,12 @@ function InputData(props) {
           <ReactSelectArray
             name={Object.keys(obj)[2]}
             handleData={handleDataSelect}
+            dataPiece={dataDbPiece}
           />
           <ReactSelectArray
             name={Object.keys(obj)[3]}
             handleData={handleDataSelect}
+            dataSubPiece={dataDbSub}
           />
           <ReactSelectOperation
             name1={"operation"}
@@ -353,7 +379,17 @@ function InputData(props) {
         <button className="dataButton" onClick={handleDbOptionCategory}>
           Send To db
         </button>
-        <p>{result}</p>
+        <p>
+          {
+            // result.data.name
+            // ? JSON.stringify(result.data.name) +
+            //   " was " +
+            //   JSON.stringify(result.statusText) +
+            //   ":  " +
+            //   JSON.stringify(result.status)
+            // : "Everithing ok"
+          }
+        </p>
       </div>
     );
   };
