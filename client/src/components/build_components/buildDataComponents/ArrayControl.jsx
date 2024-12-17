@@ -11,6 +11,7 @@ function ReactSelectArray(props) {
   const dataCategory = props.dataCategory;
   const dataPiece = props.dataPiece;
   const dataSubPiece = props.dataSubPiece;
+  const count = props.count;
 
   const option = [];
 

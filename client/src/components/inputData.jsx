@@ -3,8 +3,13 @@ import axios from "axios";
 import ReactSelectArray from "./build_components/buildDataComponents/ArrayControl";
 import ReactSelectText from "./build_components/buildDataComponents/TextControl";
 import ReactSelectOperation from "./build_components/buildDataComponents/OperationControl";
-import standartTimeCalc from "./build_components/exeternalFunctions";
 import ReactOptionCategory from "./build_components/buildDataComponents/OptionCategory";
+
+import {
+  standartTimeCalc,
+  incrementerObj,
+} from "../components/build_components/exeternalFunctions.js";
+
 import "./css/input.css";
 
 function InputData(props) {
@@ -27,7 +32,7 @@ function InputData(props) {
     operation: [],
   });
 
-  // ftemplate to clear obj properties after sending to db
+  // template to clear obj properties after sending to db
 
   const [template] = useState({
     partName: "",
@@ -139,10 +144,18 @@ function InputData(props) {
   // data from React-Select input
 
   const handleDataSelect = (childData, name) => {
-    obj[name].push(childData);
-    if (childData) {
-      setObj({ ...obj });
+    if (name == "piecec" || name == "subPiecec") {
+      incrementerObj(childData, obj[name], count);
+      setUsed(true);
+    } else {
+      obj[name].push(childData);
+      if (childData) {
+        setObj({ ...obj });
+      }
     }
+
+    console.log(name);
+    // obj[name].push(childData);
   };
 
   // handle data from Option and category
@@ -202,10 +215,10 @@ function InputData(props) {
   let delKeys = [];
 
   if (property == "piece") {
-    delKeys = ["piecec", "subpiecec"];
+    delKeys = ["piecec", "subPiecec"];
     deleteObjKeys(obj, delKeys);
   } else if (property == "subpiece") {
-    delKeys = ["stTime", "option", "subpiecec"];
+    delKeys = ["stTime", "option", "subPiecec"];
     deleteObjKeys(obj, delKeys);
   } else if (property == "model") {
     delKeys = ["stTime", "category", "option"];
@@ -223,6 +236,61 @@ function InputData(props) {
   const list = Object.values(obj).map((e, i) => {
     return <li key={i}>{JSON.stringify(e)}</li>;
   });
+
+  //component to increase quantity
+  const [count, setCount] = useState(1);
+  const [used, setUsed] = useState(false);
+
+  if (used === true) {
+    setUsed(false);
+    setCount(1);
+  }
+
+  function Count() {
+    // useState returns a pair. 'count' is the current state. 'setCount' is a function we can use to update the state.
+
+    function increment(e) {
+      setCount(function (prevCount) {
+        return (prevCount += 1);
+      });
+    }
+
+    function decrement(e) {
+      setCount(function (prevCount) {
+        if (prevCount > 2) {
+          return (prevCount -= 1);
+        } else {
+          return (prevCount = 1);
+        }
+      });
+    }
+
+    function empty(e) {
+      e.preventDefault();
+      e.target.value = "";
+    }
+
+    function handleCount(e) {
+      if (Number(e.target.value)) {
+        setCount(Number(e.target.value));
+      }
+    }
+
+    return (
+      <div className="count">
+        <label htmlFor="count">Qty element</label>
+        <input
+          id="count"
+          type="text"
+          defaultValue={count}
+          onBlur={handleCount}
+          onFocus={empty}
+        />
+        <button onClick={increment}>Increment</button>
+        <button onClick={decrement}>Decrement</button>
+      </div>
+    );
+  }
 
   // returning 3 elements depending on the property witch comes wit selected route
 
@@ -269,83 +337,89 @@ function InputData(props) {
 
   const SubPieceElemet = () => {
     return (
-      <div className="buildPage">
-        <div className="input">
-          <ReactSelectText
-            name={Object.keys(obj)[0]}
-            handleData={handleDataFromText}
-          />
-          <ReactSelectText
-            name={Object.keys(obj)[1]}
-            num={Object.values(obj)[1]}
-            settingFromParent={true}
-          />
-          <ReactSelectArray
-            name={Object.keys(obj)[2]}
-            handleData={handleDataSelect}
-            dataPiece={dataDbPiece}
-          />
-          <ReactSelectArray
-            name={Object.keys(obj)[3]}
-            handleData={handleDataSelect}
-            dataCategory={dataDbCat}
-          />
-          <ReactSelectOperation
-            name1={"operation"}
-            name2={"stTime"}
-            name={Object.keys(obj)[4]}
-            handleData={handleDataOperations}
-          />
+      <div>
+        <div className="buildPage">
+          <div className="input">
+            <ReactSelectText
+              name={Object.keys(obj)[0]}
+              handleData={handleDataFromText}
+            />
+            <ReactSelectText
+              name={Object.keys(obj)[1]}
+              num={Object.values(obj)[1]}
+              settingFromParent={true}
+            />
+            <ReactSelectArray
+              name={Object.keys(obj)[2]}
+              handleData={handleDataSelect}
+              dataPiece={dataDbPiece}
+            />
+            <ReactSelectArray
+              name={Object.keys(obj)[3]}
+              handleData={handleDataSelect}
+              dataCategory={dataDbCat}
+            />
+            <ReactSelectOperation
+              name1={"operation"}
+              name2={"stTime"}
+              name={Object.keys(obj)[4]}
+              handleData={handleDataOperations}
+            />
+          </div>
+          <div className="result">
+            <p>{list}</p>
+          </div>
+          <button className="dataButton" onClick={handleDb}>
+            Send To db
+          </button>
+          <p>{result}</p>
         </div>
-        <div className="result">
-          <p>{list}</p>
-        </div>
-        <button className="dataButton" onClick={handleDb}>
-          Send To db
-        </button>
-        <p>{result}</p>
+        <Count />
       </div>
     );
   };
 
   const ModelElement = () => {
     return (
-      <div className="buildPage">
-        <div className="input">
-          <ReactSelectText
-            name={Object.keys(obj)[0]}
-            handleData={handleDataFromText}
-          />
-          <ReactSelectText
-            name={Object.keys(obj)[1]}
-            num={Object.values(obj)[1]}
-            settingFromParent={true}
-          />
+      <div>
+        <div className="buildPage">
+          <div className="input">
+            <ReactSelectText
+              name={Object.keys(obj)[0]}
+              handleData={handleDataFromText}
+            />
+            <ReactSelectText
+              name={Object.keys(obj)[1]}
+              num={Object.values(obj)[1]}
+              settingFromParent={true}
+            />
 
-          <ReactSelectArray
-            name={Object.keys(obj)[2]}
-            handleData={handleDataSelect}
-            dataPiece={dataDbPiece}
-          />
-          <ReactSelectArray
-            name={Object.keys(obj)[3]}
-            handleData={handleDataSelect}
-            dataSubPiece={dataDbSub}
-          />
-          <ReactSelectOperation
-            name1={"operation"}
-            name2={"stTime"}
-            name={Object.keys(obj)[4]}
-            handleData={handleDataOperations}
-          />
+            <ReactSelectArray
+              name={Object.keys(obj)[2]}
+              handleData={handleDataSelect}
+              dataPiece={dataDbPiece}
+            />
+            <ReactSelectArray
+              name={Object.keys(obj)[3]}
+              handleData={handleDataSelect}
+              dataSubPiece={dataDbSub}
+            />
+            <ReactSelectOperation
+              name1={"operation"}
+              name2={"stTime"}
+              name={Object.keys(obj)[4]}
+              handleData={handleDataOperations}
+            />
+          </div>
+          <div className="result">
+            <p>{list}</p>
+          </div>
+          <button className="dataButton" onClick={handleDb}>
+            Send To db
+          </button>
+          <p>{result}</p>
         </div>
-        <div className="result">
-          <p>{list}</p>
-        </div>
-        <button className="dataButton" onClick={handleDb}>
-          Send To db
-        </button>
-        <p>{result}</p>
+        <Count />
       </div>
     );
   };

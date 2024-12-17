@@ -68,3 +68,11 @@ a {
   margin-top: 4px;
   padding: 2px;
 }
+
+.count {
+  margin-top: 0.3rem;
+}
+
+.count > label {
+  display: inline-block;
+}

@@ -1,4 +1,4 @@
-const standartTimeCalc = function (obj) {
+export function standartTimeCalc(obj) {
   let arr = [];
 
   function iterateObject(obj, arr) {
@@ -25,6 +25,10 @@ const standartTimeCalc = function (obj) {
   // console.log(countStTime(arr));
   return countStTime(arr);
   // console.log(obj);
-};
+}
 
-export default standartTimeCalc;
+export function incrementerObj(object, part, n) {
+  for (let i = 0; i < n; i++) {
+    part.push(object);
+  }
+}
