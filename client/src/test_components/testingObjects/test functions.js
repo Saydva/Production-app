@@ -82,15 +82,16 @@ let obj = {
   __v: 0,
 };
 
-function printValues(obj) {
-  for (var key in obj) {
-    if (typeof obj[key] === "object") {
-      if (obj[key] !== 0) {
-        printValues(obj[key]);
-      }
-    } else if (obj[key] !== 0) {
-      console.log(obj[key]);
-    }
-  }
-}
-console.log(JSON.stringify(printValues(obj)));
+// function emptyKeysObj(obj) {
+//   for (const key in obj) {
+//     if (typeof obj[key] === "object") {
+//       emptyKeysObj(obj[key]);
+//     } else if (obj[key] !== 0 && obj[key].length !== 0) {
+
+//     }
+//   }
+// }
+
+// emptyKeysObj(obj);
+
+// console.log(obj.operation);

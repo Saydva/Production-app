@@ -5,7 +5,6 @@ const Subpiece = require("../models/subpiece");
 const Piece = require("../models/piece");
 const Option = require("../models/option");
 const Category = require("../models/category");
-const category = require("../models/category");
 
 //get all
 getModels = async function (req, res) {
@@ -69,7 +68,6 @@ postModel = async function (req, res) {
   const data = new Model({
     partName: req.body.partName,
     partStTime: req.body.partStTime,
-    subpiecec: req.body.subpiecec,
     piecec: req.body.piecec,
     subPiecec: req.body.subPiecec,
     operation: req.body.operation,
@@ -88,6 +86,7 @@ postPiece = async function (req, res) {
     partStTime: req.body.partStTime,
     category: req.body.category,
     option: req.body.option,
+    opreation: req.body.operation,
   });
   try {
     const newData = await data.save();

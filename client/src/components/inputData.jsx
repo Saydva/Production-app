@@ -21,10 +21,10 @@ function InputData(props) {
     partName: "",
     partStTime: 0,
     piecec: [],
-    subpiecec: [],
+    subPiecec: [],
     category: [],
     option: [],
-    operations: [],
+    operation: [],
   });
 
   // ftemplate to clear obj properties after sending to db
@@ -33,10 +33,10 @@ function InputData(props) {
     partName: "",
     partStTime: 0,
     piecec: [],
-    subpiecec: [],
+    subPiecec: [],
     category: [],
     option: [],
-    operations: [],
+    operation: [],
   });
   // implement axios
 
@@ -165,7 +165,7 @@ function InputData(props) {
     e.preventDefault();
     postData(obj);
     setObj(template);
-    console.log(result);
+    console.log(JSON.stringify(obj));
   };
 
   // handle data to database from option and

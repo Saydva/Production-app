@@ -6,10 +6,10 @@ const ModelSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  subpiecec: {
-    type: Array,
+  partStTime: {
+    type: Number,
+    required: true,
   },
-
   piecec: {
     type: Array,
   },

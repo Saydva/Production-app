@@ -5,6 +5,10 @@ const SubpieceSchema = new mongoose.Schema({
     type: String,
     unique: true,
   },
+  partStTime: {
+    type: Number,
+    required: true,
+  },
   piecec: {
     type: Array,
   },
