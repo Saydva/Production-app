@@ -3,8 +3,8 @@ const router = express.Router();
 const Model = require("../models/model");
 const Subpiece = require("../models/subpiece");
 const Piece = require("../models/piece");
-const Option = require("../models/option");
-const Category = require("../models/category");
+const Attribute = require("../models/attribute");
+const Description = require("../models/description");
 
 //get all
 getModels = async function (req, res) {
@@ -32,18 +32,18 @@ getSubpieces = async function (req, res) {
   }
 };
 
-getOptions = async function (req, res) {
+getAttributes = async function (req, res) {
   try {
-    const data = await Option.find({});
+    const data = await Attribute.find({});
     res.send(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-getCategories = async function (req, res) {
+getDescriptions = async function (req, res) {
   try {
-    const data = await Category.find({});
+    const data = await Description.find({});
     res.send(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -52,9 +52,9 @@ getCategories = async function (req, res) {
 
 router.get("/models", getModels);
 router.get("/pieces", getPieces);
-router.get("/Subpieces", getSubpieces);
-router.get("/options", getOptions);
-router.get("/categories", getCategories);
+router.get("/subpieces", getSubpieces);
+router.get("/attributes", getAttributes);
+router.get("/categories", getDescriptions);
 
 //get one
 router.get("/:id", getDataId, (req, res) => {
@@ -112,8 +112,8 @@ postSubPiece = async function (req, res) {
   }
 };
 
-postOption = async function (req, res) {
-  const data = new Option({
+postAttribute = async function (req, res) {
+  const data = new Attribute({
     name: req.body.name,
     value: req.body.value,
   });
@@ -125,8 +125,8 @@ postOption = async function (req, res) {
   }
 };
 
-postCategory = async function (req, res) {
-  const data = new Category({
+postDesription = async function (req, res) {
+  const data = new Description({
     name: req.body.name,
     value: req.body.value,
   });
@@ -141,8 +141,8 @@ postCategory = async function (req, res) {
 router.post("/model", postModel);
 router.post("/piece", postPiece);
 router.post("/subpiece", postSubPiece);
-router.post("/option", postOption);
-router.post("/category", postCategory);
+router.post("/attribute", postAttribute);
+router.post("/description", postDesription);
 
 //update
 router.patch("/:id", getDataId, async (req, res) => {

@@ -24,17 +24,15 @@ function ReactAtributeDescription(props) {
   };
 
   return (
-    <div>
-      <h4 className="heading">New Attribute</h4>
-
+    <div className="wraper column">
+      <h4>New Attribute</h4>
       <ReactObjBuild
         name={"attribute"}
         name1={"attribute"}
         name2={"value"}
         handleData={handleAttributeData}
       />
-      <h4 className="heading">New Description</h4>
-
+      <h4>New Description</h4>
       <ReactObjBuild
         name={"description"}
         name1={"description"}
@@ -72,9 +70,11 @@ function ReactObjBuild(props) {
   };
 
   return (
-    <>
-      <div className="row">
-        <label htmlFor={name1}>{name1}...</label>
+    <div className="wraper column gapCol">
+      <div className="wraper row gapRow">
+        <label htmlFor={name1} className="label">
+          {name1}...
+        </label>
         <input
           type="text"
           id={name1}
@@ -82,8 +82,10 @@ function ReactObjBuild(props) {
           onChange={handleOperationTextName}
         />
       </div>
-      <div className="row">
-        <label htmlFor={name2}>{name2}...</label>
+      <div className="wraper row gapRow ">
+        <label htmlFor={name2} className="label">
+          {name2}...
+        </label>
         <input
           type="text"
           id={name2}
@@ -92,7 +94,7 @@ function ReactObjBuild(props) {
         />
         <button onClick={handlePush}>Push</button>
       </div>
-    </>
+    </div>
   );
 }
 

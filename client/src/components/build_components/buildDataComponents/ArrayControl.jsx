@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import Select from "react-select";
-import models from "../../../../src/test_components/testingObjects/testProdObj";
-
-// models.map((e) => arr.push({ value: e.modelName, label: e.modelName }));
 
 function ReactSelectArray(props) {
   const name = props.name;
@@ -70,8 +67,10 @@ function ReactSelectArray(props) {
 
   return (
     <>
-      <div className="row">
-        <label htmlFor={name}>{name}...</label>
+      <div className="wraper row gapRow">
+        <label htmlFor={name} className="label">
+          {name}...
+        </label>
         <Select
           id={name}
           className={name}

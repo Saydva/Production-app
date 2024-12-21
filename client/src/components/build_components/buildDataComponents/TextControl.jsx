@@ -21,28 +21,28 @@ function ReactSelectText(props) {
   };
 
   return (
-    <>
-      <div className="row">
-        <label htmlFor={name}>{name}...</label>
-        <input
-          type="text"
-          id={name}
-          className="myInput"
-          onChange={handleText}
-          value={num}
-          readOnly={settingFromParent}
-        />
-        {name === "partStTime" ||
-        name === "Option name" ||
-        name === "Category name" ? (
-          ""
-        ) : (
-          <button onClick={send} id={name}>
-            Save
-          </button>
-        )}
-      </div>
-    </>
+    <div className="wraper row gapRow">
+      <label htmlFor={name} className="label">
+        {name}...
+      </label>
+      <input
+        type="text"
+        id={name}
+        className="myInput br"
+        onChange={handleText}
+        value={num}
+        readOnly={settingFromParent}
+      />
+      {name === "partStTime" ||
+      name === "Option name" ||
+      name === "Category name" ? (
+        ""
+      ) : (
+        <button onClick={send} id={name}>
+          Save
+        </button>
+      )}
+    </div>
   );
 }
 

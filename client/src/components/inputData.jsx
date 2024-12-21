@@ -9,8 +9,8 @@ import {
   standartTimeCalc,
   incrementerObj,
 } from "../components/build_components/exeternalFunctions.js";
-
-import "./css/input.css";
+import "./css/simple.css";
+// import "./css/input.css";
 
 function InputData(props) {
   const property = props.property;
@@ -231,7 +231,11 @@ function InputData(props) {
   // component to render list of obj values
 
   const list = Object.values(obj).map((e, i) => {
-    return <li key={i}>{JSON.stringify(e)}</li>;
+    return (
+      <li key={i} className="br">
+        {JSON.stringify(e)}
+      </li>
+    );
   });
 
   //component to increase quantity
@@ -274,8 +278,10 @@ function InputData(props) {
     }
 
     return (
-      <div className="count">
-        <label htmlFor="count">Qty element</label>
+      <div className="wraper row gapRow">
+        <label htmlFor="count" className="label">
+          Qty element
+        </label>
         <input
           id="count"
           type="text"
@@ -289,16 +295,17 @@ function InputData(props) {
     );
   }
 
-  // returning 3 elements depending on the property witch comes wit selected route
+  // returning elements depending on the property witch comes wit selected route
 
   const PieceElement = () => {
     return (
-      <div className="buildPage">
-        <div className="input">
+      <div className="wraper row gapRow">
+        <div className="wraper column gapCol">
           <ReactSelectText
             name={Object.keys(obj)[0]}
             handleData={handleDataFromText}
           />
+
           <ReactSelectText
             name={Object.keys(obj)[1]}
             num={Object.values(obj)[1]}
@@ -321,22 +328,22 @@ function InputData(props) {
             handleData={handleDataOperations}
           />
         </div>
-        <div className="result">
-          <p>{list}</p>
+        <div className="wraper min column justify-between gapCol">{list}</div>
+        <div className="wraper columnR justify-between">
+          <button className="btn" onClick={handleDb}>
+            Send To db
+          </button>
+          <p>{error ? error.message : result}</p>
         </div>
-        <button className="dataButton" onClick={handleDb}>
-          Send To db
-        </button>
-        <p>{error ? error.message : result}</p>
       </div>
     );
   };
 
   const SubPieceElemet = () => {
     return (
-      <div>
-        <div className="buildPage">
-          <div className="input">
+      <div className="wraper column gapCol">
+        <div className="wraper row gapRow">
+          <div className="wraper column gapCol">
             <ReactSelectText
               name={Object.keys(obj)[0]}
               handleData={handleDataFromText}
@@ -368,24 +375,27 @@ function InputData(props) {
               handleData={handleDataOperations}
             />
           </div>
-          <div className="result">
-            <p>{list}</p>
+          <div className="wraper min column justify-between gapCol">{list}</div>
+          <div className="wraper"></div>
+          <div className="wraper columnR justify-between">
+            <button className="btn" onClick={handleDb}>
+              Send To db
+            </button>
+            <p>{error ? error.message : result}</p>
           </div>
-          <button className="dataButton" onClick={handleDb}>
-            Send To db
-          </button>
-          <p>{result}</p>
         </div>
-        <Count />
+        <div className="wraper row">
+          <Count />
+        </div>
       </div>
     );
   };
 
   const ModelElement = () => {
     return (
-      <div>
-        <div className="buildPage">
-          <div className="input">
+      <div className="wraper column gapCol">
+        <div className="wraper row gapRow">
+          <div className="wraper column gapCol">
             <ReactSelectText
               name={Object.keys(obj)[0]}
               handleData={handleDataFromText}
@@ -423,61 +433,52 @@ function InputData(props) {
               handleData={handleDataOperations}
             />
           </div>
-          <div className="result">
-            <p>{list}</p>
+          <div className="wraper min column justify-between gapCol">{list}</div>
+          <div className="wraper"></div>
+          <div className="wraper columnR justify-between">
+            <button className="btn" onClick={handleDb}>
+              Send To db
+            </button>
+            <p>{error ? error.message : result}</p>
           </div>
-          <button className="dataButton" onClick={handleDb}>
-            Send To db
-          </button>
-          <p>{result}</p>
         </div>
-        <Count />
+        <div className="wraper row">
+          <Count />
+        </div>
       </div>
     );
   };
 
   const AttDescriptResult = () => {
     return (
-      <div>
-        <div className="AttDes">
-          <h4 className="heading">Attribute data</h4>
-          <p className="myInput">Name: {atributeData.name}</p>
-          <p className="myInput">Value: {atributeData.value}</p>
+      <div className="wraper column justify-between ">
+        <h4>Attribute data</h4>
+        <div className="wraper column gapCol">
+          <div className="myInput bo br">Name: {atributeData.name}</div>
+          <div className="myInput bo br">Value: {atributeData.value}</div>
         </div>
-        <div className="AttDes">
-          <h4 className="heading">Description data</h4>
-          <p className="myInput">Name: {descriptionData.name}</p>
-          <p className="myInput">Value: {descriptionData.value}</p>
+        <h4>Description data</h4>
+        <div className="wraper column gapCol">
+          <div className="myInput bo br">Name: {descriptionData.name}</div>
+          <div className="myInput bo br">Value: {descriptionData.value}</div>
         </div>
       </div>
     );
   };
 
-  console.log(atributeData, descriptionData);
-
   const AttDescription = () => {
     return (
-      <div className="buildPage">
-        <div className="input">
+      <div className="wraper column">
+        <div className="wraper row gapRow">
           <ReactaAtributeDescription handleData={handleOptAttribCatData} />
-        </div>
-        <div className="result">
           <AttDescriptResult />
+          <div className="wraper column justify-between">
+            <p>{error ? error.message : result}</p>
+            <button className="btn" onClick={handleDbAttribDescrip}>
+              Send To db
+            </button>
+          </div>
         </div>
-        <button className="dataButton" onClick={handleDbAttribDescrip}>
-          Send To db
-        </button>
-        <p>
-          {
-            // result.data.name
-            // ? JSON.stringify(result.data.name) +
-            //   " was " +
-            //   JSON.stringify(result.statusText) +
-            //   ":  " +
-            //   JSON.stringify(result.status)
-            // : "Everithing ok"
-          }
-        </p>
       </div>
     );
   };

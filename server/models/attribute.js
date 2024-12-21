@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const OptionSchema = new mongoose.Schema({
+const AttributeSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -12,4 +12,4 @@ const OptionSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Option", OptionSchema);
+module.exports = mongoose.model("Attribute", AttributeSchema);

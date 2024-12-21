@@ -1,0 +1,109 @@
+/* * {
+} */
+
+.wraper {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.rowR {
+  flex-direction: row-reverse;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.columnR {
+  flex-direction: column-reverse;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+
+.grow1 {
+  flex-grow: 1;
+}
+
+.grow2 {
+  flex-grow: 2;
+}
+
+.grow3 {
+  flex-grow: 3;
+}
+
+li {
+  flex-grow: 1;
+  list-style-type: none;
+  align-content: center;
+  border: 1px solid grey;
+  padding-left: 0.2rem;
+  overflow: hidden;
+}
+
+.bo {
+  border: 1px solid grey;
+}
+
+.br {
+  border-radius: 5px;
+}
+
+li:last-child {
+  flex-grow: 3;
+}
+
+.label {
+  min-width: 12vw;
+  align-content: center;
+}
+
+.gapCol {
+  gap: 0.3rem;
+}
+.gapRow {
+  gap: 0 0.2rem;
+}
+
+.min {
+  min-width: 20vw;
+}
+
+.btn {
+  min-height: 3rem;
+}
+
+/* for non flex props */
+
+.hidden {
+  display: none;
+}
+
+.myInput {
+  height: 36px;
+}
+
+.count {
+  margin-top: 0.3rem;
+}
+
+.count > label {
+  display: inline-block;
+}
+
+a {
+  text-decoration: none;
+}

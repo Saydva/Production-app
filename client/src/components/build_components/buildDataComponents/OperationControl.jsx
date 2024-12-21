@@ -26,8 +26,10 @@ function ReactSelectOperation(props) {
 
   return (
     <>
-      <div className="row">
-        <label htmlFor={name1}>{name1}...</label>
+      <div className="wraper row gapRow">
+        <label htmlFor={name1} className="label">
+          {name1}...
+        </label>
         <input
           type="text"
           id={name1}
@@ -35,8 +37,10 @@ function ReactSelectOperation(props) {
           onChange={handleOperationTextName}
         />
       </div>
-      <div className="row">
-        <label htmlFor={name2}>{name2}...</label>
+      <div className="wraper row gapRow">
+        <label htmlFor={name2} className="label">
+          {name2}...
+        </label>
         <input
           type="text"
           id={name2}
