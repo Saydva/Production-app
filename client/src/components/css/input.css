@@ -58,12 +58,12 @@ a {
   align-self: flex-end;
 }
 
-.OptCat {
+.AttDes {
   margin-left: 1rem;
   align-items: center;
 }
 
-.OptCat p {
+.AttDes p {
   margin-right: 0.5rem;
   margin-top: 4px;
   padding: 2px;

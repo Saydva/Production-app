@@ -7,22 +7,22 @@ import models from "../../../../src/test_components/testingObjects/testProdObj";
 function ReactSelectArray(props) {
   const name = props.name;
   const sendData = props.handleData;
-  const dataOption = props.dataOption;
-  const dataCategory = props.dataCategory;
+  const dataAtribute = props.dataAttribute;
+  const dataDescription = props.dataDescription;
   const dataPiece = props.dataPiece;
   const dataSubPiece = props.dataSubPiece;
   const count = props.count;
 
   const option = [];
 
-  if (dataOption) {
-    dataOption.map((e) =>
+  if (dataAtribute) {
+    dataAtribute.map((e) =>
       option.push({ data: e, label: e.name + " - " + e.value })
     );
   }
 
-  if (dataCategory) {
-    dataCategory.map((e) =>
+  if (dataDescription) {
+    dataDescription.map((e) =>
       option.push({
         data: e,
         label: e.name + " - " + e.value,
@@ -53,10 +53,10 @@ function ReactSelectArray(props) {
   // handle sendet data
   const handleSend = () => {
     if (userChoice.length != 0) {
-      if (dataOption) {
+      if (dataAtribute) {
         sendData(userChoice.data, name);
       }
-      if (dataCategory) {
+      if (dataDescription) {
         sendData(userChoice.data, name);
       }
       if (dataPiece) {

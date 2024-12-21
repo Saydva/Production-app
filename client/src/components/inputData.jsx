@@ -3,7 +3,7 @@ import axios from "axios";
 import ReactSelectArray from "./build_components/buildDataComponents/ArrayControl";
 import ReactSelectText from "./build_components/buildDataComponents/TextControl";
 import ReactSelectOperation from "./build_components/buildDataComponents/OperationControl";
-import ReactOptionCategory from "./build_components/buildDataComponents/OptionCategory";
+import ReactaAtributeDescription from "./build_components/buildDataComponents/AttributeDescription.jsx";
 
 import {
   standartTimeCalc,
@@ -27,8 +27,8 @@ function InputData(props) {
     partStTime: 0,
     piecec: [],
     subPiecec: [],
-    category: [],
-    option: [],
+    attribute: [],
+    description: [],
     operation: [],
   });
 
@@ -39,8 +39,8 @@ function InputData(props) {
     partStTime: 0,
     piecec: [],
     subPiecec: [],
-    category: [],
-    option: [],
+    attribute: [],
+    description: [],
     operation: [],
   });
   // implement axios
@@ -66,16 +66,16 @@ function InputData(props) {
 
   //fetch datat from db to components
 
-  const [dataDbOpt, setDataDbOpt] = useState("");
-  const [dataDbCat, setDataDbCat] = useState("");
+  const [dataDbAttribute, setDataDbAttribute] = useState("");
+  const [dataDbDesc, setDataDbDesc] = useState("");
   const [dataDbPiece, setDataDbPiece] = useState("");
   const [dataDbSub, setDataDbSub] = useState("");
 
   const fetchDataOpt = async () => {
     await axios
-      .get(`http://localhost:3000/options`)
+      .get(`http://localhost:3000/atributes`)
       .then((response) => {
-        setDataDbOpt(response.data);
+        setDataDbAttribute(response.data);
       })
       .catch((error) => {
         setError(error);
@@ -84,9 +84,9 @@ function InputData(props) {
 
   const fetchDataCat = async () => {
     await axios
-      .get(`http://localhost:3000/categories`)
+      .get(`http://localhost:3000/descriptions`)
       .then((response) => {
-        setDataDbCat(response.data);
+        setDataDbDesc(response.data);
       })
       .catch((error) => {
         setError(error);
@@ -160,15 +160,15 @@ function InputData(props) {
 
   // handle data from Option and category
 
-  const [optionData, setOptionData] = useState({});
-  const [categoryData, setCategoryData] = useState({});
+  const [atributeData, setAtributeData] = useState({});
+  const [descriptionData, setDescriptionData] = useState({});
 
-  const handleOptCatData = (childData, name) => {
-    if (name == "option") {
-      setOptionData(childData);
+  const handleOptAttribCatData = (childData, name) => {
+    if (name == "attribute") {
+      setAtributeData(childData);
     }
-    if (name == "category") {
-      setCategoryData(childData);
+    if (name == "description") {
+      setDescriptionData(childData);
     }
   };
 
@@ -183,7 +183,7 @@ function InputData(props) {
 
   // handle data to database from option and
 
-  let postOptCat = async (data, urlData) => {
+  let postAttDes = async (data, urlData) => {
     await axios
       .post(urlData, data)
       .then((response) => {
@@ -198,16 +198,16 @@ function InputData(props) {
     return Object.values(object) != 0;
   }
 
-  const handleDbOptionCategory = (e) => {
+  const handleDbAttribDescrip = (e) => {
     e.preventDefault();
-    if (objectNotEmpty(optionData)) {
-      postOptCat(optionData, postUrl("option"));
+    if (objectNotEmpty(atributeData)) {
+      postAttDes(atributeData, postUrl("attribute"));
     }
-    if (objectNotEmpty(categoryData)) {
-      postOptCat(categoryData, postUrl("category"));
+    if (objectNotEmpty(descriptionData)) {
+      postAttDes(descriptionData, postUrl("description"));
     }
-    setOptionData({});
-    setCategoryData({});
+    setAtributeData({});
+    setDescriptionData({});
   };
 
   // first remove falsy(unused) keys from obj
@@ -218,10 +218,7 @@ function InputData(props) {
     delKeys = ["piecec", "subPiecec"];
     deleteObjKeys(obj, delKeys);
   } else if (property == "subpiece") {
-    delKeys = ["stTime", "option", "subPiecec"];
-    deleteObjKeys(obj, delKeys);
-  } else if (property == "model") {
-    delKeys = ["stTime", "category", "option"];
+    delKeys = ["subPiecec"];
     deleteObjKeys(obj, delKeys);
   }
 
@@ -310,12 +307,12 @@ function InputData(props) {
           <ReactSelectArray
             name={Object.keys(obj)[2]}
             handleData={handleDataSelect}
-            dataCategory={dataDbCat}
+            dataDescription={dataDbDesc}
           />
           <ReactSelectArray
             name={Object.keys(obj)[3]}
             handleData={handleDataSelect}
-            dataOption={dataDbOpt}
+            dataAttribute={dataDbAttribute}
           />
           <ReactSelectOperation
             name1={"operation"}
@@ -357,12 +354,17 @@ function InputData(props) {
             <ReactSelectArray
               name={Object.keys(obj)[3]}
               handleData={handleDataSelect}
-              dataCategory={dataDbCat}
+              dataDescription={dataDbDesc}
+            />
+            <ReactSelectArray
+              name={Object.keys(obj)[4]}
+              handleData={handleDataSelect}
+              dataDescription={dataDbDesc}
             />
             <ReactSelectOperation
               name1={"operation"}
               name2={"stTime"}
-              name={Object.keys(obj)[4]}
+              name={Object.keys(obj)[5]}
               handleData={handleDataOperations}
             />
           </div>
@@ -404,10 +406,20 @@ function InputData(props) {
               handleData={handleDataSelect}
               dataSubPiece={dataDbSub}
             />
+            <ReactSelectArray
+              name={Object.keys(obj)[4]}
+              handleData={handleDataSelect}
+              dataSubPiece={dataDbSub}
+            />
+            <ReactSelectArray
+              name={Object.keys(obj)[5]}
+              handleData={handleDataSelect}
+              dataSubPiece={dataDbSub}
+            />
             <ReactSelectOperation
               name1={"operation"}
               name2={"stTime"}
-              name={Object.keys(obj)[4]}
+              name={Object.keys(obj)[6]}
               handleData={handleDataOperations}
             />
           </div>
@@ -424,33 +436,35 @@ function InputData(props) {
     );
   };
 
-  const OptionResult = () => {
+  const AttDescriptResult = () => {
     return (
       <div>
-        <div className="OptCat">
-          <h4 className="heading">Option data</h4>
-          <p className="myInput">Name: {optionData.name}</p>
-          <p className="myInput">Value: {optionData.value}</p>
+        <div className="AttDes">
+          <h4 className="heading">Attribute data</h4>
+          <p className="myInput">Name: {atributeData.name}</p>
+          <p className="myInput">Value: {atributeData.value}</p>
         </div>
-        <div className="OptCat">
-          <h4 className="heading">Category data</h4>
-          <p className="myInput">Name: {categoryData.name}</p>
-          <p className="myInput">Value: {categoryData.value}</p>
+        <div className="AttDes">
+          <h4 className="heading">Description data</h4>
+          <p className="myInput">Name: {descriptionData.name}</p>
+          <p className="myInput">Value: {descriptionData.value}</p>
         </div>
       </div>
     );
   };
 
-  const OptionCategory = () => {
+  console.log(atributeData, descriptionData);
+
+  const AttDescription = () => {
     return (
       <div className="buildPage">
         <div className="input">
-          <ReactOptionCategory handleData={handleOptCatData} />
+          <ReactaAtributeDescription handleData={handleOptAttribCatData} />
         </div>
         <div className="result">
-          <OptionResult />
+          <AttDescriptResult />
         </div>
-        <button className="dataButton" onClick={handleDbOptionCategory}>
+        <button className="dataButton" onClick={handleDbAttribDescrip}>
           Send To db
         </button>
         <p>
@@ -474,8 +488,8 @@ function InputData(props) {
     return <SubPieceElemet />;
   } else if (property == "model") {
     return <ModelElement />;
-  } else if (property == "optionCategory") {
-    return <OptionCategory />;
+  } else if (property == "attribudescript") {
+    return <AttDescription />;
   }
 }
 

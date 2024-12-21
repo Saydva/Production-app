@@ -1,45 +1,45 @@
 import React, { useState } from "react";
 
-function ReactOptionCategory(props) {
+function ReactAtributeDescription(props) {
   const sendData = props.handleData;
-  const [option, setOption] = useState({});
-  const [category, setCategory] = useState({});
-  const [sendOpt, setSendOpt] = useState("");
-  const [sendCat, setSendCat] = useState("");
+  const [attribute, setAttribute] = useState({});
+  const [description, setDescription] = useState({});
+  const [sendAttrib, setSendAttrib] = useState("");
+  const [sendDescrip, setSendDescrip] = useState("");
 
   // handle option data from child
 
-  const handleOptionData = (childData, name) => {
-    setOption(childData);
-    setSendOpt(name);
+  const handleAttributeData = (childData, name) => {
+    setAttribute(childData);
+    setSendAttrib(name);
     sendData(childData, name);
   };
 
   // handle category data from child
 
-  const handleCategoryData = (childData, name) => {
-    setCategory(childData);
-    setSendCat(name);
+  const handleDescriptionData = (childData, name) => {
+    setDescription(childData);
+    setSendDescrip(name);
     sendData(childData, name);
   };
 
   return (
     <div>
-      <h4 className="heading">New Option</h4>
+      <h4 className="heading">New Attribute</h4>
 
       <ReactObjBuild
-        name={"option"}
-        name1={"option"}
+        name={"attribute"}
+        name1={"attribute"}
         name2={"value"}
-        handleData={handleOptionData}
+        handleData={handleAttributeData}
       />
-      <h4 className="heading">New Category</h4>
+      <h4 className="heading">New Description</h4>
 
       <ReactObjBuild
-        name={"category"}
-        name1={"category"}
+        name={"description"}
+        name1={"description"}
         name2={"value"}
-        handleData={handleCategoryData}
+        handleData={handleDescriptionData}
       />
     </div>
   );
@@ -56,11 +56,13 @@ function ReactObjBuild(props) {
   const handleOperationTextName = (e) => {
     const text = e.target.value;
     setOperationObj({ ...operationObj, name: text });
+    console.log(text);
   };
 
-  const handleOperationTextTime = (e) => {
+  const handleOperationTextValue = (e) => {
     const text = e.target.value;
     setOperationObj({ ...operationObj, value: text });
+    console.log(text);
   };
 
   const handlePush = () => {
@@ -86,7 +88,7 @@ function ReactObjBuild(props) {
           type="text"
           id={name2}
           className="myInput"
-          onChange={handleOperationTextTime}
+          onChange={handleOperationTextValue}
         />
         <button onClick={handlePush}>Push</button>
       </div>
@@ -94,4 +96,4 @@ function ReactObjBuild(props) {
   );
 }
 
-export default ReactOptionCategory;
+export default ReactAtributeDescription;

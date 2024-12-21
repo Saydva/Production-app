@@ -8,7 +8,9 @@ function BuilData() {
         <Link to="/buildData/piece">Piece</Link>
         <Link to="/buildData/subpiece">Subpiece</Link>
         <Link to="/buildData/model">Model</Link>
-        <Link to="/buildData/optionCategory">Option and Category</Link>
+        <Link to="/buildData/AttributeDescription">
+          Attribibute and Description
+        </Link>
         <Link to="/buildData/test">Test</Link>
       </div>
       <Outlet />

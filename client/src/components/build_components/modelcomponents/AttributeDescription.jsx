@@ -3,15 +3,15 @@ import React from "react";
 // inputData use property to render component properly, all basic components are one component
 import InputData from "../../inputData";
 
-function OptionCategoty() {
-  const property = "optionCategory";
+function AttributeDescription() {
+  const property = "attribudescript";
 
   return (
     <div className="objContainer">
-      <h4>Option and Category</h4>
+      <h4>Attribute and Desciption</h4>
       <InputData property={property} />
     </div>
   );
 }
 
-export default OptionCategoty;
+export default AttributeDescription;

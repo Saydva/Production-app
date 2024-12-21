@@ -8,7 +8,7 @@ import Piece from "./components/build_components/modelComponents/Piece";
 import SubPiece from "./components/build_components/modelComponents/Subpiece";
 import Model from "./components/build_components/modelComponents/Model";
 import TestingPage from "./components/build_components/elemntaryRoutes/TestingPage";
-import OptionCategoty from "./components/build_components/modelComponents/OptionCategory";
+import AttributeDescription from "./components/build_components/modelComponents/AttributeDescription";
 
 function App() {
   return (
@@ -28,7 +28,10 @@ function App() {
             <Route path="piece" element={<Piece />} />
             <Route path="subpiece" element={<SubPiece />} />
             <Route path="model" element={<Model />} />
-            <Route path="optionCategory" element={<OptionCategoty />} />
+            <Route
+              path="attributedescription"
+              element={<AttributeDescription />}
+            />
             <Route path="test" element={<TestingPage />} />
           </Route>
         </Routes>
