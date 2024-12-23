@@ -50,6 +50,11 @@ getDescriptions = async function (req, res) {
   }
 };
 
+getConnectionStatus = async function (req, res) {
+  res.send({ message: "Server Connected", connection: true });
+};
+
+router.get("/connection", getConnectionStatus);
 router.get("/models", getModels);
 router.get("/pieces", getPieces);
 router.get("/subpieces", getSubpieces);

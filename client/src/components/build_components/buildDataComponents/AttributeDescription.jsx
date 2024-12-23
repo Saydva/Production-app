@@ -54,13 +54,11 @@ function ReactObjBuild(props) {
   const handleOperationTextName = (e) => {
     const text = e.target.value;
     setOperationObj({ ...operationObj, name: text });
-    console.log(text);
   };
 
   const handleOperationTextValue = (e) => {
     const text = e.target.value;
     setOperationObj({ ...operationObj, value: text });
-    console.log(text);
   };
 
   const handlePush = () => {

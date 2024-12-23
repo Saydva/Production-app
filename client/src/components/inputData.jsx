@@ -115,12 +115,32 @@ function InputData(props) {
       });
   };
 
-  useEffect(() => {
-    fetchDataOpt();
-    fetchDataCat();
-    fetchDataPiece();
-    fetchDataSub();
-  }, []);
+  const [check, setCheck] = useState(false);
+
+  const fetchConnection = async () => {
+    await axios
+      .get("http://localhost:3000/connection")
+      .then((response) => {
+        setResult(response.data.message);
+        setCheck(true);
+      })
+      .catch((err) => {
+        setResult("NO CONNECTION!!");
+      });
+  };
+
+  if (check !== true) {
+    setTimeout(() => {
+      fetchConnection();
+    }, 1000);
+  }
+
+  // useEffect(() => {
+  //   // fetchDataOpt();
+  //   // fetchDataCat();
+  //   // fetchDataPiece();
+  //   // fetchDataSub();
+  // }, []);
 
   // handle inputs data
 
