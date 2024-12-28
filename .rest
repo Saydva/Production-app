@@ -1,5 +1,4 @@
 // get all data
-GET http://localhost:3000/models
 
 ###
 GET http://localhost:3000/pieces
@@ -8,39 +7,30 @@ GET http://localhost:3000/pieces
 GET http://localhost:3000/subpieces
 ###
 
-//get one data by id
-GET http://localhost:3000/data/6702b6fac87f369241c6fc22
+GET http://localhost:3000/models
+###
 
+//get one data by id
+GET http://localhost:3000/("piece")/6702b6fac87f369241c6fc22
 ###
 
 //get one data by name
 GET http://localhost:3000/data/First data
-# Content-Type: application/json
+Content-Type: application/json
 
-# {
-#     "name":"Ups data"
-# }
+{
+    "name":"Ups data"
+}
 ###
 
 //create data
-POST http://localhost:3000/model
-Content-Type: application/json
-
-{"partName":"test","subpiecec":["fdgsdfgsdfg"], "piecec":["1,2,3"]}
-
-###
-
 POST http://localhost:3000/piece
 Content-Type: application/json
 
 {
     "partName":"another",
-    "partStTime": 7,
-    "category": ["group"],
-    "option":["metal"],
-    "operation":[""]
+    "partStTime": 7
 }
-
 ###
 
 POST http://localhost:3000/subpiece
@@ -48,14 +38,36 @@ Content-Type: application/json
 
 {
   "partName": "subpxv",  
+  "partStTime": 7,
   "piecec": ["sfasfdasf"],
-  "category" : ["sdfasfdas"]
+  "description" : ["sdfasfdas"]
+}
+
+###
+POST http://localhost:3000/model
+Content-Type: application/json
+
+{
+  "partName":"tesaddsfsdfsasdst",
+  "partStTime":1,
+  "subpiecec":["fdgsdfgsdfg"], 
+  "piecec":["1,2,3"],
+  "attribute":
+      {
+      "name":"dosdasdad",
+      "value":"one"
+      },
+  "description":
+      {
+       "name":"dosdasdad",
+      "value":"one"
+    }
 }
 
 ###
 
 
-POST   http://localhost:3000/option
+POST   http://localhost:3000/attribute
 Content-Type: application/json
 
 {
@@ -65,7 +77,7 @@ Content-Type: application/json
 
 ###
 
-POST   http://localhost:3000/category
+POST   http://localhost:3000/description
 Content-Type: application/json
 
 {

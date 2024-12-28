@@ -10,10 +10,10 @@ const PieceSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  category: {
+  attribute: {
     type: Array,
   },
-  option: {
+ descrition: {
     type: Array,
   },
   operation: {

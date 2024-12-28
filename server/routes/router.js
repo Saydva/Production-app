@@ -59,7 +59,7 @@ router.get("/models", getModels);
 router.get("/pieces", getPieces);
 router.get("/subpieces", getSubpieces);
 router.get("/attributes", getAttributes);
-router.get("/categories", getDescriptions);
+router.get("/descriptions", getDescriptions);
 
 //get one
 router.get("/:id", getDataId, (req, res) => {
@@ -69,29 +69,13 @@ router.get("/:id", getDataId, (req, res) => {
 
 //create one
 
-postModel = async function (req, res) {
-  const data = new Model({
-    partName: req.body.partName,
-    partStTime: req.body.partStTime,
-    piecec: req.body.piecec,
-    subPiecec: req.body.subPiecec,
-    operation: req.body.operation,
-  });
-  try {
-    const newData = await data.save();
-    res.status(201).json(newData);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-};
-
 postPiece = async function (req, res) {
   const data = new Piece({
     partName: req.body.partName,
     partStTime: req.body.partStTime,
-    category: req.body.category,
-    option: req.body.option,
-    opreation: req.body.operation,
+    attribute: req.body.attribute,
+    descrition:req.body.description,
+    operation: req.body.operation,
   });
   try {
     const newData = await data.save();
@@ -106,7 +90,26 @@ postSubPiece = async function (req, res) {
     partName: req.body.partName,
     partStTime: req.body.partStTime,
     piecec: req.body.piecec,
-    category: req.body.category,
+    attribute: req.body.attribute,
+    descrition:req.body.description,
+    operation: req.body.operation,
+  });
+  try {
+    const newData = await data.save();
+    res.status(201).json(newData);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+postModel = async function (req, res) {
+  const data = new Model({
+    partName: req.body.partName,
+    partStTime: req.body.partStTime,
+    piecec: req.body.piecec,
+    subPiecec: req.body.subPiecec,
+    attribute: req.body.attribute,
+    description:req.body.description,
     operation: req.body.operation,
   });
   try {

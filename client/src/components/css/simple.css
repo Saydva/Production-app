@@ -82,6 +82,10 @@ li:last-child {
   min-width: 20vw;
 }
 
+.max{
+  width: 8rem;;
+}
+
 .btn {
   min-height: 3rem;
 }

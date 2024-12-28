@@ -1,8 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const Uri = process.env.MONGO;
-const port = process.env.PORT;
+const Uri = process.env.MONGO
+const port = process.env.PORT
 const cors = require("cors");
 
 //mogoose
@@ -18,7 +18,7 @@ db.once("open", () => {
   console.log("Connected to Database");
 });
 
-//epress
+//express
 app.use(express.json());
 app.use(cors());
 //this cors not working ---
@@ -40,5 +40,5 @@ app.listen(port, () => {
   console.log(`Server started on port -- ${port}`);
 });
 
-//my output
+// my output
 // console.log(port, Uri);

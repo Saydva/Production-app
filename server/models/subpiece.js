@@ -12,7 +12,10 @@ const SubpieceSchema = new mongoose.Schema({
   piecec: {
     type: Array,
   },
-  category: {
+  attribute: {
+    type: Array,
+  },
+ descrition: {
     type: Array,
   },
   operation: {

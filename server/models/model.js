@@ -14,6 +14,12 @@ const ModelSchema = new mongoose.Schema({
     type: Array,
   },
   subPiecec: {
+    type: Array,    
+  },
+  attribute: {
+    type: Array,
+  },
+ description: {
     type: Array,
   },
   operation: {

@@ -57,10 +57,9 @@ function InputData(props) {
       .post(postUrl(property), obj)
       .then((response) => {
         setResult(response.statusText);
-        console.log(result);
       })
       .catch((error) => {
-        setError(error);
+        setError(error.message);
       });
   };
 
@@ -78,7 +77,7 @@ function InputData(props) {
         setDataDbAttribute(response.data);
       })
       .catch((error) => {
-        setError(error);
+        setError(error.message);
       });
   };
 
@@ -89,7 +88,7 @@ function InputData(props) {
         setDataDbDesc(response.data);
       })
       .catch((error) => {
-        setError(error);
+        setError(error.message);
       });
   };
 
@@ -100,7 +99,7 @@ function InputData(props) {
         setDataDbPiece(response.data);
       })
       .catch((error) => {
-        setError(error);
+        setError(error.message);
       });
   };
 
@@ -111,36 +110,39 @@ function InputData(props) {
         setDataDbSub(response.data);
       })
       .catch((error) => {
-        setError(error);
+        setError(error.message);
       });
   };
 
   const [check, setCheck] = useState(false);
 
-  const fetchConnection = async () => {
+ const fetchConnection = async () => {
     await axios
       .get("http://localhost:3000/connection")
       .then((response) => {
         setResult(response.data.message);
         setCheck(true);
       })
-      .catch((err) => {
-        setResult("NO CONNECTION!!");
+      .catch((error) => {
+        setError(error.message);
       });
   };
 
-  if (check !== true) {
+  console.log(check);
+  console.log(result);
+
+  if (check == false) {
     setTimeout(() => {
       fetchConnection();
     }, 1000);
   }
 
-  // useEffect(() => {
-  //   // fetchDataOpt();
-  //   // fetchDataCat();
-  //   // fetchDataPiece();
-  //   // fetchDataSub();
-  // }, []);
+  useEffect(() => {
+    // fetchDataOpt();
+    // fetchDataCat();
+    // fetchDataPiece();
+    // fetchDataSub();
+  }, []);
 
   // handle inputs data
 
@@ -174,7 +176,6 @@ function InputData(props) {
       }
     }
 
-    console.log(name);
     // obj[name].push(childData);
   };
 
@@ -210,7 +211,7 @@ function InputData(props) {
         setResult(JSON.stringify(response));
       })
       .catch((error) => {
-        setError(error);
+        setError(error.message);
       });
   };
 
@@ -349,11 +350,12 @@ function InputData(props) {
           />
         </div>
         <div className="wraper min column justify-between gapCol">{list}</div>
-        <div className="wraper columnR justify-between">
+        <div className="wraper columnR justify-between max">
           <button className="btn" onClick={handleDb}>
             Send To db
           </button>
-          <p>{error ? error.message : result}</p>
+          <p>Error: <br/>{JSON.stringify(error)}</p>
+          <p>Message: <br/>{JSON.stringify(result)}</p>
         </div>
       </div>
     );
@@ -397,7 +399,7 @@ function InputData(props) {
           </div>
           <div className="wraper min column justify-between gapCol">{list}</div>
           <div className="wraper"></div>
-          <div className="wraper columnR justify-between">
+          <div className="wraper columnR justify-between max">
             <button className="btn" onClick={handleDb}>
               Send To db
             </button>
@@ -455,7 +457,7 @@ function InputData(props) {
           </div>
           <div className="wraper min column justify-between gapCol">{list}</div>
           <div className="wraper"></div>
-          <div className="wraper columnR justify-between">
+          <div className="wraper columnR justify-between max">
             <button className="btn" onClick={handleDb}>
               Send To db
             </button>
