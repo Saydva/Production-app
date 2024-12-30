@@ -10,7 +10,6 @@ import {
   incrementerObj,
 } from "../components/build_components/exeternalFunctions.js";
 import "./css/simple.css";
-// import "./css/input.css";
 
 function InputData(props) {
   const property = props.property;
@@ -116,33 +115,38 @@ function InputData(props) {
 
   const [check, setCheck] = useState(false);
 
- const fetchConnection = async () => {
+  const fetchConnection = async () => {
     await axios
       .get("http://localhost:3000/connection")
       .then((response) => {
         setResult(response.data.message);
         setCheck(true);
+        setError("")
       })
       .catch((error) => {
         setError(error.message);
+        setResult("")
       });
   };
 
-  console.log(check);
-  console.log(result);
-
-  if (check == false) {
-    setTimeout(() => {
-      fetchConnection();
-    }, 1000);
-  }
+ 
 
   useEffect(() => {
+    if (check == false) {
+      setInterval(() => {
+        fetchConnection();
+      }, 1000);
+    }
+
     // fetchDataOpt();
     // fetchDataCat();
     // fetchDataPiece();
     // fetchDataSub();
   }, []);
+
+  console.log(check);
+  console.log(result);
+
 
   // handle inputs data
 
@@ -208,7 +212,7 @@ function InputData(props) {
     await axios
       .post(urlData, data)
       .then((response) => {
-        setResult(JSON.stringify(response));
+        setResult(JSON.stringify(response.statusText));
       })
       .catch((error) => {
         setError(error.message);
@@ -354,8 +358,10 @@ function InputData(props) {
           <button className="btn" onClick={handleDb}>
             Send To db
           </button>
-          <p>Error: <br/>{JSON.stringify(error)}</p>
-          <p>Message: <br/>{JSON.stringify(result)}</p>
+          <div>
+            {result == "" ? (<p></p>) : (<p className="succes pd br1"> Message: <br />{JSON.stringify(result)}</p>)}
+            {error == "" ? <p></p> : <p className="error br1 pd">Error: <br />{JSON.stringify(error)}</p>}
+          </div>
         </div>
       </div>
     );
@@ -403,7 +409,10 @@ function InputData(props) {
             <button className="btn" onClick={handleDb}>
               Send To db
             </button>
-            <p>{error ? error.message : result}</p>
+            <div>
+            {result == "" ? (<p></p>) : (<p className="succes br1 pd"> Message: <br />{JSON.stringify(result)}</p>)}
+            {error == "" ? <p></p> : <p className="error br1 pd">Error: <br />{JSON.stringify(error)}</p>}
+          </div>
           </div>
         </div>
         <div className="wraper row">
@@ -461,7 +470,10 @@ function InputData(props) {
             <button className="btn" onClick={handleDb}>
               Send To db
             </button>
-            <p>{error ? error.message : result}</p>
+            <div>
+            {result == "" ? (<p></p>) : (<p className="succes br1 pd"> Message: <br />{JSON.stringify(result)}</p>)}
+            {error == "" ? <p></p> : <p className="error br1 pd">Error: <br />{JSON.stringify(error)}</p>}
+          </div>
           </div>
         </div>
         <div className="wraper row">
@@ -494,8 +506,11 @@ function InputData(props) {
         <div className="wraper row gapRow">
           <ReactaAtributeDescription handleData={handleOptAttribCatData} />
           <AttDescriptResult />
-          <div className="wraper column justify-between">
-            <p>{error ? error.message : result}</p>
+          <div className="wraper column justify-between max">
+          <div>
+            {result == "" ? (<p></p>) : (<p className="succes br1 pd"> Message: <br />{JSON.stringify(result)}</p>)}
+            {error == "" ? <p></p> : <p className="error br1 pd">Error: <br />{JSON.stringify(error)}</p>}
+          </div>
             <button className="btn" onClick={handleDbAttribDescrip}>
               Send To db
             </button>
