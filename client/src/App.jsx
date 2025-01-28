@@ -1,42 +1,34 @@
-import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
-
-// import "./App.css";
-
-import BuilData from "./components/build_components/elemntaryRoutes/BuildData";
-import Home from "./components/build_components/elemntaryRoutes/Home";
-import Piece from "./components/build_components/modelComponents/Piece";
-import SubPiece from "./components/build_components/modelComponents/Subpiece";
-import Model from "./components/build_components/modelComponents/Model";
-import TestingPage from "./components/build_components/elemntaryRoutes/TestingPage";
-import AttributeDescription from "./components/build_components/modelComponents/AttributeDescription";
+import "./App.css";
+import BuildPage from "./NavBar/build";
+import NavBar from "./NavBar/navBar";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router";
+import { useState } from "react";
 
 function App() {
+  const [dataFromNavBar, setDataFromNavBar] = useState("");
+
+  function handleDataFromNavBar(data) {
+    setDataFromNavBar(data);
+  }
+  const themes = ["light", "dark", "cupcake"];
   return (
-    <div>
-      <Router>
-        <nav className="navigation">
-          <Link to="/">
-            <h2>Home</h2>
-          </Link>
-          <Link to="/buildData">
-            <h2>Build data</h2>
-          </Link>
+    <>
+      <div data-theme={dataFromNavBar}>
+        <nav>
+          <NavBar themes={themes} handleDataFromNavBar={handleDataFromNavBar} />
         </nav>
+        <div>{dataFromNavBar}</div>
+
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="buildData" element={<BuilData />}>
-            <Route path="piece" element={<Piece />} />
-            <Route path="subpiece" element={<SubPiece />} />
-            <Route path="model" element={<Model />} />
-            <Route
-              path="attributedescription"
-              element={<AttributeDescription />}
-            />
-            <Route path="test" element={<TestingPage />} />
+          {/* <Route index element={<Home />} /> */}
+          <Route path="buildPage" element={<BuildPage />}>
+            {/* <Route path="profile" element={<Profile />} /> */}
+            {/* <Route path="account" element={<Account />} /> */}
           </Route>
         </Routes>
-      </Router>
-    </div>
+      </div>
+    </>
   );
 }
 
