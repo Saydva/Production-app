@@ -29,6 +29,7 @@
 .justify-center {
   justify-content: center;
 }
+
 .justify-between {
   justify-content: space-between;
 }
@@ -62,7 +63,7 @@ li {
   border-radius: 5px;
 }
 
-.br1{
+.br1 {
   border-radius: 7px;
 }
 
@@ -78,6 +79,7 @@ li:last-child {
 .gapCol {
   gap: 0.3rem;
 }
+
 .gapRow {
   gap: 0 0.2rem;
 }
@@ -86,15 +88,16 @@ li:last-child {
   min-width: 20vw;
 }
 
-.max{
-  width: 8rem;;
+.max {
+  width: 8rem;
+  ;
 }
 
-.mg{
+.mg {
   margin: 0.5rem;
 }
 
-.pd{
+.pd {
   padding: 0.5rem;
 }
 
@@ -116,7 +119,7 @@ li:last-child {
   margin-top: 0.3rem;
 }
 
-.count > label {
+.count>label {
   display: inline-block;
 }
 
@@ -124,10 +127,10 @@ a {
   text-decoration: none;
 }
 
-.succes{
+.succes {
   background-color: rgb(216, 247, 216);
 }
 
-.error{
+.error {
   background-color: rgb(235, 186, 186);
 }

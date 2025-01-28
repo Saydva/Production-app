@@ -74,7 +74,7 @@ postPiece = async function (req, res) {
     partName: req.body.partName,
     partStTime: req.body.partStTime,
     attribute: req.body.attribute,
-    descrition:req.body.description,
+    descrition: req.body.description,
     operation: req.body.operation,
   });
   try {
@@ -91,7 +91,7 @@ postSubPiece = async function (req, res) {
     partStTime: req.body.partStTime,
     piecec: req.body.piecec,
     attribute: req.body.attribute,
-    descrition:req.body.description,
+    descrition: req.body.description,
     operation: req.body.operation,
   });
   try {
@@ -109,7 +109,7 @@ postModel = async function (req, res) {
     piecec: req.body.piecec,
     subPiecec: req.body.subPiecec,
     attribute: req.body.attribute,
-    description:req.body.description,
+    description: req.body.description,
     operation: req.body.operation,
   });
   try {

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 
-import "./App.css";
+// import "./App.css";
 
 import BuilData from "./components/build_components/elemntaryRoutes/BuildData";
 import Home from "./components/build_components/elemntaryRoutes/Home";
