@@ -1,18 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
 function NavBar(props) {
-  const themes = props.themes;
   const sendDataToApp = props.handleDataFromNavBar;
 
-  const [theme, setTheme] = useState(themes[0]);
-
   function handleClick() {
-    sendDataToApp(theme);
+    sendDataToApp(count);
   }
 
   let [count, setCount] = useState(1);
+
   const changeTheme = () => {
-    setTheme(themes[count]);
     handleClick();
     setCount(count + 1);
     if (count >= 2) {
@@ -20,13 +17,11 @@ function NavBar(props) {
     }
   };
 
-  console.log(theme, count);
-
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+        <div className="dropdown ">
+          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -47,19 +42,18 @@ function NavBar(props) {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
               <Link to="/buildPage">Build data</Link>
-            </li>
-            <li>
-              <a>Portfolio</a>
-            </li>
-            <li>
-              <a>About</a>
             </li>
           </ul>
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost text-xl text-red-400">Production App</a>
+        <Link to="/">
+          <p className="btn btn-ghost text-xl text-red-400">Production App</p>
+        </Link>
       </div>
       <div className="navbar-end">
         <button className="btn btn-ghost btn-circle">

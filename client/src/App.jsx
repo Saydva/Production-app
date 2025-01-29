@@ -1,27 +1,32 @@
-import "./App.css";
-import BuildPage from "./NavBar/build";
-import NavBar from "./NavBar/navBar";
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router";
+import React, { useEffect } from "react";
+import { Routes, Route } from "react-router";
 import { useState } from "react";
+
+import BuildPage from "./components/mainPaiges/build";
+import NavBar from "./NavBar/navBar";
+import Home from "./components/mainPaiges/home";
 
 function App() {
   const [dataFromNavBar, setDataFromNavBar] = useState("");
 
+  useEffect(() => {
+    handleDataFromNavBar(dataFromNavBar);
+  }, [dataFromNavBar]);
+
   function handleDataFromNavBar(data) {
     setDataFromNavBar(data);
   }
-  const themes = ["light", "dark", "cupcake"];
+
+  console.log(dataFromNavBar);
+  const themes = ["lofi", "nord", "dim"];
   return (
     <>
-      <div data-theme={dataFromNavBar}>
+      <div data-theme={themes[dataFromNavBar]}>
         <nav>
           <NavBar themes={themes} handleDataFromNavBar={handleDataFromNavBar} />
         </nav>
-        <div>{dataFromNavBar}</div>
-
         <Routes>
-          {/* <Route index element={<Home />} /> */}
+          <Route index element={<Home />} />
           <Route path="buildPage" element={<BuildPage />}>
             {/* <Route path="profile" element={<Profile />} /> */}
             {/* <Route path="account" element={<Account />} /> */}

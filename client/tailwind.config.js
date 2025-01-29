@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require("tailwindcss-motion")],
   daisyui: {
-    themes: ["light", "dark", "cupcake"],
+    themes: ["lofi", "nord", "dim"],
   },
 };
