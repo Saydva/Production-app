@@ -5,6 +5,7 @@ import { useState } from "react";
 import BuildPage from "./components/mainPaiges/build";
 import NavBar from "./NavBar/navBar";
 import Home from "./components/mainPaiges/home";
+import Colors from "./components/colors";
 
 function App() {
   const [dataFromNavBar, setDataFromNavBar] = useState("");
@@ -32,6 +33,7 @@ function App() {
             {/* <Route path="account" element={<Account />} /> */}
           </Route>
         </Routes>
+        <Colors />
       </div>
     </>
   );

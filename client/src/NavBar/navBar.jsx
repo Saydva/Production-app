@@ -17,11 +17,21 @@ function NavBar(props) {
     }
   };
 
+  function close() {
+    var drop = document.querySelector(".dropdown");
+
+    drop.removeAttribute("open");
+  }
+
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
-        <div className="dropdown ">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle ">
+        <details className="dropdown">
+          <summary
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost btn-circle "
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -36,19 +46,19 @@ function NavBar(props) {
                 d="M4 6h16M4 12h16M4 18h7"
               />
             </svg>
-          </div>
+          </summary>
           <ul
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-            <li>
+            <li onClick={close}>
               <Link to="/">Home</Link>
             </li>
-            <li>
+            <li onClick={close}>
               <Link to="/buildPage">Build data</Link>
             </li>
           </ul>
-        </div>
+        </details>
       </div>
       <div className="navbar-center">
         <Link to="/">
@@ -72,6 +82,7 @@ function NavBar(props) {
             />
           </svg>
         </button>
+        <button>Get</button>
         <button className="btn btn-ghost btn-circle" onClick={changeTheme}>
           <div className="indicator">
             <svg

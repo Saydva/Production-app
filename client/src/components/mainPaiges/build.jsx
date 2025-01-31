@@ -15,6 +15,9 @@ function BuildPage() {
 
   return (
     <>
+      <div className="flex flex-col justify-start gap-3 ">
+        <h4 className="pl-2">Build Your Data</h4>
+      </div>
       <RowComponent name={"name"} changeObj={changeObj} />
     </>
   );
