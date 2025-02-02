@@ -19,7 +19,6 @@ function NavBar(props) {
 
   function close() {
     var drop = document.querySelector(".dropdown");
-
     drop.removeAttribute("open");
   }
 
@@ -49,12 +48,18 @@ function NavBar(props) {
           </summary>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100  border-2 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-            <li onClick={close}>
+            <li
+              onClick={close}
+              className="border-2 border-slate-500 rounded-lg m-1"
+            >
               <Link to="/">Home</Link>
             </li>
-            <li onClick={close}>
+            <li
+              onClick={close}
+              className="border-2 border-slate-500 rounded-lg m-1"
+            >
               <Link to="/buildPage">Build data</Link>
             </li>
           </ul>
@@ -82,7 +87,7 @@ function NavBar(props) {
             />
           </svg>
         </button>
-        <button>Get</button>
+
         <button className="btn btn-ghost btn-circle" onClick={changeTheme}>
           <div className="indicator">
             <svg

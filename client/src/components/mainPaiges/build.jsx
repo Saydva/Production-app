@@ -1,25 +1,14 @@
-import { useEffect, useState } from "react";
-import RowComponent from "../buildComponents/rowComponent";
+import React from "react";
+import PieceComponent from "../buildComponents/piece";
 
 function BuildPage() {
-  const [obj, setObj] = useState({});
-  const [dataFromRow, setdataFromRow] = useState("");
-
-  const changeObj = (data) => {
-    setdataFromRow(data);
-  };
-
-  useEffect(() => {
-    console.log(dataFromRow);
-  }, [changeObj]);
-
   return (
-    <>
-      <div className="flex flex-col justify-start gap-3 ">
-        <h4 className="pl-2">Build Your Data</h4>
-      </div>
-      <RowComponent name={"name"} changeObj={changeObj} />
-    </>
+    <div>
+      <h4 className="m-3 p-2 border-neutral border-2 w-min min-w-56 rounded-lg ">
+        Build Your Data
+      </h4>
+      <PieceComponent />
+    </div>
   );
 }
 

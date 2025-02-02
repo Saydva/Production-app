@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
 import { Routes, Route } from "react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import BuildPage from "./components/mainPaiges/build";
 import NavBar from "./NavBar/navBar";
 import Home from "./components/mainPaiges/home";
-import Colors from "./components/colors";
 
 function App() {
   const [dataFromNavBar, setDataFromNavBar] = useState("");
@@ -18,7 +16,6 @@ function App() {
     setDataFromNavBar(data);
   }
 
-  console.log(dataFromNavBar);
   const themes = ["lofi", "nord", "dim"];
   return (
     <>
@@ -33,7 +30,6 @@ function App() {
             {/* <Route path="account" element={<Account />} /> */}
           </Route>
         </Routes>
-        <Colors />
       </div>
     </>
   );

@@ -8,8 +8,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "@fortawesome/react-fontawesome": "^0.2.2"
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Saydva/Production-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Saydva/Production-app/issues"
+  },
+  "homepage": "https://github.com/Saydva/Production-app#readme",
+  "description": ""
 }
