@@ -3,6 +3,7 @@ import { Save, XSquare } from "react-feather";
 import { DataContext } from "./utils/dataContext.js";
 
 function RowComponent(props) {
+  console.log("render");
   const name = props.name;
   const property = props.property;
 

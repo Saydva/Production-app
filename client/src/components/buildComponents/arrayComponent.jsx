@@ -1,4 +1,3 @@
-import React from "react";
 import RowComponent from "./rowComponent";
 
 function ArrayComponent() {

@@ -3,10 +3,6 @@ import { Link } from "react-router";
 function NavBar(props) {
   const sendDataToApp = props.handleDataFromNavBar;
 
-  function handleClick() {
-    sendDataToApp(count);
-  }
-
   let [count, setCount] = useState(1);
 
   const changeTheme = () => {
@@ -16,6 +12,10 @@ function NavBar(props) {
       setCount(0);
     }
   };
+
+  function handleClick() {
+    sendDataToApp(count);
+  }
 
   function close() {
     var drop = document.querySelector(".dropdown");
@@ -61,6 +61,12 @@ function NavBar(props) {
               className="border-2 border-slate-500 rounded-lg m-1"
             >
               <Link to="/buildPage">Build data</Link>
+            </li>
+            <li
+              onClick={close}
+              className="border-2 border-slate-500 rounded-lg m-1"
+            >
+              <Link to="/test">Test</Link>
             </li>
           </ul>
         </details>
