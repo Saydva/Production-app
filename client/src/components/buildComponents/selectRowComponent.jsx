@@ -14,7 +14,7 @@ function SelectComponent(props) {
           className="select select-secondary w-full "
           disabled={lock ? true : false}
         >
-          <option defaultValue={"selected"}>Pick your favorite language</option>
+          <option defaultValue={"selected"}>Pick something</option>
           {arr}
         </select>
       </div>

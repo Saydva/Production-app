@@ -50,18 +50,16 @@ function Test() {
     setPiece({ ...piece, partStTime: timeObj.time });
   }, [timeObj.time]);
 
-  const options = ["first", "b", "c", "d"];
+  const options = ["a", "b", "c", "d"];
 
   const component = <SelectComponent arr={options} />;
 
   const [components, setComponents] = useState([]);
 
-  function handleRemove(index) {
-    const newList = [...components];
-    newList.splice(index, 1);
-
-    setComponents(newList);
-    console.log(index);
+  function getUID() {
+    // Get the timestamp and convert
+    // it into alphanumeric input
+    return Date.now().toString(36);
   }
 
   console.log(components);
@@ -71,11 +69,24 @@ function Test() {
       <div className="flex flex-row"></div>
       <div className="flex flex-col justify-start">
         <DataContext.Provider value={{ piece, setPiece, obj, setObj }}>
+          {components.map((e) => e)}
           <SelectComponent arr={options} />
           <button
             className="ml-3 w-min"
             onClick={() => {
-              setComponents([...components, component]);
+              setComponents([
+                ...components,
+                <li key={getUID()} id={getUID()}>
+                  {component}
+                  <button
+                    onClick={(e) => {
+                      console.log(e.target.id);
+                    }}
+                  >
+                    x
+                  </button>
+                </li>,
+              ]);
             }}
           >
             <PlusSquare
@@ -86,23 +97,6 @@ function Test() {
               stroke="grey"
             />
           </button>
-
-          {components.map((item, index) => (
-            <div key={index}>
-              <span>{item}</span>
-
-              <button
-                id={index}
-                type="button"
-                onClick={(e) => {
-                  handleRemove(e.currentTarget.id);
-                  console.log(index);
-                }}
-              >
-                Remove
-              </button>
-            </div>
-          ))}
 
           <button
             className="btn w-min min-w-36 rounded-md bg-slate-400 bg-opacity-30 ml-3 text-current"
