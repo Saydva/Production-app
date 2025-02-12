@@ -20,7 +20,7 @@ function App() {
   const themes = ["lofi", "nord", "dim"];
   return (
     <>
-      <div data-theme={themes[dataFromNavBar]}>
+      <div data-theme={themes[dataFromNavBar]} className="h-screen">
         <nav>
           <NavBar themes={themes} handleDataFromNavBar={handleDataFromNavBar} />
         </nav>
