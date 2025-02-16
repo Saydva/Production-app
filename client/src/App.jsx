@@ -8,6 +8,7 @@ import Test from "./components/mainPaiges/test";
 
 function App() {
   const [dataFromNavBar, setDataFromNavBar] = useState("");
+  const [themes, setThemes] = useState(["lofi", "nord", "dim"]);
 
   useEffect(() => {
     handleDataFromNavBar(dataFromNavBar);
@@ -17,22 +18,19 @@ function App() {
     setDataFromNavBar(data);
   }
 
-  const themes = ["lofi", "nord", "dim"];
   return (
-    <>
-      <div data-theme={themes[dataFromNavBar]} className="h-screen">
-        <nav>
-          <NavBar themes={themes} handleDataFromNavBar={handleDataFromNavBar} />
-        </nav>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="buildPage" element={<BuildPage />} />
-          <Route path="test" element={<Test />} />
-          {/* <Route path="test" element={<Test />} /> */}
-          {/* <Route path="account" element={<Account />} /> */}
-        </Routes>
-      </div>
-    </>
+    <div data-theme={themes[dataFromNavBar]} className="min-h-svh">
+      <nav>
+        <NavBar themes={themes} handleDataFromNavBar={handleDataFromNavBar} />
+      </nav>
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="buildPage" element={<BuildPage />} />
+        <Route path="test" element={<Test />} />
+        {/* <Route path="test" element={<Test />} /> */}
+        {/* <Route path="account" element={<Account />} /> */}
+      </Routes>
+    </div>
   );
 }
 

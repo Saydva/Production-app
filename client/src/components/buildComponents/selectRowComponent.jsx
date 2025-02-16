@@ -1,7 +1,18 @@
 import { React, useEffect, useState } from "react";
 import { XCircle } from "react-feather";
 
-function SelectComponent() {
+function SelectComponent(props) {
+  const name = props.name;
+  let sendData;
+
+  if (props.setPieceDes) {
+    sendData = props.setPieceDes;
+  }
+
+  if (props.setPieceAtt) {
+    sendData = props.setPieceAtt;
+  }
+
   const array = [
     { name: "one", set: 1 },
     { name: "two", set: 2 },
@@ -26,14 +37,17 @@ function SelectComponent() {
       );
     });
   }
-
   const remove = (i) => {
     data.splice(i, 1);
     setData([...data]);
   };
 
   const list = data.map((e, index) => (
-    <div role="alert" className="alert alert-success ml-3 mb-3 p-2 flex">
+    <div
+      key={index}
+      role="alert"
+      className="alert alert-success ml-3 mb-3 w-min p-2 flex"
+    >
       <button
         id={index}
         onClick={(e) => {
@@ -63,8 +77,8 @@ function SelectComponent() {
   }
 
   return (
-    <div className="flex flex-row items-center">
-      <div>
+    <div className="flex flex-col w-min justify-center">
+      <div className=" flex flex-row items-center">
         <select
           disabled={lock}
           onChange={onChange}
@@ -72,16 +86,14 @@ function SelectComponent() {
           lock ? "text-error focus:text-error" : ""
         }`}
         >
-          <option value="">{!lock ? "Pick Something" : "Locked"}</option>
+          <option value="">{!lock ? "Pick " + name : "Locked"}</option>
           {options}
         </select>
-        <ul>{list}</ul>
-
         <button
-          className="btn ml-3"
+          className="btn "
           onClick={(e) => {
             // set data to value
-
+            sendData(data);
             // add clases to amine button
             e.target.classList.add(
               ["motion-preset-shrink"],
@@ -102,6 +114,9 @@ function SelectComponent() {
         >
           {lock ? "Unlock" : "Lock"}
         </button>
+      </div>
+      <div>
+        <ul>{list}</ul>
       </div>
     </div>
   );

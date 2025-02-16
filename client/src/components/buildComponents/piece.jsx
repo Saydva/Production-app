@@ -4,6 +4,7 @@ import { standartTimeCalc } from "./utils/standartTimecalculator.js";
 
 import RowComponent from "../buildComponents/rowComponent";
 import ArrayComponent from "./arrayComponent";
+import SelectComponent from "./selectRowComponent.jsx";
 
 function PieceComponent() {
   //set up piece state
@@ -26,6 +27,15 @@ function PieceComponent() {
     stTime: null,
   });
 
+  const dataFromAtt = (data) => {
+    piece.attribute = data;
+    console.log(data, piece);
+  };
+
+  const dataFromDes = (data) => {
+    piece.description = data;
+    console.log(data, piece);
+  };
   // modal when somthing is missing
   const openModal = () => {
     var modal = document.querySelector(`#noObj`);
@@ -66,11 +76,14 @@ function PieceComponent() {
           <RowComponent name={Object.keys(piece)[0]} property={String} />
 
           <ArrayComponent />
+          <SelectComponent name={"attribute"} setPieceAtt={dataFromAtt} />
+          <SelectComponent name={"description"} setPieceDes={dataFromDes} />
+
           <button
             className="btn w-min min-w-36 rounded-md bg- bg-slate-400 bg-opacity-30 ml-3 text-current"
             onClick={() => {
               if (piece.partName != "" && piece.operation.length != 0) {
-                console.log(JSON.stringify(piece));
+                console.log(piece);
               } else {
                 openModal();
               }
