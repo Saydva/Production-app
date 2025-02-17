@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import PieceComponent from "../buildComponents/piece";
 import OtherComponents from "../buildComponents/other";
+import SubPieceComponent from "../buildComponents/subPiece";
 
 function BuildPage() {
   const piece = <PieceComponent />;
+  const subPiece = <SubPieceComponent />;
   const other = <OtherComponents />;
   const [element, setElement] = useState("");
 
-  let renderedComponent = (component) => {
+  const renderedComponent = (component) => {
     return component;
   };
 
@@ -27,10 +29,22 @@ function BuildPage() {
           </a>
         </li>
         <li>
-          <a>Item 2</a>
+          <a
+            onClick={() => {
+              setElement(subPiece);
+            }}
+          >
+            SubPiece
+          </a>
         </li>
         <li>
-          <a>Item 3</a>
+          <a
+            onClick={() => {
+              setElement(subPiece);
+            }}
+          >
+            Model
+          </a>
         </li>
         <li>
           <a

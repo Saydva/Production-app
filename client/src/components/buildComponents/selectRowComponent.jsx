@@ -13,6 +13,10 @@ function SelectComponent(props) {
     sendData = props.setPieceAtt;
   }
 
+  if (props.setSubPiecec) {
+    sendData = props.setSubPiecec;
+  }
+
   const array = [
     { name: "one", set: 1 },
     { name: "two", set: 2 },
