@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import { XCircle } from "react-feather";
 
 function SelectComponent(props) {
@@ -63,11 +63,6 @@ function SelectComponent(props) {
       </span>
     </div>
   ));
-
-  let select;
-  useEffect(() => {
-    select = document.querySelector(`.select`);
-  });
 
   function onChange(e) {
     if (e.target.value !== "" && !data.includes(e.target.value)) {

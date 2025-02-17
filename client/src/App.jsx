@@ -2,9 +2,9 @@ import { Routes, Route } from "react-router";
 import { useState, useEffect } from "react";
 
 import NavBar from "./NavBar/navBar";
-import BuildPage from "./components/mainPaiges/build";
-import Home from "./components/mainPaiges/home";
-import Test from "./components/mainPaiges/test";
+import BuildPage from "./components/mainPages/build";
+import Home from "./components/mainPages/home";
+import Test from "./components/mainPages/test";
 
 function App() {
   const [dataFromNavBar, setDataFromNavBar] = useState("");

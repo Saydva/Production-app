@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DataContext } from "./utils/dataContext";
 import { standartTimeCalc } from "./utils/standartTimecalculator.js";
 
@@ -36,9 +36,12 @@ function PieceComponent() {
     piece.description = data;
     console.log(data, piece);
   };
-  // modal when somthing is missing
+
+  // modal when something is missing
+
+  const modal = useRef();
+
   const openModal = () => {
-    var modal = document.querySelector(`#noObj`);
     modal.showModal();
   };
 
@@ -92,6 +95,7 @@ function PieceComponent() {
             Send data
           </button>
           <dialog
+            ref={modal}
             id={"noObj"}
             className="modal modal-bottom sm:modal-middle flex justify-center items-center "
           >
