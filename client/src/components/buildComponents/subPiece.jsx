@@ -7,6 +7,8 @@ import ArrayComponent from "./arrayComponent";
 import SelectComponent from "./selectRowComponent.jsx";
 
 function SubPieceComponent() {
+  // const that holds property to switch betweeen build pages
+  const prop = "subPiece";
   //set up piece state
   const [subPiece, setSubPiece] = useState({
     partName: "",
@@ -54,7 +56,7 @@ function SubPieceComponent() {
   // push operation obj in piece.oparation
   useEffect(() => {
     if (obj.name && obj.stTime) {
-      setPiece({ ...subPiece, operation: [obj] });
+      setSubPiece({ ...subPiece, operation: [obj] });
     }
   }, [obj]);
 
@@ -81,7 +83,9 @@ function SubPieceComponent() {
         </span>
       </div>
       <div className="flex flex-col justify-start">
-        <DataContext.Provider value={{ subPiece, setSubPiece, obj, setObj }}>
+        <DataContext.Provider
+          value={{ prop, subPiece, setSubPiece, obj, setObj }}
+        >
           <RowComponent name={Object.keys(subPiece)[0]} property={String} />
 
           <ArrayComponent />
@@ -94,7 +98,7 @@ function SubPieceComponent() {
             className="btn w-min min-w-36 rounded-md bg- bg-slate-400 bg-opacity-30 ml-3 text-current"
             onClick={() => {
               if (subPiece.partName != "" && subPiece.operation.length != 0) {
-                console.log(piece);
+                console.log(subPiece);
               } else {
                 openModal();
               }

@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import PieceComponent from "../buildComponents/piece";
 import OtherComponents from "../buildComponents/other";
 import SubPieceComponent from "../buildComponents/subPiece";
+import ModelComponent from "../buildComponents/model";
 
 function BuildPage() {
   const piece = <PieceComponent />;
   const subPiece = <SubPieceComponent />;
+  const model = <ModelComponent />;
   const other = <OtherComponents />;
   const [element, setElement] = useState("");
 
@@ -40,7 +42,7 @@ function BuildPage() {
         <li>
           <a
             onClick={() => {
-              setElement(subPiece);
+              setElement(model);
             }}
           >
             Model

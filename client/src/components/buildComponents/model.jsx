@@ -6,14 +6,15 @@ import RowComponent from "../buildComponents/rowComponent";
 import ArrayComponent from "./arrayComponent";
 import SelectComponent from "./selectRowComponent.jsx";
 
-function PieceComponent() {
+function ModelComponent() {
   // const that holds property to switch betweeen build pages
-  const prop = "piece";
-
+  const prop = "model";
   //set up piece state
-  const [piece, setPiece] = useState({
+  const [model, setModel] = useState({
     partName: "",
     partStTime: 0,
+    piecec: [],
+    subPiecec: [],
     attribute: [],
     description: [],
     operation: [],
@@ -30,14 +31,24 @@ function PieceComponent() {
     stTime: null,
   });
 
+  const dataFromPiecec = (data) => {
+    model.piecec = data;
+    console.log(data, model);
+  };
+
+  const dataFromSubPiecec = (data) => {
+    model.subPiecec = data;
+    console.log(data, model);
+  };
+
   const dataFromAtt = (data) => {
-    piece.attribute = data;
-    console.log(data, piece);
+    model.attribute = data;
+    console.log(data, model);
   };
 
   const dataFromDes = (data) => {
-    piece.description = data;
-    console.log(data, piece);
+    model.description = data;
+    console.log(data, model);
   };
 
   // modal when something is missing
@@ -51,45 +62,47 @@ function PieceComponent() {
   // push operation obj in piece.oparation
   useEffect(() => {
     if (obj.name && obj.stTime) {
-      setPiece({ ...piece, operation: [obj] });
+      setModel({ ...model, operation: [obj] });
     }
   }, [obj]);
 
-  //if object properties are all call function to calculate stTime
+  //if object properties are filled up  call function to calculate stTime
   useEffect(() => {
-    if (piece.partName != "" && piece.operation.length != 0) {
-      const time = standartTimeCalc(piece);
+    if (model.partName != "" && model.operation.length != 0) {
+      const time = standartTimeCalc(model);
       setTimeObj({ ...timeObj, time: time });
     }
-  }, [piece, obj.stTime]);
+  }, [model, obj.stTime]);
 
   useEffect(() => {
-    setPiece({ ...piece, partStTime: timeObj.time });
+    setModel({ ...model, partStTime: timeObj.time });
   }, [timeObj.time]);
 
   return (
     <>
       <div className="flex flex-row">
         <p className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm w-min shadow-md shadow-slate border-2 border-slate-600 border-opacity-10">
-          Piece
+          Model
         </p>
         <span className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm  shadow-md shadow-slate border-2 border-slate-600 border-opacity-20">
-          StTime of Piece = {piece.partStTime}
+          StTime of Model = {model.partStTime}
         </span>
       </div>
       <div className="flex flex-col justify-start">
-        <DataContext.Provider value={{ prop, piece, setPiece, obj, setObj }}>
-          <RowComponent name={Object.keys(piece)[0]} property={String} />
+        <DataContext.Provider value={{ prop, model, setModel, obj, setObj }}>
+          <RowComponent name={Object.keys(model)[0]} property={String} />
 
           <ArrayComponent />
+          <SelectComponent name={"piecec"} setSubPiecec={dataFromPiecec} />
+          <SelectComponent name={"subPiecec"} setPieceAtt={dataFromSubPiecec} />
           <SelectComponent name={"attribute"} setPieceAtt={dataFromAtt} />
           <SelectComponent name={"description"} setPieceDes={dataFromDes} />
 
           <button
             className="btn w-min min-w-36 rounded-md bg- bg-slate-400 bg-opacity-30 ml-3 text-current"
             onClick={() => {
-              if (piece.partName != "" && piece.operation.length != 0) {
-                console.log(piece);
+              if (model.partName != "" && model.operation.length != 0) {
+                console.log(model);
               } else {
                 openModal();
               }
@@ -121,4 +134,4 @@ function PieceComponent() {
   );
 }
 
-export default PieceComponent;
+export default ModelComponent;
