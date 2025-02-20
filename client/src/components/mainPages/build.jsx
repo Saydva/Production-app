@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PieceComponent from "../buildComponents/piece";
-import OtherComponents from "../buildComponents/other";
+import AdditionalFeatures from "../buildComponents/additionFeatures";
 import SubPieceComponent from "../buildComponents/subPiece";
 import ModelComponent from "../buildComponents/model";
 
@@ -8,7 +8,7 @@ function BuildPage() {
   const piece = <PieceComponent />;
   const subPiece = <SubPieceComponent />;
   const model = <ModelComponent />;
-  const other = <OtherComponents />;
+  const other = <AdditionalFeatures />;
   const [element, setElement] = useState("");
 
   const renderedComponent = (component) => {

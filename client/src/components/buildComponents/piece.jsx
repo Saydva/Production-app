@@ -99,7 +99,6 @@ function PieceComponent() {
           </button>
           <dialog
             ref={modal}
-            id={"noObj"}
             className="modal modal-bottom sm:modal-middle flex justify-center items-center "
           >
             <div className="modal-box w-56  text-xs rounded-md">

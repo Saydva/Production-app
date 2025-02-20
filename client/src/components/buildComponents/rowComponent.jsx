@@ -10,7 +10,8 @@ function RowComponent(props) {
     var readOnly = props.readOnly;
   }
 
-  if (props.name === "partStTime") {
+  if (props.setting) {
+    var setting = props.setting;
   }
 
   const { prop } = useContext(DataContext);
@@ -18,6 +19,8 @@ function RowComponent(props) {
   const { piece, setPiece } = useContext(DataContext);
   const { subPiece, setSubPiece } = useContext(DataContext);
   const { model, setModel } = useContext(DataContext);
+  const { attribute, setAttribute } = useContext(DataContext);
+  const { description, setDescription } = useContext(DataContext);
   const { obj, setObj } = useContext(DataContext);
 
   //state to set up array of objects
@@ -65,7 +68,12 @@ function RowComponent(props) {
               if (prop == "subPiece")
                 setSubPiece({ ...subPiece, [name]: value });
               if (prop == "model") setModel({ ...model, [name]: value });
+              if (prop == "other" && setting == "att")
+                setAttribute({ ...attribute, name: value });
+              if (prop == "other" && setting == "des")
+                setDescription({ ...description, name: value });
             }
+
             if (props.array) {
               setObj({ ...obj, [name]: value });
             }
