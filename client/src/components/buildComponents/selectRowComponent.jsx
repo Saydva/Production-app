@@ -1,5 +1,6 @@
-import { React, useState } from "react";
+import { React, useContext, useState } from "react";
 import { XCircle } from "react-feather";
+import { DataContext } from "./utils/dataContext";
 
 function SelectComponent(props) {
   const name = props.name;

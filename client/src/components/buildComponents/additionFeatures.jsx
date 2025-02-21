@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ArrayComponent from "./arrayComponent";
 import { DataContext } from "./utils/dataContext";
 import RowComponent from "./rowComponent";
 
@@ -7,9 +6,11 @@ function AdditionalFeatures() {
   const prop = "other";
   const [attribute, setAttribute] = useState({
     name: "",
+    value: "",
   });
   const [description, setDescription] = useState({
     name: "",
+    value: "",
   });
 
   console.log(attribute, description);
@@ -23,12 +24,37 @@ function AdditionalFeatures() {
             Attribute{" "}
           </h3>
 
-          <RowComponent name={"Name"} property={String} setting={"att"} />
-
+          <RowComponent name={"Name"} property={String} setting={"attName"} />
+          <RowComponent name={"value"} property={String} setting={"attValue"} />
+          <button
+            className="btn w-min min-w-36 rounded-md bg- bg-slate-400 bg-opacity-30 ml-3 text-current"
+            onClick={() => {
+              if (attribute.name != "" && attribute.value != "") {
+                console.log(attribute);
+              } else {
+                openModal();
+              }
+            }}
+          >
+            Send data
+          </button>
           <h3 className="m-3 p-2 border-neutral border-2 w-min min-w-72 rounded-lg ">
             Description
           </h3>
-          <RowComponent name={"Name"} property={String} setting={"des"} />
+          <RowComponent name={"Name"} property={String} setting={"desName"} />
+          <RowComponent name={"value"} property={String} setting={"desValue"} />
+          <button
+            className="btn w-min min-w-36 rounded-md bg- bg-slate-400 bg-opacity-30 ml-3 text-current"
+            onClick={() => {
+              if (description.name != "" && description.value !== "") {
+                console.log(description);
+              } else {
+                openModal();
+              }
+            }}
+          >
+            Send data
+          </button>
         </div>
       </DataContext.Provider>
     </div>

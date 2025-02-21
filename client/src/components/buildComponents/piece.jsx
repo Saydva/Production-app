@@ -40,14 +40,6 @@ function PieceComponent() {
     console.log(data, piece);
   };
 
-  // modal when something is missing
-
-  const modal = useRef();
-
-  const openModal = () => {
-    modal.showModal();
-  };
-
   // push operation obj in piece.oparation
   useEffect(() => {
     if (obj.name && obj.stTime) {
@@ -84,37 +76,37 @@ function PieceComponent() {
           <ArrayComponent />
           <SelectComponent name={"attribute"} setPieceAtt={dataFromAtt} />
           <SelectComponent name={"description"} setPieceDes={dataFromDes} />
-
-          <button
-            className="btn w-min min-w-36 rounded-md bg- bg-slate-400 bg-opacity-30 ml-3 text-current"
-            onClick={() => {
-              if (piece.partName != "" && piece.operation.length != 0) {
-                console.log(piece);
-              } else {
-                openModal();
-              }
-            }}
-          >
-            Send data
-          </button>
-          <dialog
-            ref={modal}
-            className="modal modal-bottom sm:modal-middle flex justify-center items-center "
-          >
-            <div className="modal-box w-56  text-xs rounded-md">
-              <p className="py-4">
-                Please set up all properties of your piece!!
-              </p>
-              <div className="modal-action">
-                <form method="dialog">
-                  <button className="h-8 w-10 bg-error text-neutral rounded-lg">
-                    Close
-                  </button>
-                </form>
-              </div>
-            </div>
-          </dialog>
         </DataContext.Provider>
+
+        <dialog
+          id="modal"
+          className="modal modal-bottom sm:modal-middle flex justify-center items-center "
+        >
+          <div className="modal-box w-56  text-xs rounded-md">
+            <p className="py-4">Please set up all properties of your piece!!</p>
+            <div className="modal-action">
+              <form method="dialog">
+                <button className="h-8 w-10 bg-error text-neutral rounded-lg">
+                  Close
+                </button>
+              </form>
+            </div>
+          </div>
+        </dialog>
+
+        <button
+          className="btn w-min min-w-36 rounded-md bg- bg-slate-400 bg-opacity-30 ml-3 text-current"
+          onClick={() => {
+            if (piece.partName != "" && piece.operation.length != 0) {
+              console.log(piece);
+            } else {
+              window.modal.showModal();
+            }
+          }}
+        >
+          Send data
+        </button>
+        {/* modal if not locked value */}
       </div>
     </>
   );

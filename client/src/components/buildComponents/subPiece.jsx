@@ -47,12 +47,6 @@ function SubPieceComponent() {
 
   // modal when something is missing
 
-  const modal = useRef();
-
-  const openModal = () => {
-    modal.showModal();
-  };
-
   // push operation obj in piece.oparation
   useEffect(() => {
     if (obj.name && obj.stTime) {
@@ -97,18 +91,21 @@ function SubPieceComponent() {
           <button
             className="btn w-min min-w-36 rounded-md bg- bg-slate-400 bg-opacity-30 ml-3 text-current"
             onClick={() => {
-              if (subPiece.partName != "" && subPiece.operation.length != 0) {
-                console.log(subPiece);
+              if (
+                subPiece.partName != "" &&
+                subPiece.operation.length != 0 &&
+                subPiece.piecec.length >= 1
+              ) {
+                console.log(subPiece, subPiece.piecec.length);
               } else {
-                openModal();
+                window.Modal.showModal();
               }
             }}
           >
             Send data
           </button>
           <dialog
-            ref={modal}
-            id={"noObj"}
+            id={"Modal"}
             className="modal modal-bottom sm:modal-middle flex justify-center items-center "
           >
             <div className="modal-box w-56  text-xs rounded-md">

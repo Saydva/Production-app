@@ -16,6 +16,8 @@ function RowComponent(props) {
 
   const { prop } = useContext(DataContext);
 
+  const { setPieceLock } = useContext(DataContext);
+
   const { piece, setPiece } = useContext(DataContext);
   const { subPiece, setSubPiece } = useContext(DataContext);
   const { model, setModel } = useContext(DataContext);
@@ -68,10 +70,14 @@ function RowComponent(props) {
               if (prop == "subPiece")
                 setSubPiece({ ...subPiece, [name]: value });
               if (prop == "model") setModel({ ...model, [name]: value });
-              if (prop == "other" && setting == "att")
+              if (prop == "other" && setting == "attName")
                 setAttribute({ ...attribute, name: value });
-              if (prop == "other" && setting == "des")
+              if (prop == "other" && setting == "attValue")
+                setAttribute({ ...attribute, value: value });
+              if (prop == "other" && setting == "desName")
                 setDescription({ ...description, name: value });
+              if (prop == "other" && setting == "desValue")
+                setDescription({ ...description, value: value });
             }
 
             if (props.array) {
