@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { DataContext } from "./utils/dataContext";
 import { standartTimeCalc } from "./utils/standartTimecalculator.js";
 
 import RowComponent from "../buildComponents/rowComponent";
 import ArrayComponent from "./arrayComponent";
 import SelectComponent from "./selectRowComponent.jsx";
+import axios from "axios";
 
 function SubPieceComponent() {
   // const that holds property to switch betweeen build pages
@@ -30,22 +31,27 @@ function SubPieceComponent() {
     stTime: null,
   });
 
+  // handle fetch back created data from db
+  const [attribute, setAttribute] = useState([]);
+  const [description, setDescription] = useState([]);
+  const [piece, setPiece] = useState([]);
+
+  // handle data from piecec db
   const dataFromPiecec = (data) => {
-    subPiece.piecec = data;
-    console.log(data, subPiece);
+    setSubPiece({ ...subPiece, piecec: data });
   };
 
+  // handle data from attribute
   const dataFromAtt = (data) => {
     subPiece.attribute = data;
     console.log(data, subPiece);
   };
 
+  // handle data from desciton
   const dataFromDes = (data) => {
     subPiece.description = data;
     console.log(data, subPiece);
   };
-
-  // modal when something is missing
 
   // push operation obj in piece.oparation
   useEffect(() => {
@@ -56,15 +62,53 @@ function SubPieceComponent() {
 
   //if object properties are all call function to calculate stTime
   useEffect(() => {
-    if (subPiece.partName != "" && subPiece.operation.length != 0) {
+    if (subPiece.partName != "") {
       const time = standartTimeCalc(subPiece);
       setTimeObj({ ...timeObj, time: time });
     }
-  }, [subPiece, obj.stTime]);
+  }, [subPiece]);
 
+  // handle standart time from operation obj
   useEffect(() => {
     setSubPiece({ ...subPiece, partStTime: timeObj.time });
   }, [timeObj.time]);
+
+  // const to handle axios url
+  const postUrl = (prop) => {
+    return "http://localhost:3000/" + prop;
+  };
+
+  // handle post axios
+  const postData = async (object) => {
+    await axios
+      .post(postUrl(prop), object)
+      .then((response) => {
+        console.log(response, object);
+      })
+      .catch((error) => {
+        // console.log(error.response.data.errorResponse.errmsg); - errormsg
+        console.log(error);
+      });
+  };
+
+  // handle axios get data
+  const getData = async (name, setdata) => {
+    await axios
+      .get(postUrl(name))
+      .then((response) => {
+        setdata(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getData("attributes", setAttribute);
+    getData("descriptions", setDescription);
+    getData("pieces", setPiece);
+  }, []);
+
+  console.log(attribute, description, piece);
 
   return (
     <>
@@ -83,10 +127,22 @@ function SubPieceComponent() {
           <RowComponent name={Object.keys(subPiece)[0]} property={String} />
 
           <ArrayComponent />
-          <SelectComponent name={"piecec"} setSubPiecec={dataFromPiecec} />
+          <SelectComponent
+            name={"piecec"}
+            setSubPiecec={dataFromPiecec}
+            arr={piece}
+          />
 
-          <SelectComponent name={"attribute"} setPieceAtt={dataFromAtt} />
-          <SelectComponent name={"description"} setPieceDes={dataFromDes} />
+          <SelectComponent
+            name={"attribute"}
+            setPieceAtt={dataFromAtt}
+            arr={attribute}
+          />
+          <SelectComponent
+            name={"description"}
+            setPieceDes={dataFromDes}
+            arr={description}
+          />
 
           <button
             className="btn w-min min-w-36 rounded-md bg- bg-slate-400 bg-opacity-30 ml-3 text-current"
@@ -96,16 +152,16 @@ function SubPieceComponent() {
                 subPiece.operation.length != 0 &&
                 subPiece.piecec.length >= 1
               ) {
-                console.log(subPiece, subPiece.piecec.length);
+                postData(subPiece);
               } else {
-                window.Modal.showModal();
+                window.modal.showModal();
               }
             }}
           >
             Send data
           </button>
           <dialog
-            id={"Modal"}
+            id={"modal"}
             className="modal modal-bottom sm:modal-middle flex justify-center items-center "
           >
             <div className="modal-box w-56  text-xs rounded-md">

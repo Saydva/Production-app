@@ -1,6 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { DataContext } from "./utils/dataContext";
+
 import { standartTimeCalc } from "./utils/standartTimecalculator.js";
+
+import axios from "axios";
 
 import RowComponent from "../buildComponents/rowComponent";
 import ArrayComponent from "./arrayComponent";
@@ -30,11 +33,17 @@ function PieceComponent() {
     stTime: null,
   });
 
+  // handle fetch back created data from db
+  const [attribute, setAttribute] = useState([]);
+  const [description, setDescription] = useState([]);
+
+  // handle data from attribute
   const dataFromAtt = (data) => {
     piece.attribute = data;
     console.log(data, piece);
   };
 
+  // handle datat from description
   const dataFromDes = (data) => {
     piece.description = data;
     console.log(data, piece);
@@ -55,9 +64,44 @@ function PieceComponent() {
     }
   }, [piece, obj.stTime]);
 
+  // handle standart time from operation obj
   useEffect(() => {
     setPiece({ ...piece, partStTime: timeObj.time });
   }, [timeObj.time]);
+
+  // const to handle axios url
+  const postUrl = (prop) => {
+    return "http://localhost:3000/" + prop;
+  };
+
+  // handle post axios
+  const postData = async (object) => {
+    await axios
+      .post(postUrl(prop), object)
+      .then((response) => {
+        console.log(response, object);
+      })
+      .catch((error) => {
+        // console.log(error.response.data.errorResponse.errmsg);
+        console.log(error);
+      });
+  };
+
+  // handle axios get data
+  const getData = async (name, setdata) => {
+    await axios
+      .get(postUrl(name))
+      .then((response) => {
+        setdata(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getData("attributes", setAttribute);
+    getData("descriptions", setDescription);
+  }, []);
 
   return (
     <>
@@ -72,10 +116,17 @@ function PieceComponent() {
       <div className="flex flex-col justify-start">
         <DataContext.Provider value={{ prop, piece, setPiece, obj, setObj }}>
           <RowComponent name={Object.keys(piece)[0]} property={String} />
-
           <ArrayComponent />
-          <SelectComponent name={"attribute"} setPieceAtt={dataFromAtt} />
-          <SelectComponent name={"description"} setPieceDes={dataFromDes} />
+          <SelectComponent
+            name={"attribute"}
+            setPieceAtt={dataFromAtt}
+            arr={attribute}
+          />
+          <SelectComponent
+            name={"description"}
+            setPieceDes={dataFromDes}
+            arr={description}
+          />
         </DataContext.Provider>
 
         <dialog
@@ -99,6 +150,7 @@ function PieceComponent() {
           onClick={() => {
             if (piece.partName != "" && piece.operation.length != 0) {
               console.log(piece);
+              postData(piece);
             } else {
               window.modal.showModal();
             }

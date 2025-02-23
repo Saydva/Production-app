@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { DataContext } from "./utils/dataContext";
 import RowComponent from "./rowComponent";
+import axios from "axios";
 
 function AdditionalFeatures() {
   const prop = "other";
+
+  // handle objects attribute and option
   const [attribute, setAttribute] = useState({
     name: "",
     value: "",
@@ -13,7 +16,23 @@ function AdditionalFeatures() {
     value: "",
   });
 
-  console.log(attribute, description);
+  // const to handle axios url
+  const postUrl = (prop) => {
+    return "http://localhost:3000/" + prop;
+  };
+
+  // handle post axios
+  const postData = async (object, string) => {
+    await axios
+      .post(postUrl(string), object)
+      .then((response) => {
+        console.log(response, object);
+      })
+      .catch((error) => {
+        // console.log(error.response.data.errorResponse.errmsg);
+        console.log(error);
+      });
+  };
   return (
     <div>
       <DataContext.Provider
@@ -30,9 +49,9 @@ function AdditionalFeatures() {
             className="btn w-min min-w-36 rounded-md bg- bg-slate-400 bg-opacity-30 ml-3 text-current"
             onClick={() => {
               if (attribute.name != "" && attribute.value != "") {
-                console.log(attribute);
+                postData(attribute, "attribute");
               } else {
-                openModal();
+                window.modal.showModal();
               }
             }}
           >
@@ -47,14 +66,32 @@ function AdditionalFeatures() {
             className="btn w-min min-w-36 rounded-md bg- bg-slate-400 bg-opacity-30 ml-3 text-current"
             onClick={() => {
               if (description.name != "" && description.value !== "") {
-                console.log(description);
+                postData(description, "description");
               } else {
-                openModal();
+                window.modal.showModal();
               }
             }}
           >
             Send data
           </button>
+
+          <dialog
+            id="modal"
+            className="modal modal-bottom sm:modal-middle flex justify-center items-center "
+          >
+            <div className="modal-box w-56  text-xs rounded-md">
+              <p className="py-4">
+                Please set up all properties of your Aditional object!!
+              </p>
+              <div className="modal-action">
+                <form method="dialog">
+                  <button className="h-8 w-10 bg-error text-neutral rounded-lg">
+                    Close
+                  </button>
+                </form>
+              </div>
+            </div>
+          </dialog>
         </div>
       </DataContext.Provider>
     </div>

@@ -10,7 +10,6 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 mongoose.connect(Uri);
 
-
 const db = mongoose.connection;
 db.on("error", (error) => {
   console.error(error);

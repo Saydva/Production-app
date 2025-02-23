@@ -1,10 +1,10 @@
-import { React, useContext, useState } from "react";
+import { React, useState } from "react";
 import { XCircle } from "react-feather";
-import { DataContext } from "./utils/dataContext";
 
 function SelectComponent(props) {
   const name = props.name;
-  let sendData;
+  const arr = props.arr;
+  var sendData;
 
   if (props.setPieceDes) {
     sendData = props.setPieceDes;
@@ -18,11 +18,11 @@ function SelectComponent(props) {
     sendData = props.setSubPiecec;
   }
 
-  const array = [
-    { name: "one", set: 1 },
-    { name: "two", set: 2 },
-    { name: "three", set: 3 },
-  ];
+  // const array = [
+  //   { name: "one", set: 1 },
+  //   { name: "two", set: 2 },
+  //   { name: "three", set: 3 },
+  // ];
 
   const [lock, setLock] = useState(false);
   const [data, setData] = useState([]);
@@ -30,14 +30,19 @@ function SelectComponent(props) {
   let options;
 
   if (!lock) {
-    options = array.map((e, index) => {
+    options = arr.map((e, index) => {
       return (
         <option
+          label={
+            e.name
+              ? "name - " + e.name + " , value - " + e.value
+              : "name - " + e.partName + " , " + "stTime - " + e.partStTime
+          }
           className="m-2 rounded-full"
           value={JSON.stringify(e)}
           key={index}
         >
-          {e.name}
+          {JSON.stringify(e)}
         </option>
       );
     });
@@ -64,14 +69,14 @@ function SelectComponent(props) {
         <XCircle />
       </button>
       <span id={index} key={index}>
-        {e}
+        {JSON.stringify(e.name ? e.name : e.partName)}
       </span>
     </div>
   ));
 
   function onChange(e) {
     if (e.target.value !== "" && !data.includes(e.target.value)) {
-      data.push(e.target.value);
+      data.push(JSON.parse(e.target.value));
       setData([...data]);
     }
   }

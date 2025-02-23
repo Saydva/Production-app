@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { DataContext } from "./utils/dataContext";
 import { standartTimeCalc } from "./utils/standartTimecalculator.js";
 
 import RowComponent from "../buildComponents/rowComponent";
 import ArrayComponent from "./arrayComponent";
 import SelectComponent from "./selectRowComponent.jsx";
+import axios from "axios";
 
 function ModelComponent() {
   // const that holds property to switch betweeen build pages
@@ -31,27 +32,33 @@ function ModelComponent() {
     stTime: null,
   });
 
+  // handle fetch back created data from db
+  const [attribute, setAttribute] = useState([]);
+  const [description, setDescription] = useState([]);
+  const [piece, setPiece] = useState([]);
+  const [subPiece, setSubPiece] = useState([]);
+
+  // handle pieec from db
   const dataFromPiecec = (data) => {
-    model.piecec = data;
-    console.log(data, model);
+    setModel({ ...model, piecec: data });
   };
 
+  // handle subPiecec from db
   const dataFromSubPiecec = (data) => {
-    model.subPiecec = data;
-    console.log(data, model);
+    setModel({ ...model, subPiecec: data });
   };
 
+  // handle data from attaribute
   const dataFromAtt = (data) => {
     model.attribute = data;
     console.log(data, model);
   };
 
+  // handle data from description
   const dataFromDes = (data) => {
     model.description = data;
     console.log(data, model);
   };
-
-  // modal when something is missing
 
   // push operation obj in piece.oparation
   useEffect(() => {
@@ -60,17 +67,52 @@ function ModelComponent() {
     }
   }, [obj]);
 
-  //if object properties are filled up  call function to calculate stTime
+  //if object properties are all call function to calculate stTime
   useEffect(() => {
-    if (model.partName != "" && model.operation.length != 0) {
-      const time = standartTimeCalc(model);
-      setTimeObj({ ...timeObj, time: time });
-    }
-  }, [model, obj.stTime]);
+    const time = standartTimeCalc(model);
+    setTimeObj({ ...timeObj, time: time });
+  }, [model]);
 
+  //handle standart time from operation object
   useEffect(() => {
     setModel({ ...model, partStTime: timeObj.time });
   }, [timeObj.time]);
+
+  // const to handle axios url
+  const postUrl = (prop) => {
+    return "http://localhost:3000/" + prop;
+  };
+
+  // handle post axios
+  const postData = async (object) => {
+    await axios
+      .post(postUrl(prop), object)
+      .then((response) => {
+        console.log(response, object);
+      })
+      .catch((error) => {
+        // console.log(error.response.data.errorResponse.errmsg); - errormsg
+        console.log(error);
+      });
+  };
+
+  // handle axios get data
+  const getData = async (name, setdata) => {
+    await axios
+      .get(postUrl(name))
+      .then((response) => {
+        setdata(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getData("attributes", setAttribute);
+    getData("descriptions", setDescription);
+    getData("pieces", setPiece);
+    getData("subpieces", setSubPiece);
+  }, []);
 
   return (
     <>
@@ -87,10 +129,26 @@ function ModelComponent() {
           <RowComponent name={Object.keys(model)[0]} property={String} />
 
           <ArrayComponent />
-          <SelectComponent name={"piecec"} setSubPiecec={dataFromPiecec} />
-          <SelectComponent name={"subPiecec"} setPieceAtt={dataFromSubPiecec} />
-          <SelectComponent name={"attribute"} setPieceAtt={dataFromAtt} />
-          <SelectComponent name={"description"} setPieceDes={dataFromDes} />
+          <SelectComponent
+            name={"piecec"}
+            setSubPiecec={dataFromPiecec}
+            arr={piece}
+          />
+          <SelectComponent
+            name={"subPiecec"}
+            setPieceAtt={dataFromSubPiecec}
+            arr={subPiece}
+          />
+          <SelectComponent
+            name={"attribute"}
+            setPieceAtt={dataFromAtt}
+            arr={attribute}
+          />
+          <SelectComponent
+            name={"description"}
+            setPieceDes={dataFromDes}
+            arr={description}
+          />
 
           <button
             className="btn w-min min-w-36 rounded-md bg- bg-slate-400 bg-opacity-30 ml-3 text-current"
@@ -101,16 +159,16 @@ function ModelComponent() {
                 model.piecec.length >= 1 &&
                 model.subPiecec.length >= 1
               ) {
-                console.log(model);
+                postData(model);
               } else {
-                window.Modal.showModal();
+                window.modal.showModal();
               }
             }}
           >
             Send data
           </button>
           <dialog
-            id="Modal"
+            id="modal"
             className="modal modal-bottom sm:modal-middle flex justify-center items-center "
           >
             <div className="modal-box w-56  text-xs rounded-md">
