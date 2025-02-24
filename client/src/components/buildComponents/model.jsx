@@ -21,6 +21,8 @@ function ModelComponent() {
     operation: [],
   });
 
+  const [modal, setModal] = useState(false);
+
   //control stTime of object
   const [timeObj, setTimeObj] = useState({
     time: 0,
@@ -161,14 +163,14 @@ function ModelComponent() {
               ) {
                 postData(model);
               } else {
-                window.modal.showModal();
+                setModal(true);
               }
             }}
           >
             Send data
           </button>
           <dialog
-            id="modal"
+            open={modal}
             className="modal modal-bottom sm:modal-middle flex justify-center items-center "
           >
             <div className="modal-box w-56  text-xs rounded-md">
@@ -177,7 +179,10 @@ function ModelComponent() {
               </p>
               <div className="modal-action">
                 <form method="dialog">
-                  <button className="h-8 w-10 bg-error text-neutral rounded-lg">
+                  <button
+                    className="h-8 w-10 bg-error text-neutral rounded-lg"
+                    onClick={() => setModal(false)}
+                  >
                     Close
                   </button>
                 </form>

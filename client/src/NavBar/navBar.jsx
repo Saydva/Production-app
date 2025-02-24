@@ -1,32 +1,13 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router";
 
-function NavBar(props) {
-  const sendDataToApp = props.handleDataFromNavBar;
-
-  let [count, setCount] = useState(1);
-
-  const changeTheme = () => {
-    handleClick();
-    setCount(count + 1);
-    if (count >= 2) {
-      setCount(0);
-    }
-  };
-
-  function handleClick() {
-    sendDataToApp(count);
-  }
-
-  function close() {
-    var drop = document.querySelector(".dropdown");
-    drop.removeAttribute("open");
-  }
+function NavBar({ changeIndex }) {
+  const drop = useRef();
 
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
-        <details className="dropdown">
+        <details className="dropdown" ref={drop}>
           <summary
             tabIndex={0}
             role="button"
@@ -52,19 +33,25 @@ function NavBar(props) {
             className="menu menu-sm dropdown-content bg-base-100  border-2 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <li
-              onClick={close}
+              onClick={() => {
+                drop.current.open = false;
+              }}
               className="border-2 border-slate-500 rounded-lg m-1"
             >
               <Link to="/">Home</Link>
             </li>
             <li
-              onClick={close}
+              onClick={() => {
+                drop.current.open = false;
+              }}
               className="border-2 border-slate-500 rounded-lg m-1"
             >
               <Link to="/buildPage">Build data</Link>
             </li>
             <li
-              onClick={close}
+              onClick={() => {
+                drop.current.open = false;
+              }}
               className="border-2 border-slate-500 rounded-lg m-1"
             >
               <Link to="/test">Test</Link>
@@ -95,7 +82,7 @@ function NavBar(props) {
           </svg>
         </button>
 
-        <button className="btn btn-ghost btn-circle" onClick={changeTheme}>
+        <button className="btn btn-ghost btn-circle" onClick={changeIndex}>
           <div className="indicator">
             <svg
               className="swap-off h-8 w-8 fill-current"

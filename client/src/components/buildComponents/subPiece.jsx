@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DataContext } from "./utils/dataContext";
 import { standartTimeCalc } from "./utils/standartTimecalculator.js";
 
@@ -19,6 +19,8 @@ function SubPieceComponent() {
     description: [],
     operation: [],
   });
+
+  const [modal, setModal] = useState(false);
 
   //control stTime of object
   const [timeObj, setTimeObj] = useState({
@@ -44,13 +46,11 @@ function SubPieceComponent() {
   // handle data from attribute
   const dataFromAtt = (data) => {
     subPiece.attribute = data;
-    console.log(data, subPiece);
   };
 
   // handle data from desciton
   const dataFromDes = (data) => {
     subPiece.description = data;
-    console.log(data, subPiece);
   };
 
   // push operation obj in piece.oparation
@@ -108,8 +108,6 @@ function SubPieceComponent() {
     getData("pieces", setPiece);
   }, []);
 
-  console.log(attribute, description, piece);
-
   return (
     <>
       <div className="flex flex-row">
@@ -154,14 +152,14 @@ function SubPieceComponent() {
               ) {
                 postData(subPiece);
               } else {
-                window.modal.showModal();
+                setModal(true);
               }
             }}
           >
             Send data
           </button>
           <dialog
-            id={"modal"}
+            open={modal}
             className="modal modal-bottom sm:modal-middle flex justify-center items-center "
           >
             <div className="modal-box w-56  text-xs rounded-md">
@@ -170,7 +168,10 @@ function SubPieceComponent() {
               </p>
               <div className="modal-action">
                 <form method="dialog">
-                  <button className="h-8 w-10 bg-error text-neutral rounded-lg">
+                  <button
+                    className="h-8 w-10 bg-error text-neutral rounded-lg"
+                    onClick={() => setModal(false)}
+                  >
                     Close
                   </button>
                 </form>

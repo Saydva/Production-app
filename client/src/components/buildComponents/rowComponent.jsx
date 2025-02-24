@@ -6,24 +6,31 @@ function RowComponent(props) {
   const name = props.name;
   const property = props.property;
 
-  if (props.readOnly) {
-    var readOnly = props.readOnly;
-  }
+  // show and hide modal
+  const [modal, setModal] = useState(false);
 
-  if (props.setting) {
-    var setting = props.setting;
-  }
+  // if (props.setting) {
+  //   var setting = props.setting;
+  // }
 
-  const { prop } = useContext(DataContext);
+  const {
+    prop,
+    piece,
+    setPiece,
+    subPiece,
+    setSubPiece,
+    model,
+    setModel,
+    attribute,
+    setAttribute,
+    description,
+    setDescription,
+    obj,
+    setObj,
+  } = useContext(DataContext);
 
-  const { setPieceLock } = useContext(DataContext);
-
-  const { piece, setPiece } = useContext(DataContext);
-  const { subPiece, setSubPiece } = useContext(DataContext);
-  const { model, setModel } = useContext(DataContext);
-  const { attribute, setAttribute } = useContext(DataContext);
-  const { description, setDescription } = useContext(DataContext);
-  const { obj, setObj } = useContext(DataContext);
+  // animation classes
+  const endAnimation = () => {};
 
   //state to set up array of objects
 
@@ -36,11 +43,6 @@ function RowComponent(props) {
     setValue(property(e.target.value));
   };
 
-  const openModal = () => {
-    let modal = document.getElementById(`${name}`);
-    modal.showModal();
-  };
-
   return (
     //daisy ui to use better css
     <div
@@ -50,7 +52,7 @@ function RowComponent(props) {
     >
       <input
         // value={value}
-        readOnly={readOnly ? readOnly : lock}
+        readOnly={prop.readOnly ? readOnly : lock}
         onChange={setvalue}
         type="text"
         placeholder={
@@ -70,13 +72,13 @@ function RowComponent(props) {
               if (prop == "subPiece")
                 setSubPiece({ ...subPiece, [name]: value });
               if (prop == "model") setModel({ ...model, [name]: value });
-              if (prop == "other" && setting == "attName")
+              if (prop == "other" && prop.setting == "attName")
                 setAttribute({ ...attribute, name: value });
-              if (prop == "other" && setting == "attValue")
+              if (prop == "other" && prop.setting == "attValue")
                 setAttribute({ ...attribute, value: value });
-              if (prop == "other" && setting == "desName")
+              if (prop == "other" && prop.setting == "desName")
                 setDescription({ ...description, name: value });
-              if (prop == "other" && setting == "desValue")
+              if (prop == "other" && prop.setting == "desValue")
                 setDescription({ ...description, value: value });
             }
 
@@ -101,7 +103,7 @@ function RowComponent(props) {
             }, 1000);
             setLock(!lock);
           } else {
-            openModal();
+            setModal(true);
           }
         }}
       >
@@ -114,7 +116,7 @@ function RowComponent(props) {
       {/* modal for ba data input */}
 
       <dialog
-        id={name}
+        open={modal}
         className="modal modal-bottom sm:modal-middle flex justify-center items-center "
       >
         <div className="modal-box w-56  text-xs rounded-md">
@@ -126,7 +128,12 @@ function RowComponent(props) {
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
-              <button className="h-8 w-10 bg-error text-neutral rounded-lg">
+              <button
+                onClick={() => {
+                  setModal(false);
+                }}
+                className="h-8 w-10 bg-error text-neutral rounded-lg"
+              >
                 Close
               </button>
             </form>

@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router";
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import NavBar from "./NavBar/navBar";
 import BuildPage from "./components/mainPages/build";
@@ -7,21 +7,20 @@ import Home from "./components/mainPages/home";
 import Test from "./components/mainPages/test";
 
 function App() {
-  const [dataFromNavBar, setDataFromNavBar] = useState("");
-  const [themes, setThemes] = useState(["lofi", "nord", "dim"]);
+  const theme = ["lofi", "nord", "dim"];
+  const [index, setIndex] = useState(0);
 
-  useEffect(() => {
-    handleDataFromNavBar(dataFromNavBar);
-  }, [dataFromNavBar]);
-
-  function handleDataFromNavBar(data) {
-    setDataFromNavBar(data);
+  function changeIndex() {
+    setIndex((prev) => prev + 1);
+    if (index >= 2) {
+      setIndex(0);
+    }
   }
 
   return (
-    <div data-theme={themes[dataFromNavBar]} className="min-h-svh">
+    <div data-theme={theme[index]} className="min-h-svh">
       <nav>
-        <NavBar themes={themes} handleDataFromNavBar={handleDataFromNavBar} />
+        <NavBar themes={theme} changeIndex={changeIndex} />
       </nav>
       <Routes>
         <Route index element={<Home />} />
