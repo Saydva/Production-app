@@ -29,8 +29,8 @@ function RowComponent(props) {
     setObj,
   } = useContext(DataContext);
 
-  // animation classes
-  const endAnimation = () => {};
+  // animate button
+  const [anime, setAnime] = useState(false);
 
   //state to set up array of objects
 
@@ -63,45 +63,38 @@ function RowComponent(props) {
         }`}
       />
       <button
-        className="btn my-3"
-        onClick={(e) => {
+        className={`btn my-3 ${
+          anime
+            ? "bg-info motion-preset-shrink hover:bg-info text-slate-900"
+            : ""
+        }`}
+        onClick={() => {
           if (value) {
+            // add clases to amine button
+            setAnime(true);
+            setTimeout(() => {
+              setAnime(false);
+            }, 1000);
+            setLock(!lock);
             // set data to value
             if (!props.array) {
               if (prop == "piece") setPiece({ ...piece, [name]: value });
               if (prop == "subPiece")
                 setSubPiece({ ...subPiece, [name]: value });
               if (prop == "model") setModel({ ...model, [name]: value });
-              if (prop == "other" && prop.setting == "attName")
+              if (prop == "other" && props.setting == "attName")
                 setAttribute({ ...attribute, name: value });
-              if (prop == "other" && prop.setting == "attValue")
+              if (prop == "other" && props.setting == "attValue")
                 setAttribute({ ...attribute, value: value });
-              if (prop == "other" && prop.setting == "desName")
+              if (prop == "other" && props.setting == "desName")
                 setDescription({ ...description, name: value });
-              if (prop == "other" && prop.setting == "desValue")
+              if (prop == "other" && props.setting == "desValue")
                 setDescription({ ...description, value: value });
             }
 
             if (props.array) {
               setObj({ ...obj, [name]: value });
             }
-
-            // add clases to amine button
-            e.target.classList.add(
-              ["motion-preset-shrink"],
-              ["bg-info"],
-              ["hover:bg-info"],
-              ["text-slate-900"]
-            );
-            setTimeout(() => {
-              e.target.classList.remove(
-                ["motion-preset-shrink"],
-                ["bg-info"],
-                ["hover:bg-info"],
-                ["text-slate-900"]
-              );
-            }, 1000);
-            setLock(!lock);
           } else {
             setModal(true);
           }

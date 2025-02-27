@@ -145,11 +145,13 @@ function ModelComponent() {
             name={"attribute"}
             setPieceAtt={dataFromAtt}
             arr={attribute}
+            hidden
           />
           <SelectComponent
             name={"description"}
             setPieceDes={dataFromDes}
             arr={description}
+            hidden
           />
 
           <button

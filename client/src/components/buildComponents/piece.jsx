@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { DataContext } from "./utils/dataContext";
 
 import { standartTimeCalc } from "./utils/standartTimecalculator.js";
@@ -42,13 +42,11 @@ function PieceComponent() {
   // handle data from attribute
   const dataFromAtt = (data) => {
     piece.attribute = data;
-    console.log(data, piece);
   };
 
   // handle datat from description
   const dataFromDes = (data) => {
     piece.description = data;
-    console.log(data, piece);
   };
 
   // push operation obj in piece.oparation
@@ -123,11 +121,13 @@ function PieceComponent() {
             name={"attribute"}
             setPieceAtt={dataFromAtt}
             arr={attribute}
+            hidden
           />
           <SelectComponent
             name={"description"}
             setPieceDes={dataFromDes}
             arr={description}
+            hidden
           />
         </DataContext.Provider>
 

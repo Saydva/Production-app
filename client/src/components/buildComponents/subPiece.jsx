@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { DataContext } from "./utils/dataContext";
 import { standartTimeCalc } from "./utils/standartTimecalculator.js";
 
@@ -108,6 +108,8 @@ function SubPieceComponent() {
     getData("pieces", setPiece);
   }, []);
 
+  console.log(subPiece);
+
   return (
     <>
       <div className="flex flex-row">
@@ -135,11 +137,13 @@ function SubPieceComponent() {
             name={"attribute"}
             setPieceAtt={dataFromAtt}
             arr={attribute}
+            hidden
           />
           <SelectComponent
             name={"description"}
             setPieceDes={dataFromDes}
             arr={description}
+            hidden
           />
 
           <button
