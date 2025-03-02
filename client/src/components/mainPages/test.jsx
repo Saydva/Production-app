@@ -13,8 +13,6 @@ function Test() {
   // show selecte item
   const [item, setItem] = useState("");
 
-  const nameComponent = query.slice(0, -1);
-
   // const to handle axios url
   const postUrl = (prop) => {
     return "http://localhost:3000/" + prop;
@@ -56,7 +54,7 @@ function Test() {
         <SelectDbData arr={data} name={query} selected={setItem} />
       </div>
       <div>
-        <DataContext.Provider item={{ item }}>
+        <DataContext.Provider value={{ item, getData }}>
           <DataValueShow />
         </DataContext.Provider>
       </div>

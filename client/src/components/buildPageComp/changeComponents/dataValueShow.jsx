@@ -1,8 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import RowComponent from "./valueShowComponents/rowComponent";
 import { DataContext } from "../../buildComponents/utils/dataContext";
+import ValueSelect from "./valueSelectComponent";
 
 function DataValueShow() {
-  const { item } = useContext(DataContext);
+  const { item, getData } = useContext(DataContext);
   const [dbObject, setDbObject] = useState({
     partName: "",
     partStTime: 0,
@@ -13,43 +15,28 @@ function DataValueShow() {
     operation: [],
   });
 
+  const [pieces, setPieces] = useState([]);
+  const [subPieces, setSubPieces] = useState([]);
+  const [attributes, setAttributes] = useState([]);
+
   useEffect(() => {
-    setValue(item.partName);
+    setDbObject(item);
+    getData("pieces", setPieces);
+    getData("subPieces", setSubPieces);
+    getData("attributes", setAttributes);
   }, [item]);
-
-  const [update, setUpdate] = useState(true);
-
-  // change item
-  const [value, setValue] = useState(item.partName);
-
-  //handle input item
-  const handleInput = (e) => {
-    setValue(e.target.item);
-  };
 
   return (
     <>
-      <div className="flex flex-row items-center ">
-        <input
-          readOnly={update}
-          type="text"
-          className={`input input-ghost w-full max-w-xs shadow-md shadow-slate-500 border-neutral border-2 motion-preset-slide-right m-3 min-w-56 ${
-            update ? "text-error focus:text-error" : ""
-          }`}
-          value={value}
-          onChange={handleInput}
-          placeholder="Type here"
-        />
-        <button
-          className="btn"
-          onClick={() => {
-            setUpdate(!update);
-            setDbObject({ ...dbObject, partName: value });
-          }}
-        >
-          Update
-        </button>
-      </div>
+      <RowComponent name={dbObject.partName} watch={dbObject} />
+      <RowComponent
+        name={dbObject.partStTime}
+        watch={dbObject}
+        readOnly={true}
+      />
+      <ValueSelect arr={pieces} name={"pieces"} old={dbObject.piecec} />
+      <ValueSelect arr={subPieces} name={"subPieces"} />
+      <ValueSelect arr={attributes} name={"attributes"} />
     </>
   );
 }
