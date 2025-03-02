@@ -16,6 +16,10 @@ function AdditionalFeatures() {
     value: "",
   });
 
+  console.log(attribute);
+
+  const [reset, setReset] = useState("");
+
   // const to handle axios url
   const postUrl = (prop) => {
     return "http://localhost:3000/" + prop;
@@ -34,7 +38,7 @@ function AdditionalFeatures() {
       });
   };
   return (
-    <div>
+    <div key={reset}>
       <DataContext.Provider
         value={{ prop, attribute, setAttribute, description, setDescription }}
       >
@@ -50,12 +54,21 @@ function AdditionalFeatures() {
             onClick={() => {
               if (attribute.name != "" && attribute.value != "") {
                 postData(attribute, "attribute");
+                setReset(!reset);
               } else {
                 window.modal.showModal();
               }
             }}
           >
             Send data
+          </button>
+          <button
+            className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm  shadow-md shadow-slate border-2 border-slate-600 border-opacity-20"
+            onClick={() => {
+              setReset(!reset);
+            }}
+          >
+            Reset
           </button>
           <h3 className="m-3 p-2 border-neutral border-2 w-min min-w-72 rounded-lg ">
             Description
@@ -73,6 +86,14 @@ function AdditionalFeatures() {
             }}
           >
             Send data
+          </button>
+          <button
+            className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm  shadow-md shadow-slate border-2 border-slate-600 border-opacity-20"
+            onClick={() => {
+              setReset(!reset);
+            }}
+          >
+            Reset
           </button>
 
           <dialog

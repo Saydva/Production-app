@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { Repeat, XCircle } from "react-feather";
+import { XCircle } from "react-feather";
 
 function SelectComponent({
   name,
@@ -20,8 +20,10 @@ function SelectComponent({
   const [lock, setLock] = useState(false);
   const [data, setData] = useState([]);
 
+  // animate element
   const [anime, setAnime] = useState(false);
 
+  // multiply selected object
   const [increment, setIncrement] = useState(1);
 
   // increment pushed objects in parent array
@@ -39,11 +41,10 @@ function SelectComponent({
   // send data from select to parent
   function onChange(e) {
     const repeat = (arr, n) => Array(n).fill(arr).flat();
-    data.push(repeat([JSON.parse(e.target.value)], increment));
+    data.unshift(repeat([JSON.parse(e.target.value)], increment));
     setIncrement(1);
     setData([...data]);
   }
-  console.log(data);
 
   // remove seleted item from array
   const remove = (i) => {
@@ -60,8 +61,8 @@ function SelectComponent({
         <option
           label={
             e.name
-              ? "name - " + e.name + " , value - " + e.value
-              : "name - " + e.partName + " , " + "stTime - " + e.partStTime
+              ? e.name + " , value - " + e.value
+              : e.partName + " , " + "stTime - " + e.partStTime
           }
           className="m-2 rounded-full"
           value={JSON.stringify(e)}
@@ -90,8 +91,15 @@ function SelectComponent({
       >
         <XCircle />
       </button>
-      <span id={index} key={index} className="w-32">
-        {JSON.stringify(e[0].name ? e[0].name : e[0].partName)} {e.length}
+      <span id={index} key={index} className="w-40">
+        {JSON.stringify(
+          e[0].name
+            ? e[0].name
+            : "name : " + e[0].partName + ",stTime: " + e[0].partStTime
+        )}
+      </span>
+      <span className=" border-green-400 border-2 px-2 rounded-lg">
+        {e.length}
       </span>
     </div>
   ));
@@ -102,12 +110,12 @@ function SelectComponent({
         <select
           disabled={lock}
           onChange={onChange}
-          className={`input 
+          className={`select 
             input-ghost w-full max-w-xs shadow-md shadow-slate-500 border-neutral border-2 motion-preset-slide-right m-3 min-w-56 $
           lock ? "text-error focus:text-error" : ""
         }`}
         >
-          <option value="">{!lock ? "Pick " + name : "Locked"}</option>
+          <option>{!lock ? "Pick " + name : "Locked"}</option>
           {options}
         </select>
         <button
@@ -144,13 +152,11 @@ function SelectComponent({
               -
             </button>
           </div>
-          <div className="flex items-center w-6 rounded-lg justify-center bg-base-300">
-            {increment}
-          </div>
+          <div className="flex items-center">{increment}</div>
         </div>
       </div>
       <div>
-        <ul>{list}</ul>
+        <ul className="max-h-40 overflow-y-auto">{list}</ul>
       </div>
     </div>
   );

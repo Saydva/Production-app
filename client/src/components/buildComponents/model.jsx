@@ -10,6 +10,7 @@ import axios from "axios";
 function ModelComponent() {
   // const that holds property to switch betweeen build pages
   const prop = "model";
+
   //set up piece state
   const [model, setModel] = useState({
     partName: "",
@@ -22,6 +23,8 @@ function ModelComponent() {
   });
 
   const [modal, setModal] = useState(false);
+
+  const [key, setKey] = useState("");
 
   //control stTime of object
   const [timeObj, setTimeObj] = useState({
@@ -60,6 +63,20 @@ function ModelComponent() {
   const dataFromDes = (data) => {
     model.description = data;
     console.log(data, model);
+  };
+
+  // reset object and rerender Ui
+  const clean = () => {
+    setKey(!key);
+    setModel({
+      partName: "",
+      partStTime: 0,
+      piecec: [],
+      subPiecec: [],
+      attribute: [],
+      description: [],
+      operation: [],
+    });
   };
 
   // push operation obj in piece.oparation
@@ -117,7 +134,7 @@ function ModelComponent() {
   }, []);
 
   return (
-    <>
+    <div key={key}>
       <div className="flex flex-row">
         <p className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm w-min shadow-md shadow-slate border-2 border-slate-600 border-opacity-10">
           Model
@@ -125,6 +142,12 @@ function ModelComponent() {
         <span className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm  shadow-md shadow-slate border-2 border-slate-600 border-opacity-20">
           StTime of Model = {model.partStTime}
         </span>
+        <button
+          className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm  shadow-md shadow-slate border-2 border-slate-600 border-opacity-20"
+          onClick={clean}
+        >
+          Reset
+        </button>
       </div>
       <div className="flex flex-col justify-start">
         <DataContext.Provider value={{ prop, model, setModel, obj, setObj }}>
@@ -164,6 +187,7 @@ function ModelComponent() {
                 model.subPiecec.length >= 1
               ) {
                 postData(model);
+                clean();
               } else {
                 setModal(true);
               }
@@ -193,7 +217,7 @@ function ModelComponent() {
           </dialog>
         </DataContext.Provider>
       </div>
-    </>
+    </div>
   );
 }
 

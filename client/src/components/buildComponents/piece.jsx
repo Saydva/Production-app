@@ -24,6 +24,8 @@ function PieceComponent() {
 
   const [modal, setModal] = useState(false);
 
+  const [key, setKey] = useState("");
+
   //control stTime of object
   const [timeObj, setTimeObj] = useState({
     time: 0,
@@ -47,6 +49,18 @@ function PieceComponent() {
   // handle datat from description
   const dataFromDes = (data) => {
     piece.description = data;
+  };
+
+  // reset object and rerender Ui
+  const clean = () => {
+    setKey(!key);
+    setPiece({
+      partName: "",
+      partStTime: 0,
+      attribute: [],
+      description: [],
+      operation: [],
+    });
   };
 
   // push operation obj in piece.oparation
@@ -104,7 +118,7 @@ function PieceComponent() {
   }, []);
 
   return (
-    <>
+    <div key={key}>
       <div className="flex flex-row">
         <p className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm w-min shadow-md shadow-slate border-2 border-slate-600 border-opacity-10">
           Piece
@@ -112,6 +126,12 @@ function PieceComponent() {
         <span className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm  shadow-md shadow-slate border-2 border-slate-600 border-opacity-20">
           StTime of Piece = {piece.partStTime}
         </span>
+        <button
+          className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm  shadow-md shadow-slate border-2 border-slate-600 border-opacity-20"
+          onClick={clean}
+        >
+          Reset
+        </button>
       </div>
       <div className="flex flex-col justify-start">
         <DataContext.Provider value={{ prop, piece, setPiece, obj, setObj }}>
@@ -155,6 +175,7 @@ function PieceComponent() {
           onClick={() => {
             if (piece.partName != "" && piece.operation.length != 0) {
               postData(piece);
+              clean();
             } else {
               setModal(true);
             }
@@ -163,7 +184,7 @@ function PieceComponent() {
           Send data
         </button>
       </div>
-    </>
+    </div>
   );
 }
 

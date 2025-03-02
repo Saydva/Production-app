@@ -10,6 +10,7 @@ import axios from "axios";
 function SubPieceComponent() {
   // const that holds property to switch betweeen build pages
   const prop = "subPiece";
+
   //set up piece state
   const [subPiece, setSubPiece] = useState({
     partName: "",
@@ -21,6 +22,8 @@ function SubPieceComponent() {
   });
 
   const [modal, setModal] = useState(false);
+
+  const [key, setKey] = useState("");
 
   //control stTime of object
   const [timeObj, setTimeObj] = useState({
@@ -51,6 +54,19 @@ function SubPieceComponent() {
   // handle data from desciton
   const dataFromDes = (data) => {
     subPiece.description = data;
+  };
+
+  // reset object and rerender Ui
+  const clean = () => {
+    setKey(!key);
+    setSubPiece({
+      partName: "",
+      partStTime: 0,
+      piecec: [],
+      attribute: [],
+      description: [],
+      operation: [],
+    });
   };
 
   // push operation obj in piece.oparation
@@ -108,10 +124,8 @@ function SubPieceComponent() {
     getData("pieces", setPiece);
   }, []);
 
-  console.log(subPiece);
-
   return (
-    <>
+    <div key={key}>
       <div className="flex flex-row">
         <p className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm w-min shadow-md shadow-slate border-2 border-slate-600 border-opacity-10">
           SubPiece
@@ -119,6 +133,12 @@ function SubPieceComponent() {
         <span className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm  shadow-md shadow-slate border-2 border-slate-600 border-opacity-20">
           StTime of SubPiece = {subPiece.partStTime}
         </span>
+        <button
+          className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm  shadow-md shadow-slate border-2 border-slate-600 border-opacity-20"
+          onClick={clean}
+        >
+          Reset
+        </button>
       </div>
       <div className="flex flex-col justify-start">
         <DataContext.Provider
@@ -155,6 +175,7 @@ function SubPieceComponent() {
                 subPiece.piecec.length >= 1
               ) {
                 postData(subPiece);
+                clean();
               } else {
                 setModal(true);
               }
@@ -184,7 +205,7 @@ function SubPieceComponent() {
           </dialog>
         </DataContext.Provider>
       </div>
-    </>
+    </div>
   );
 }
 
