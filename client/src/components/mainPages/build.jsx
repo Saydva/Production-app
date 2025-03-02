@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import PieceComponent from "../buildComponents/piece";
-import AdditionalFeatures from "../buildComponents/additionFeatures";
-import SubPieceComponent from "../buildComponents/subPiece";
-import ModelComponent from "../buildComponents/model";
+import PieceComponent from "../buildPageComp/piece";
+import AdditionalFeatures from "../buildPageComp/additionFeatures";
+import SubPieceComponent from "../buildPageComp/subPiece";
+import ModelComponent from "../buildPageComp/model";
 
 function BuildPage() {
   const [element, setElement] = useState("");
@@ -12,7 +12,7 @@ function BuildPage() {
     setReset(data);
   };
 
-  const piece = <PieceComponent hello={dataFromChild} />;
+  const piece = <PieceComponent />;
   const subPiece = <SubPieceComponent />;
   const model = <ModelComponent />;
   const other = <AdditionalFeatures />;

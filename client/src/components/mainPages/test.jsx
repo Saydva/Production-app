@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SearchButton from "../buildComponents/searchButton";
 import SelectDbData from "../buildComponents/selectForDb";
+import DataValueShow from "../buildPageComp/changeComponents/dataValueShow";
+import { DataContext } from "../buildComponents/utils/dataContext";
 
 function Test() {
   // data from db
@@ -10,6 +12,8 @@ function Test() {
   const [query, setQuery] = useState("");
   // show selecte item
   const [item, setItem] = useState("");
+
+  const nameComponent = query.slice(0, -1);
 
   // const to handle axios url
   const postUrl = (prop) => {
@@ -51,7 +55,11 @@ function Test() {
       <div>
         <SelectDbData arr={data} name={query} selected={setItem} />
       </div>
-      <div className="overflow-clip h-auto">{item}</div>
+      <div>
+        <DataContext.Provider item={{ item }}>
+          <DataValueShow />
+        </DataContext.Provider>
+      </div>
 
       <button className="btn w-44">Change</button>
       <button className="btn w-44">Delete</button>

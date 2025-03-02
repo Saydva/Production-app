@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { DataContext } from "./utils/dataContext";
+import { DataContext } from "../buildComponents/utils/dataContext.js";
 
-import { standartTimeCalc } from "./utils/standartTimecalculator.js";
+import { standartTimeCalc } from "../buildComponents/utils/standartTimecalculator.js";
 
 import axios from "axios";
 
-import RowComponent from "../buildComponents/rowComponent";
-import ArrayComponent from "./arrayComponent";
-import SelectComponent from "./selectRowComponent.jsx";
+import RowComponent from "./smallComponents/rowComponent.jsx";
+import ArrayComponent from "./smallComponents/arrayComponent.jsx";
+import SelectComponent from "./smallComponents/selectRowComponent.jsx";
 
 function PieceComponent() {
   // const that holds property to switch betweeen build pages

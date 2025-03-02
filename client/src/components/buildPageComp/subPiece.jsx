@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react";
-import { DataContext } from "./utils/dataContext";
-import { standartTimeCalc } from "./utils/standartTimecalculator.js";
+import { DataContext } from "../buildComponents/utils/dataContext.js";
+import { standartTimeCalc } from "../buildComponents/utils/standartTimecalculator.js";
 
-import RowComponent from "../buildComponents/rowComponent";
-import ArrayComponent from "./arrayComponent";
-import SelectComponent from "./selectRowComponent.jsx";
+import RowComponent from "./smallComponents/rowComponent.jsx";
+import ArrayComponent from "./smallComponents/arrayComponent.jsx";
+import SelectComponent from "./smallComponents/selectRowComponent.jsx";
 import axios from "axios";
 
-function ModelComponent() {
+function SubPieceComponent() {
   // const that holds property to switch betweeen build pages
-  const prop = "model";
+  const prop = "subPiece";
 
   //set up piece state
-  const [model, setModel] = useState({
+  const [subPiece, setSubPiece] = useState({
     partName: "",
     partStTime: 0,
     piecec: [],
-    subPiecec: [],
     attribute: [],
     description: [],
     operation: [],
@@ -41,38 +40,29 @@ function ModelComponent() {
   const [attribute, setAttribute] = useState([]);
   const [description, setDescription] = useState([]);
   const [piece, setPiece] = useState([]);
-  const [subPiece, setSubPiece] = useState([]);
 
-  // handle pieec from db
+  // handle data from piecec db
   const dataFromPiecec = (data) => {
-    setModel({ ...model, piecec: data });
+    setSubPiece({ ...subPiece, piecec: data });
   };
 
-  // handle subPiecec from db
-  const dataFromSubPiecec = (data) => {
-    setModel({ ...model, subPiecec: data });
-  };
-
-  // handle data from attaribute
+  // handle data from attribute
   const dataFromAtt = (data) => {
-    model.attribute = data;
-    console.log(data, model);
+    subPiece.attribute = data;
   };
 
-  // handle data from description
+  // handle data from desciton
   const dataFromDes = (data) => {
-    model.description = data;
-    console.log(data, model);
+    subPiece.description = data;
   };
 
   // reset object and rerender Ui
   const clean = () => {
     setKey(!key);
-    setModel({
+    setSubPiece({
       partName: "",
       partStTime: 0,
       piecec: [],
-      subPiecec: [],
       attribute: [],
       description: [],
       operation: [],
@@ -82,19 +72,21 @@ function ModelComponent() {
   // push operation obj in piece.oparation
   useEffect(() => {
     if (obj.name && obj.stTime) {
-      setModel({ ...model, operation: [obj] });
+      setSubPiece({ ...subPiece, operation: [obj] });
     }
   }, [obj]);
 
   //if object properties are all call function to calculate stTime
   useEffect(() => {
-    const time = standartTimeCalc(model);
-    setTimeObj({ ...timeObj, time: time });
-  }, [model]);
+    if (subPiece.partName != "") {
+      const time = standartTimeCalc(subPiece);
+      setTimeObj({ ...timeObj, time: time });
+    }
+  }, [subPiece]);
 
-  //handle standart time from operation object
+  // handle standart time from operation obj
   useEffect(() => {
-    setModel({ ...model, partStTime: timeObj.time });
+    setSubPiece({ ...subPiece, partStTime: timeObj.time });
   }, [timeObj.time]);
 
   // const to handle axios url
@@ -130,17 +122,16 @@ function ModelComponent() {
     getData("attributes", setAttribute);
     getData("descriptions", setDescription);
     getData("pieces", setPiece);
-    getData("subpieces", setSubPiece);
   }, []);
 
   return (
     <div key={key}>
       <div className="flex flex-row">
         <p className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm w-min shadow-md shadow-slate border-2 border-slate-600 border-opacity-10">
-          Model
+          SubPiece
         </p>
         <span className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm  shadow-md shadow-slate border-2 border-slate-600 border-opacity-20">
-          StTime of Model = {model.partStTime}
+          StTime of SubPiece = {subPiece.partStTime}
         </span>
         <button
           className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm  shadow-md shadow-slate border-2 border-slate-600 border-opacity-20"
@@ -150,8 +141,10 @@ function ModelComponent() {
         </button>
       </div>
       <div className="flex flex-col justify-start">
-        <DataContext.Provider value={{ prop, model, setModel, obj, setObj }}>
-          <RowComponent name={Object.keys(model)[0]} property={String} />
+        <DataContext.Provider
+          value={{ prop, subPiece, setSubPiece, obj, setObj }}
+        >
+          <RowComponent name={Object.keys(subPiece)[0]} property={String} />
 
           <ArrayComponent />
           <SelectComponent
@@ -159,11 +152,7 @@ function ModelComponent() {
             setSubPiecec={dataFromPiecec}
             arr={piece}
           />
-          <SelectComponent
-            name={"subPiecec"}
-            setPieceAtt={dataFromSubPiecec}
-            arr={subPiece}
-          />
+
           <SelectComponent
             name={"attribute"}
             setPieceAtt={dataFromAtt}
@@ -181,12 +170,11 @@ function ModelComponent() {
             className="btn w-min min-w-36 rounded-md bg- bg-slate-400 bg-opacity-30 ml-3 text-current"
             onClick={() => {
               if (
-                model.partName != "" &&
-                model.operation.length != 0 &&
-                model.piecec.length >= 1 &&
-                model.subPiecec.length >= 1
+                subPiece.partName != "" &&
+                subPiece.operation.length != 0 &&
+                subPiece.piecec.length >= 1
               ) {
-                postData(model);
+                postData(subPiece);
                 clean();
               } else {
                 setModal(true);
@@ -221,4 +209,4 @@ function ModelComponent() {
   );
 }
 
-export default ModelComponent;
+export default SubPieceComponent;

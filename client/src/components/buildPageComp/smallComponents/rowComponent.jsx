@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Save, XSquare } from "react-feather";
-import { DataContext } from "./utils/dataContext.js";
+import { DataContext } from "../../buildComponents/utils/dataContext.js";
 
 function RowComponent(props) {
   const name = props.name;

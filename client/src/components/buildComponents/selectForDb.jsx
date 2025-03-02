@@ -28,7 +28,7 @@ function SelectDbData({ arr, name, selected }) {
           defaultValue=""
           className="select w-4/6"
           onChange={(e) => {
-            selected(e.target.value);
+            selected(JSON.parse(e.target.value));
           }}
         >
           <option> {name == "" ? "Click a button" : "Pick a " + name}</option>

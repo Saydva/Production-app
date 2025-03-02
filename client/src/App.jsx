@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import NavBar from "./NavBar/navBar";
 import BuildPage from "./components/mainPages/build";

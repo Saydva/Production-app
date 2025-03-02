@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { DataContext } from "./utils/dataContext";
-import RowComponent from "./rowComponent";
+import { DataContext } from "../buildComponents/utils/dataContext";
+import RowComponent from "./smallComponents/rowComponent";
 import axios from "axios";
 
 function AdditionalFeatures() {
