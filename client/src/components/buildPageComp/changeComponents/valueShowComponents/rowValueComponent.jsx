@@ -1,9 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import { DataContext } from "../../../buildComponents/utils/dataContext";
-function RowComponent(props) {
+import React, { useEffect, useState } from "react";
+function RowValueComponent(props) {
   const [update, setUpdate] = useState(true);
   const [value, setValue] = useState("");
-  //   const { dbObject, setDbObject, item } = useContext(DataContext);
 
   const watch = props.watch;
 
@@ -40,4 +38,4 @@ function RowComponent(props) {
   );
 }
 
-export default RowComponent;
+export default RowValueComponent;

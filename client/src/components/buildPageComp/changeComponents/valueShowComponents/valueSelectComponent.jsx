@@ -7,19 +7,29 @@ function ValueSelect({
   setPieceAtt,
   setPieceDes,
   setSubPiecec,
+  setPiecec,
   hidden,
   old,
+  obj,
 }) {
-  let sendData = setPieceAtt
-    ? setPieceAtt
-    : null || setPieceDes
-    ? setPieceDes
-    : null || setSubPiecec
-    ? setSubPiecec
-    : null;
+  // setPieceAtt
+  //   ? setPieceAtt
+  //   : null || setPieceDes
+  //   ? setPieceDes
+  //   : null || setPiecec
+  //   ? setPiecec
+  //   : null || setSubPiecec
+  //   ? setSubPiecec
+  //   : null;
 
   const [lock, setLock] = useState(false);
   const [data, setData] = useState([]);
+
+  useEffect(() => {
+    if (old) {
+      setData(old);
+    }
+  }, [old]);
 
   // animate element
   const [anime, setAnime] = useState(false);

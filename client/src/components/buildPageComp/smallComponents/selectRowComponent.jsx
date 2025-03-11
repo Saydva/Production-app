@@ -94,7 +94,7 @@ function SelectComponent({
       <span id={index} key={index} className="w-40">
         {JSON.stringify(
           e[0].name
-            ? e[0].name
+            ? e[0].name + ", value: " + e[0].value
             : "name : " + e[0].partName + ",stTime: " + e[0].partStTime
         )}
       </span>
@@ -111,8 +111,7 @@ function SelectComponent({
           disabled={lock}
           onChange={onChange}
           className={`select 
-            input-ghost w-full max-w-xs shadow-md shadow-slate-500 border-neutral border-2 motion-preset-slide-right m-3 min-w-56 $
-          lock ? "text-error focus:text-error" : ""
+            input-ghost w-full max-w-xs shadow-md shadow-slate-500 border-neutral border-2 motion-preset-slide-right m-3 min-w-56 ${lock} ? "text-error focus:text-error" : ""
         }`}
         >
           <option>{!lock ? "Pick " + name : "Locked"}</option>
@@ -156,7 +155,7 @@ function SelectComponent({
         </div>
       </div>
       <div>
-        <ul className="max-h-40 overflow-y-auto">{list}</ul>
+        <ul>{list}</ul>
       </div>
     </div>
   );
