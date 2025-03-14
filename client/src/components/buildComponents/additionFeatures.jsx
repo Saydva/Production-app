@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { DataContext } from "../buildComponents/utils/dataContext";
+import { DataContext } from "./utils/dataContext";
 import RowComponent from "./smallComponents/rowComponent";
 import axios from "axios";
 

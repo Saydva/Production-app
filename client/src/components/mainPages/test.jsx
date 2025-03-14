@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import SearchButton from "../buildComponents/searchButton";
-import SelectDbData from "../buildComponents/selectForDb";
-import DataValueShow from "../buildPageComp/changeComponents/dataValueShow";
+import SearchButton from "../changePageComp/subNavBar/searchButton";
+import SelectDbData from "../changePageComp/subNavBar/selectForDb";
+import DataValueShow from "../changePageComp/dataValueShow";
 import { DataContext } from "../buildComponents/utils/dataContext";
 
 function Test() {
@@ -12,6 +12,7 @@ function Test() {
   const [query, setQuery] = useState("");
   // show selecte item
   const [item, setItem] = useState("");
+  console.log(item);
 
   // const to handle axios url
   const postUrl = (prop) => {

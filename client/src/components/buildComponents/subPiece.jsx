@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react";
-import { DataContext } from "../buildComponents/utils/dataContext.js";
-
-import { standartTimeCalc } from "../buildComponents/utils/standartTimecalculator.js";
-
-import axios from "axios";
+import { DataContext } from "./utils/dataContext.js";
+import { standartTimeCalc } from "./utils/standartTimecalculator.js";
 
 import RowComponent from "./smallComponents/rowComponent.jsx";
 import ArrayComponent from "./smallComponents/arrayComponent.jsx";
 import SelectComponent from "./smallComponents/selectRowComponent.jsx";
+import axios from "axios";
 
-function PieceComponent() {
+function SubPieceComponent() {
   // const that holds property to switch betweeen build pages
-  const prop = "piece";
+  const prop = "subPiece";
 
   //set up piece state
-  const [piece, setPiece] = useState({
+  const [subPiece, setSubPiece] = useState({
     partName: "",
     partStTime: 0,
+    piecec: [],
     attribute: [],
     description: [],
     operation: [],
@@ -40,23 +39,30 @@ function PieceComponent() {
   // handle fetch back created data from db
   const [attribute, setAttribute] = useState([]);
   const [description, setDescription] = useState([]);
+  const [piece, setPiece] = useState([]);
+
+  // handle data from piecec db
+  const dataFromPiecec = (data) => {
+    setSubPiece({ ...subPiece, piecec: data });
+  };
 
   // handle data from attribute
   const dataFromAtt = (data) => {
-    piece.attribute = data;
+    subPiece.attribute = data;
   };
 
-  // handle datat from description
+  // handle data from desciton
   const dataFromDes = (data) => {
-    piece.description = data;
+    subPiece.description = data;
   };
 
   // reset object and rerender Ui
   const clean = () => {
     setKey(!key);
-    setPiece({
+    setSubPiece({
       partName: "",
       partStTime: 0,
+      piecec: [],
       attribute: [],
       description: [],
       operation: [],
@@ -66,21 +72,21 @@ function PieceComponent() {
   // push operation obj in piece.oparation
   useEffect(() => {
     if (obj.name && obj.stTime) {
-      setPiece({ ...piece, operation: [obj] });
+      setSubPiece({ ...subPiece, operation: [obj] });
     }
   }, [obj]);
 
   //if object properties are all call function to calculate stTime
   useEffect(() => {
-    if (piece.partName != "" && piece.operation.length != 0) {
-      const time = standartTimeCalc(piece);
+    if (subPiece.partName != "") {
+      const time = standartTimeCalc(subPiece);
       setTimeObj({ ...timeObj, time: time });
     }
-  }, [piece, obj.stTime]);
+  }, [subPiece]);
 
   // handle standart time from operation obj
   useEffect(() => {
-    setPiece({ ...piece, partStTime: timeObj.time });
+    setSubPiece({ ...subPiece, partStTime: timeObj.time });
   }, [timeObj.time]);
 
   // const to handle axios url
@@ -96,7 +102,7 @@ function PieceComponent() {
         console.log(response, object);
       })
       .catch((error) => {
-        // console.log(error.response.data.errorResponse.errmsg);
+        // console.log(error.response.data.errorResponse.errmsg); - errormsg
         console.log(error);
       });
   };
@@ -115,16 +121,17 @@ function PieceComponent() {
   useEffect(() => {
     getData("attributes", setAttribute);
     getData("descriptions", setDescription);
+    getData("pieces", setPiece);
   }, []);
 
   return (
     <div key={key}>
       <div className="flex flex-row">
         <p className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm w-min shadow-md shadow-slate border-2 border-slate-600 border-opacity-10">
-          Piece
+          SubPiece
         </p>
         <span className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm  shadow-md shadow-slate border-2 border-slate-600 border-opacity-20">
-          StTime of Piece = {piece.partStTime}
+          StTime of SubPiece = {subPiece.partStTime}
         </span>
         <button
           className="text-sm mx-2 bg-slate-400 bg-opacity-15 p-1 rounded-sm  shadow-md shadow-slate border-2 border-slate-600 border-opacity-20"
@@ -134,9 +141,18 @@ function PieceComponent() {
         </button>
       </div>
       <div className="flex flex-col justify-start">
-        <DataContext.Provider value={{ prop, piece, setPiece, obj, setObj }}>
-          <RowComponent name={Object.keys(piece)[0]} property={String} />
+        <DataContext.Provider
+          value={{ prop, subPiece, setSubPiece, obj, setObj }}
+        >
+          <RowComponent name={Object.keys(subPiece)[0]} property={String} />
+
           <ArrayComponent />
+          <SelectComponent
+            name={"piecec"}
+            setSubPiecec={dataFromPiecec}
+            arr={piece}
+          />
+
           <SelectComponent
             name={"attribute"}
             setPieceAtt={dataFromAtt}
@@ -149,43 +165,48 @@ function PieceComponent() {
             arr={description}
             hidden
           />
-        </DataContext.Provider>
 
-        <dialog
-          open={modal}
-          className="modal modal-bottom sm:modal-middle flex justify-center items-center "
-        >
-          <div className="modal-box w-56  text-xs rounded-md">
-            <p className="py-4">Please set up all properties of your piece!!</p>
-            <div className="modal-action">
-              <form method="dialog">
-                <button
-                  onClick={() => setModal(false)}
-                  className="h-8 w-10 bg-error text-neutral rounded-lg"
-                >
-                  Close
-                </button>
-              </form>
+          <button
+            className="btn w-min min-w-36 rounded-md bg- bg-slate-400 bg-opacity-30 ml-3 text-current"
+            onClick={() => {
+              if (
+                subPiece.partName != "" &&
+                subPiece.operation.length != 0 &&
+                subPiece.piecec.length >= 1
+              ) {
+                postData(subPiece);
+                clean();
+              } else {
+                setModal(true);
+              }
+            }}
+          >
+            Send data
+          </button>
+          <dialog
+            open={modal}
+            className="modal modal-bottom sm:modal-middle flex justify-center items-center "
+          >
+            <div className="modal-box w-56  text-xs rounded-md">
+              <p className="py-4">
+                Please set up all properties of your piece!!
+              </p>
+              <div className="modal-action">
+                <form method="dialog">
+                  <button
+                    className="h-8 w-10 bg-error text-neutral rounded-lg"
+                    onClick={() => setModal(false)}
+                  >
+                    Close
+                  </button>
+                </form>
+              </div>
             </div>
-          </div>
-        </dialog>
-
-        <button
-          className="btn w-min min-w-36 rounded-md bg- bg-slate-400 bg-opacity-30 ml-3 text-current"
-          onClick={() => {
-            if (piece.partName != "" && piece.operation.length != 0) {
-              postData(piece);
-              clean();
-            } else {
-              setModal(true);
-            }
-          }}
-        >
-          Send data
-        </button>
+          </dialog>
+        </DataContext.Provider>
       </div>
     </div>
   );
 }
 
-export default PieceComponent;
+export default SubPieceComponent;

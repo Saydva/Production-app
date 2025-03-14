@@ -1,27 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { XCircle } from "react-feather";
 
-function ValueSelect({
-  name,
-  arr,
-  setPieceAtt,
-  setPieceDes,
-  setSubPiecec,
-  setPiecec,
-  hidden,
-  old,
-  obj,
-}) {
-  // setPieceAtt
-  //   ? setPieceAtt
-  //   : null || setPieceDes
-  //   ? setPieceDes
-  //   : null || setPiecec
-  //   ? setPiecec
-  //   : null || setSubPiecec
-  //   ? setSubPiecec
-  //   : null;
-
+function ValueSelect({ name, arr, hidden, old }) {
   const [lock, setLock] = useState(false);
   const [data, setData] = useState([]);
 

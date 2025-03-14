@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { DataContext } from "../../buildComponents/utils/dataContext";
 function RowValueComponent(props) {
   const [update, setUpdate] = useState(true);
-  const [value, setValue] = useState("");
 
-  const watch = props.watch;
+  const { dbObject, setDbObject } = useContext(DataContext);
+  const [value, setValue] = useState("");
 
   useEffect(() => {
     setValue(props.name);
-  }, [watch]);
+  }, [dbObject]);
 
   const handleInput = (e) => {
     setValue(e.target.value);
@@ -28,7 +29,10 @@ function RowValueComponent(props) {
         <button
           className="btn"
           onClick={() => {
-            !props.readOnly ? setUpdate(!update) : null;
+            !props.readOnly
+              ? setUpdate(!update) ||
+                setDbObject({ ...dbObject, partName: value })
+              : null;
           }}
         >
           Update
